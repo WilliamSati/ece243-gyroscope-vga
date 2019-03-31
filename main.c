@@ -5,7 +5,7 @@
 #define INT_ENABLE 0b01000000
 #define ENABLE 0x1		
 #define SVC_MODE 0b10011
-//Will testing git
+#include "math.h"
 
 volatile int pixel_buffer_start; // global variable
 
@@ -13,6 +13,8 @@ void config_KEYs();
 void set_A9_IRQ_stack(void);
 void config_GIC(void);
 void enable_A9_interrupts(void);
+void manageKeyPress(volatile int* keyData);
+
 
 
 void draw_line(int x0, int x1, int y0, int y1, short int color);
@@ -34,59 +36,93 @@ config_KEYs(); // configure pushbutton KEYs to generate interrupts
 enable_A9_interrupts(); // enable interrupts
 	
 	volatile int * pixelStatusPtr = (int *)0xFF20302C;
-	volatile int * pixel_ctrl_ptr = (int *)0xFF203020;
+	volatile int * front_buffer = (int *)0xFF203020;
+	volatile int * back_buffer    = (int *)0xFF203024;
     // declare other variables(not shown)
 	int width = 8;
 	int height = 8;
 	short int color_Boat = 0xFD00;//orange
 	int x_Boat=156;
-	int y_Boat=116;
-
+	int y_Boat=114;
 	
 
 	
     /* set front pixel buffer to start of FPGA On-chip memory */
 	
-    *(pixel_ctrl_ptr + 1) = 0xC8000000; // first store the address in the 
+    *(back_buffer) = 0xC8000000; // first store the address in the 
                                         // back buffer
 										
 										
     /* now, swap the front/back buffers, to set the front buffer location */
-    wait_for_vsync(pixelStatusPtr,pixel_ctrl_ptr);
+    wait_for_vsync(pixelStatusPtr,front_buffer);
 	
 	
     /* initialize a pointer to the pixel buffer, used by drawing functions */
-    pixel_buffer_start = *pixel_ctrl_ptr;
+    pixel_buffer_start = *front_buffer;
 	
 	
     clear_screen(); // pixel_buffer_start points to the pixel buffer
 	
     /* set back pixel buffer to start of SDRAM memory */
-    *(pixel_ctrl_ptr + 1) = 0xC0000000;
-    pixel_buffer_start = *(pixel_ctrl_ptr + 1); // we draw on the back buffer
-
-
+    *(back_buffer) = 0xC0000000;
+    pixel_buffer_start = *(back_buffer); // we draw on the back buffer
+	clear_screen(); // clear both buffers.
+	
+	
+	
+	volatile int* keyData = 0xFF200050;
+	//volatile int* switchData = 0x;
+	int black = 0;
+	int previous_x_Boat = x_Boat;
+	int previous_y_Boat = y_Boat;
+	
+	
     while (1)
     {
-        /* Erase any boxes and lines that were drawn in the last iteration */
-        clear_screen();
+       
+		
+		//poll the user's input to updsate dx_Boat and dy_Boat
+		if(*keyData!=0){
+			manageKeyPress(keyData);
+		}
+		
+		//update previous boat_position before changing the boat position
+		previous_x_Boat = x_Boat;
+		previous_y_Boat = y_Boat;
+		
+		//make sure the updated position will be valid, then update the boat's position
+		if(x_Boat + dx_Boat > 320-(width-1)){
+			dx_Boat = 0;
+			x_Boat = 320-(width-1);
+		}
+		else if(x_Boat + dx_Boat < 0){
+			dx_Boat = 0;
+			x_Boat = 0;
+		}
+		else{
+			x_Boat = x_Boat + dx_Boat;
+		}
+		
+		if(y_Boat + dy_Boat > 240-(height-1)){
+			dy_Boat = 0;
+			y_Boat = 240-(height-1);
+		} else if(y_Boat + dy_Boat < 0){
+			dy_Boat = 0;
+			y_Boat = 0;
+		} else{
+			y_Boat = y_Boat + dy_Boat;
+		}
+		
+		//now that the new position is valid, draw the new box on the back_buffer
 		drawBox(x_Boat,y_Boat,width, height, color_Boat);
-      
-			
-			if(x_Boat>=319-width || x_Boat<=0){
-				dx_Boat = 0;
-			}
-			
-			if(y_Boat>=239-height || y_Boat<=0){
-				dy_Boat = 0;
-			}	
-			
-			x_Boat = x_Boat+dx_Boat;
-			y_Boat = y_Boat+dy_Boat;
 		
+
+		//now that everything is loaded properly, wait for the dma to switch front and back buffer addresses.
+		wait_for_vsync(pixelStatusPtr,front_buffer); // swaps front and back buffers on VGA vertical sync
+		pixel_buffer_start = *(back_buffer); // new back buffer
 		
-        wait_for_vsync(pixelStatusPtr,pixel_ctrl_ptr); // swap front and back buffers on VGA vertical sync
-        pixel_buffer_start = *(pixel_ctrl_ptr + 1); // new back buffer
+		/* Erase any boxes and lines that were drawn in the last iteration */
+		drawBox(previous_x_Boat,previous_y_Boat,width, height, black);
     }
 }
 
@@ -189,6 +225,34 @@ void drawBox(int xLeft, int yTop, int width, int height, short int color_Xs){
 		
 	}
 }
+void manageKeyPress(volatile int* keyData){
+	int keysPressed = *keyData;
+	int arrayOfPressedKeys[4];
+	
+	int i = 0;
+	
+	for(; i<4 ; i++){
+		arrayOfPressedKeys[i] = keysPressed&0b1;
+		keysPressed/=2;
+	}
+	
+	if(arrayOfPressedKeys[0]){
+		dx_Boat+=1;
+	}
+	if(arrayOfPressedKeys[1]){
+		dy_Boat-=1;
+	}
+	if(arrayOfPressedKeys[2]){
+		dy_Boat+=1;
+	}
+	if(arrayOfPressedKeys[3]){
+		dx_Boat-=1;
+	}
+		
+}
+
+
+
 
 
 void pushbutton_ISR(void);
@@ -225,6 +289,17 @@ volatile int * KEY_ptr = (int *)KEY_BASE;
 int press;
 press = *(KEY_ptr + 3); // read the pushbutton interrupt register
 *(KEY_ptr + 3) = press; // Clear the interrupt
+
+
+
+if (press == 0b1000)
+	dx_Boat-=1;
+	
+else if (press == 0b0100)
+	
+
+dx_Boat+=1;
+dy_Boat+=1;
 
 
 
@@ -269,7 +344,7 @@ while (1)
 void config_KEYs()
 {
 volatile int * KEY_ptr = (int *)KEY_BASE; // pushbutton KEY address
-*(KEY_ptr + 2) = 0x3; // enable interrupts for KEY[1]
+*(KEY_ptr + 2) = 0xf; // enable interrupts for all keys
 }
 /*
 * Initialize the banked stack pointer register for IRQ mode
@@ -298,12 +373,13 @@ asm("msr cpsr, %[ps]" : : [ps] "r"(status));
 /*
 * Configure the Generic Interrupt Controller (GIC)
 */
-void config_GIC(void)
+void config_GIC(void) //right now nothing is configured
 {
 int address; // used to calculate register addresses
 
+
 /* configure the KEYs interrupts */
-*((int *)0xFFFED108) = 0x00000300;
+//*((int *)0xFFFED848) = 0x00000101;
 // Set Interrupt Priority Mask Register (ICCPMR). Enable interrupts of all
 // priorities
 address = MPCORE_GIC_CPUIF + ICCPMR;
