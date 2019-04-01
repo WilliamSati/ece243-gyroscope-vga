@@ -1,211 +1,321 @@
-#include "constants.h"
+
 #include "address_map_arm.h"
-#include "math.h"
-#include "drawingFunctions.h"
-#include "externalVariables.h"
-#include "boardSetupFunctions.h"
-#include "manageUserInputFunctions.h"
-#include "boatFunctions.h"
-#include "stdbool.h" 
-#include "stdlib.h"
 
 
-//global variable definition (memory is allocated)
+
+#define KEYS_IRQ 73 	
+#define IRQ_MODE 0b10010 	//18	
+#define INT_DISABLE 0b11000000	//192
+#define INT_ENABLE 0b01000000
+#define ENABLE 0x1		
+#define SVC_MODE 0b10011
+
 volatile int pixel_buffer_start; // global variable
-double dx_Boat=0;//default 0;
-double dy_Boat=0;
 
+void config_KEYs();
+void set_A9_IRQ_stack(void);
+void config_GIC(void);
+void enable_A9_interrupts(void);
+
+void draw_line(int x0, int x1, int y0, int y1, short int color);
+void clear_screen();
+void wait_for_vsync(volatile int* pixelStatusPtr, volatile int* pixel_ctrl_ptr);
+void drawBox(int xLeft, int yTop, int width, int height, short int color_Xs);
+
+int dx_Boat;//default 0;
+int dy_Boat;
+volatile int key_dir = 0;
 //320x240
-void drawRing(int rippleRadius, int rippleCenter_x,int rippleCenter_y,short int ring_Color);
-void updateRingPosition(int* rippleCenter_x, int* rippleCenter_y, int* rippleRadius, volatile int* switchData, bool* drawingRipple, int* furthestPoint,int* furthestVisibleDistance, bool* lastRipple);
-void plotEightSymmetricPixels(int xCenter, int yCenter, int x, int y, short int ring_Color);
-void updateFurthestPoint(int rippleCenter_x, int rippleCenter_y, int* furthestPoint);
-bool screenContains(int x, int y);
 
 int main(void){
 	
 set_A9_IRQ_stack(); // initialize the stack pointer for IRQ mode
 config_GIC(); // configure the general interrupt controller
+// interrupts
 config_KEYs(); // configure pushbutton KEYs to generate interrupts
 enable_A9_interrupts(); // enable interrupts
 	
 	volatile int * pixelStatusPtr = (int *)0xFF20302C;
-	volatile int * front_buffer = (int *)0xFF203020;
-	volatile int * back_buffer    = (int *)0xFF203024;
-
+	volatile int * pixel_ctrl_ptr = (int *)0xFF203020;
+    // declare other variables(not shown)
 	int width = 8;
 	int height = 8;
 	short int color_Boat = 0xFD00;//orange
-	short int ring_Color = 0x00FF;//Blueish
 	int x_Boat=156;
-	int y_Boat=114;
+	int y_Boat=116;
+
 	
 
 	
     /* set front pixel buffer to start of FPGA On-chip memory */
 	
-    *(back_buffer) = 0xC8000000; // first store the address in the 
+    *(pixel_ctrl_ptr + 1) = 0xC8000000; // first store the address in the 
                                         // back buffer
 										
 										
     /* now, swap the front/back buffers, to set the front buffer location */
-    wait_for_vsync(pixelStatusPtr,front_buffer);
+    wait_for_vsync(pixelStatusPtr,pixel_ctrl_ptr);
 	
 	
     /* initialize a pointer to the pixel buffer, used by drawing functions */
-    pixel_buffer_start = *front_buffer;
+    pixel_buffer_start = *pixel_ctrl_ptr;
 	
 	
     clear_screen(); // pixel_buffer_start points to the pixel buffer
 	
     /* set back pixel buffer to start of SDRAM memory */
-    *(back_buffer) = 0xC0000000;
-    pixel_buffer_start = *(back_buffer); // we draw on the back buffer
-	clear_screen(); // clear both buffers.
-	
-	
-	
-	volatile int* keyData = (int *) 0xFF200050;
-	volatile int* switchData = (int *) SW_BASE;
-	
-	int black = 0;
-	int previous_x_Boat = x_Boat;
-	int previous_y_Boat = y_Boat;
-	int previousRippleRadius = 1;
-	int rippleRadius = 1;
-	int rippleCenter_x;
-	int rippleCenter_y;
-	bool drawingRipple = 0;
-	bool lastRipple = 0;
-	int furthestPoint[2];
-	int furthestVisibleDistance = 0;
+    *(pixel_ctrl_ptr + 1) = 0xC0000000;
+    pixel_buffer_start = *(pixel_ctrl_ptr + 1); // we draw on the back buffer
+
+
     while (1)
     {
-		//update previous boat_position and ring_position before changing the boat position
-		previous_x_Boat = x_Boat;
-		previous_y_Boat = y_Boat;
-		previousRippleRadius = rippleRadius;
-		
-		
-		//make sure the updated position will be valid, then update the boat's position
-		updateBoatPositionAndSpeed(&x_Boat,&y_Boat,width,height,keyData);
-		updateRingPosition(&rippleCenter_x, &rippleCenter_y,&rippleRadius, switchData, &drawingRipple, furthestPoint, &furthestVisibleDistance, &lastRipple);
-		
-		//now that the new position is valid, draw the new box on the back_buffer
+        /* Erase any boxes and lines that were drawn in the last iteration */
+        clear_screen();
 		drawBox(x_Boat,y_Boat,width, height, color_Boat);
-		if(drawingRipple)
-			drawRing(rippleRadius, rippleCenter_x,rippleCenter_y,ring_Color);
-
-		//now that everything is loaded properly, wait for the dma to switch front and back buffer addresses.
-		wait_for_vsync(pixelStatusPtr,front_buffer); // swaps front and back buffers on VGA vertical sync
-		pixel_buffer_start = *(back_buffer); // new back buffer
+      
+			
+			if(x_Boat>=319-width || x_Boat<=0){
+				dx_Boat = 0;
+			}
+			
+			if(y_Boat>=239-height || y_Boat<=0){
+				dy_Boat = 0;
+			}	
+			
+			x_Boat = x_Boat+dx_Boat;
+			y_Boat = y_Boat+dy_Boat;
 		
-		/* Erase any boxes and lines that were drawn in the last iteration */
-		drawBox(previous_x_Boat,previous_y_Boat,width, height, black);
-		if(drawingRipple || lastRipple){
-			drawRing(previousRippleRadius, rippleCenter_x, rippleCenter_y, black);
-			lastRipple=0;
-		}
+		
+        wait_for_vsync(pixelStatusPtr,pixel_ctrl_ptr); // swap front and back buffers on VGA vertical sync
+        pixel_buffer_start = *(pixel_ctrl_ptr + 1); // new back buffer
     }
 }
 
-void updateRingPosition(int* rippleCenter_x, int* rippleCenter_y, int* rippleRadius, volatile int* switchData, bool* drawingRipple, int* furthestPoint,int* furthestVisibleDistance,bool* lastRipple){
-	if(!*drawingRipple){
-		if((*switchData & 1) == 0){ //check switch 1. If it's on, make a ripple, if it's not, don't make a ripple.
-			;
+void plot_pixel(int x, int y, short int line_color)
+{
+    *(short int *)(pixel_buffer_start + (y << 10) + (x << 1)) = line_color;
+}
+
+// code for subroutines (not shown)
+void draw_line(int x0, int x1, int y0, int y1, short int color){
+	int absy = y1-y0;
+	int absx = x1-x0;
+	if(absy < 0){
+		absy = absy*(-1);
+	}
+	if(absx < 0){
+		absx = absx*(-1);
+	}
+
+	int isSteep = absy > absx;
+	int swap = 0;
+	
+	if (isSteep){
+		swap = x0;
+		x0 = y0;
+		y0 = swap;
+		
+		swap = x1;
+		x1 = y1;
+		y1 = swap;
+	}
+	
+	if (x1 < x0){
+		swap = x0;
+		x0 = x1;
+		x1 = swap; 
+		
+		swap = y0;
+		y0 = y1;
+		y1 = swap;
+	}
+
+	int deltaX = x1 - x0;
+	int deltaY = y1 - y0;
+	int yStep = 1;
+	
+	if(deltaY < 0){
+		deltaY = deltaY*(-1);
+		yStep = -1;
+	}
+	
+	int error = -(deltaX/2);
+	
+	int y = y0;
+	int x = x0;
+	for (;  x <= x1 ; x++ ){
+		
+		if(isSteep){
+			plot_pixel(y,x,color);
 		}else{
-			*drawingRipple = 1;
-			*rippleCenter_x = rand()%320;
-			*rippleCenter_y = rand()%240;
-			*rippleRadius = 0;
-			
-			*furthestVisibleDistance = 400;
+			plot_pixel(x,y,color);
 		}
-		return;		
-	}
-	
-	if(*rippleRadius > *furthestVisibleDistance){
-		*drawingRipple = 0;
-		*lastRipple = 1;
-	}else{
-		*rippleRadius+=1;
-	}
-	
-}
-void updateFurthestPoint(int rippleCenter_x, int rippleCenter_y, int* furthestPoint){
-	if(rippleCenter_x > 159.5 && rippleCenter_y > 119.5){
-		furthestPoint[0] = 0;
-		furthestPoint[1] = 0;
-	}
-	if(rippleCenter_x > 159.5 && rippleCenter_y < 119.5){
-		furthestPoint[0] = 0;
-		furthestPoint[1] = 239;
-	}
-	if(rippleCenter_x < 159.5 && rippleCenter_y > 119.5){
-		furthestPoint[0] = 319;
-		furthestPoint[1] = 0;
-	}
-	if(rippleCenter_x < 159.5 && rippleCenter_y < 119.5){
-		furthestPoint[0] = 319;
-		furthestPoint[1] = 239;
-	}
-}
-
-void drawRing(int rippleRadius, int rippleCenter_x,int rippleCenter_y,short int ring_Color){
-	//the following is Bresenham's algorithm.
-	
-	int x = 0, y = rippleRadius;
-	int d = 3 - 2 * rippleRadius;
-	plotEightSymmetricPixels(rippleCenter_x, rippleCenter_y, x, y, ring_Color);
-	while(y >= x)
-	{
-		x+=1;
-		if(d > 0)
-		{
-			y--;
-			d = d + 4 * (x - y) + 10;
+		
+		error = error + deltaY;
+		
+		if(error >= 0){
+			y = y + yStep;
+			error = error - deltaX;
 		}
-		else{
-			d = d + 4 * x + 6;
+	}
+}
+
+void clear_screen(){
+	int x = 0;
+	int y = 0;
+	
+	for( ; x < 320 ; x++){
+		y = 0;
+		for( ; y < 240 ; y++ ){
+			plot_pixel(x,y,0);
 		}
-	plotEightSymmetricPixels(rippleCenter_x,rippleCenter_y,x,y,ring_Color);
+		
 	}
 }
-
-void plotEightSymmetricPixels(int xCenter, int yCenter, int x, int y, short int ring_Color){
-	
-	if(screenContains(xCenter+x,yCenter+y))
-		plot_pixel(xCenter+x,yCenter+y,ring_Color);
-	
-	if(screenContains(xCenter-x,yCenter+y))
-		plot_pixel(xCenter-x,yCenter+y,ring_Color);
-	
-	if(screenContains(xCenter+x,yCenter-y))
-		plot_pixel(xCenter+x,yCenter-y,ring_Color);
-	
-	if(screenContains(xCenter-x,yCenter-y))
-		plot_pixel(xCenter-x,yCenter-y,ring_Color);
-	
-	if(screenContains(xCenter+y,yCenter+x))
-		plot_pixel(xCenter+y,yCenter+x,ring_Color);
-	
-	if(screenContains(xCenter-y,yCenter+x))
-		plot_pixel(xCenter-y,yCenter+x,ring_Color);
-	
-	if(screenContains(xCenter+y,yCenter-x))
-		plot_pixel(xCenter+y,yCenter-x,ring_Color);
-	
-	if(screenContains(xCenter-y,yCenter-x))
-		plot_pixel(xCenter-y,yCenter-x,ring_Color);
+void wait_for_vsync(volatile int* pixelStatusPtr, volatile int* pixel_ctrl_ptr){
+	*pixel_ctrl_ptr = 1; //initializ the S bit
+	while ((*pixelStatusPtr&1)!=0){//don't draw the next thing until the whole screen has been drawn
+			;
+		}
 }
 
-bool screenContains(int x, int y){
-	if(x < 320 && x >= 0 && y < 240 && y >=0){
-		return true;
-	}else{
-		return false;
+void drawBox(int xLeft, int yTop, int width, int height, short int color_Xs){
+	int i = 0;
+	for(; i<width ; i++){
+		
+		int j = 0;
+		for(; j < height ; j++){
+			plot_pixel(xLeft+i,yTop+j, color_Xs);
+		}
+		
 	}
 }
 
 
+void pushbutton_ISR(void);
+// Define the IRQ exception handler
+void __attribute__((interrupt)) __cs3_isr_irq(void)
+{
+// Read the ICCIAR from the processor interface
+int address = MPCORE_GIC_CPUIF + ICCIAR;
+int int_ID = *((int *)address);
 
+if (int_ID == KEYS_IRQ) // check if interrupt is from the KEYs
+pushbutton_ISR();
+else
+while (1)
+; // if unexpected, then stay here
+// Write to the End of Interrupt Register (ICCEOIR)
+
+address = MPCORE_GIC_CPUIF + ICCEOIR;
+*((int *)address) = int_ID;
+return;
+}
+
+
+
+
+/***************************************************************************************
+* Pushbutton - Interrupt Service Routine
+*
+* This routine toggles the key_dir variable from 0 <-> 1
+****************************************************************************************/
+void pushbutton_ISR(void)
+{
+volatile int * KEY_ptr = (int *)KEY_BASE;
+int press;
+press = *(KEY_ptr + 3); // read the pushbutton interrupt register
+*(KEY_ptr + 3) = press; // Clear the interrupt
+
+
+
+key_dir ^= 1; // Toggle key_dir value
+return;
+}
+
+
+// Define the remaining exception handlers
+void __attribute__((interrupt)) __cs3_reset(void)
+{
+while (1)
+;
+}
+void __attribute__((interrupt)) __cs3_isr_undef(void)
+{
+while (1)
+;
+}
+void __attribute__((interrupt)) __cs3_isr_swi(void)
+{
+while (1)
+;
+}
+void __attribute__((interrupt)) __cs3_isr_pabort(void)
+{
+while (1)
+;
+}
+void __attribute__((interrupt)) __cs3_isr_dabort(void)
+{
+while (1)
+;
+}
+void __attribute__((interrupt)) __cs3_isr_fiq(void)
+{
+while (1)
+;
+}
+
+
+void config_KEYs()
+{
+volatile int * KEY_ptr = (int *)KEY_BASE; // pushbutton KEY address
+*(KEY_ptr + 2) = 0x3; // enable interrupts for KEY[1]
+}
+/*
+* Initialize the banked stack pointer register for IRQ mode
+*/
+void set_A9_IRQ_stack(void)
+{
+int stack, mode;
+stack = A9_ONCHIP_END - 7; // top of A9 onchip memory, aligned to 8 bytes
+/* change processor to IRQ mode with interrupts disabled */
+mode = INT_DISABLE | IRQ_MODE;
+asm("msr cpsr, %[ps]" : : [ps] "r"(mode));
+/* set banked stack pointer */
+asm("mov sp, %[ps]" : : [ps] "r"(stack));
+/* go back to SVC mode before executing subroutine return! */
+mode = INT_DISABLE | SVC_MODE;
+asm("msr cpsr, %[ps]" : : [ps] "r"(mode));
+}
+/*
+* Turn on interrupts in the ARM processor
+*/
+void enable_A9_interrupts(void)
+{
+int status = SVC_MODE | INT_ENABLE;
+asm("msr cpsr, %[ps]" : : [ps] "r"(status));
+}
+/*
+* Configure the Generic Interrupt Controller (GIC)
+*/
+void config_GIC(void)
+{
+int address; // used to calculate register addresses
+
+/* configure the KEYs interrupts */
+*((int *)0xFFFED108) = 0x00000300;
+// Set Interrupt Priority Mask Register (ICCPMR). Enable interrupts of all
+// priorities
+address = MPCORE_GIC_CPUIF + ICCPMR;
+*((int *)address) = 0xFFFF;
+// Set CPU Interface Control Register (ICCICR). Enable signaling of
+// interrupts
+address = MPCORE_GIC_CPUIF + ICCICR;
+*((int *)address) = ENABLE;
+// Configure the Distributor Control Register (ICDDCR) to send pending
+// interrupts to CPUs
+address = MPCORE_GIC_DIST + ICDDCR;
+*((int *)address) = ENABLE;
+}

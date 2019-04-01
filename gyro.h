@@ -1,25 +1,57 @@
-
 /*
- * Implementation of MMA7341L accelerometer onto DE1-SOC board. The accelerometer communicates to the the DE1-SOC
- * through the A/D converter. The output values of the accelerometers lie between 0 and Vdd. These values are 
- * sent to the on chip A/D converter which can then be read by the ARM Processor.
+ * Implementation of gyroscope functionality using the L3GD20 Gryo
+ * Data sheet: https://www.pololu.com/file/0J563/L3GD20.pdf
  *
- * Datasheet: http://cache.freescale.com/files/sensors/doc/data_sheet/MMA7341L.pdf?pspll=1 
- *
+ * Communication between ARM and L3GD20 will be done through SPI. Thus, CS pin should be driven low at the start of
+ * transmission.
+ * 
+ * Note: ONLY read from addresses specified in this file. Accidentally reading an inappropriate 
+ * address can cause permenant damage to the gyrocope
  */
 
-// Pull up voltage connected to the accelerometer
-#define VDD 3.3
-#define ADC_RANGE 5
-// Offsets from ADC base address for each respective output
-#define ADC_GYRO_X 0
-#define ADC_GYRO_Y 4
-#define ADC_GYRO_Z 8
-// Offset from ADC base address for control register
-#define ADC_CONTROL 4
+#include "address_map_arm.h"
 
-// Initializing sequence for ADC
+// address mappings to control registers
+#define 	CTRL_REG1 	0x20 	// default contents: 00000111
+#define 	CTRL_REG2 	0x21	// default contents: 00000000
+#define 	CTRL_REG3 	0x22	// default contents: 00000000
+#define 	CTRL_REG4 	0x23	// default contents: 00000000
+#define 	CTRL_REG5 	0x24	// default contents: 00000000
+#define 	REFERENCE 	0x25    // default contents: 00000000
+
+// address mappings to output registers
+#define 	OUT_TEMP 	0x26
+#define 	STATUS_REG 	0x27 	
+#define 	OUT_X_L 	0x28
+#define 	OUT_X_H 	0x29
+#define 	OUT_Y_L 	0x2A
+#define 	OUT_Y_H 	0X2B
+#define 	OUT_Z_L		0x2C
+#define 	OUT_Z_H 	0x2D
+
+// pin connections between gyro and ARM
+#define 	IO_BASE 	JP1_BASE
+#define 	CS 			0 		// chip select
+#define 	SPC 		1	 	// Serial Port Clock
+#define 	SDI 		2		// Serial Data In
+#define 	SDO 		3		// Serial Data Out
+
+
+// Utility functions to read registers from gyro via SPI. All registers on L3GD20 chip are one byte. 
+uint8_t read_register( uint8_t address );
+void write_register( uint8_t address, uint8_t data );
+void clock_low( void );
+void clock_high( void );
+void SPC_low( void );
+void SPC_high( void ); 
+
+
+// Initializing and reading data from gyro
 void init_gyro( void );
 
-// Calculate angle from 12 bit value from adc
-double angle_from_adc(uint8_t adc_value);
+uint32_t get_x_angular_rate( void );
+
+uint32_t get_y_angular_rate( void );
+
+uint32_t get_z_angular_rate( void );
+
