@@ -11,9 +11,10 @@
 #include "ringFunctions.h"
 
 volatile int pixel_buffer_start; // global variable
-int dx_Boat;//default 0;
-int dy_Boat;
+double dx_Boat = 0;//default 0;
+double dy_Boat = 0;
 volatile int key_dir = 0;
+
 //320x240
 
 /*
@@ -33,11 +34,14 @@ config_KEYs(); // configure pushbutton KEYs to generate interrupts
 enable_A9_interrupts(); // enable interrupts
 	
 	volatile int * pixelStatusPtr = (int *)0xFF20302C;
-	volatile int * pixel_ctrl_ptr = (int *)0xFF203020;
+	volatile int * front_buffer = (int *)0xFF203020;
+	volatile int * back_buffer  = (int *)0xFF203024;
+	
     // declare other variables(not shown)
 	int width = 8;
 	int height = 8;
 	short int color_Boat = 0xFD00;//orange
+	short int ring_Color = 0x00FF;//blue
 	int x_Boat=156;
 	int y_Boat=116;
 
@@ -46,16 +50,16 @@ enable_A9_interrupts(); // enable interrupts
 	
     /* set front pixel buffer to start of FPGA On-chip memory */
 	
-    *(pixel_ctrl_ptr + 1) = 0xC8000000; // first store the address in the 
+    *(back_buffer) = 0xC8000000; // first store the address in the 
                                         // back buffer
 										
 										
     /* now, swap the front/back buffers, to set the front buffer location */
-    wait_for_vsync(pixelStatusPtr,pixel_ctrl_ptr);
+    wait_for_vsync(pixelStatusPtr,front_buffer);
 	
 	
     /* initialize a pointer to the pixel buffer, used by drawing functions */
-    pixel_buffer_start = *pixel_ctrl_ptr;
+    pixel_buffer_start = *front_buffer;
 	
 	
     clear_screen(); // pixel_buffer_start points to the pixel buffer
@@ -74,17 +78,14 @@ enable_A9_interrupts(); // enable interrupts
 	int black = 0;
 	int previous_x_Boat = x_Boat;
 	int previous_y_Boat = y_Boat;
-	
-	int previousRippleRadius[100];
-	int rippleRadius[100];
 	int numRipples = 0;
 	
-	int rippleCenter_x[100];
-	int rippleCenter_y[100];
-	bool drawingRipple[100];
-	bool lastRipple[100];
-	int furthestPoint[2]; //not currently used
-	int furthestVisibleDistance = 0;//currently set to 400 always
+	int previousRippleRadius[1000];
+	int rippleRadius[1000];
+	int rippleCenter_x[1000];
+	int rippleCenter_y[1000];
+	bool lastRipple[1000];
+	int furthestVisibleDistance = 100;//currently set to 400 always
 	
 	
 	int i = 0; //iterator;
@@ -96,25 +97,21 @@ enable_A9_interrupts(); // enable interrupts
 		previous_x_Boat = x_Boat;
 		previous_y_Boat = y_Boat;
 		
-		if(numRipples==0){
-			;
-		}else{
-			i = 0;
-			for(; i<numRipples ; i++)
-				previousRippleRadius[i] = rippleRadius[i];
+		i=0;
+		for(; i <numRipples ; i++){
+			previousRippleRadius[i] = rippleRadius[i];
 		}
 		
 		//make sure the updated position will be valid, then update the boat's position
 		updateBoatPositionAndSpeed(&x_Boat,&y_Boat,width,height,keyData);
 		//updates ALL of the rings
-		updateRingPosition(rippleCenter_x, rippleCenter_y, rippleRadius, switchData, drawingRipple, furthestPoint, furthestVisibleDistance, lastRipple, &numRipples);
-		
+		updateRingPosition(rippleCenter_x, rippleCenter_y, rippleRadius, switchData, furthestVisibleDistance, lastRipple, &numRipples, previousRippleRadius);
 		//now that the new position is valid, draw the new box on the back_buffer
 		drawBox(x_Boat,y_Boat,width, height, color_Boat);
 		
 		i = 0;
 		for(; i<numRipples; i++){
-			if(drawingRipple[i])
+			if(!lastRipple[i])
 				drawRing(rippleRadius[i], rippleCenter_x[i],rippleCenter_y[i],ring_Color);
 		}
 
@@ -125,28 +122,30 @@ enable_A9_interrupts(); // enable interrupts
 		/* Erase any boxes and lines that were drawn in the last iteration */
 		drawBox(previous_x_Boat,previous_y_Boat,width, height, black);
 		
+		
+		//erase all the rings
 		i=0;
-		for(; i<numRipples; i++){
-			if(drawingRipple[i] || lastRipple[i]){
-				drawRing(rippleRadius[i], rippleCenter_x[i],rippleCenter_y[i],black);
-				
+		for(; i < numRipples; i++){
+				drawRing(previousRippleRadius[i], rippleCenter_x[i],rippleCenter_y[i],black);
+		}
+		
+		//delete the ripples that are past the 
+		i=0;
+		for(; i < numRipples; i++){
 				if(lastRipple[i]){
 					int j = i;
 					for(; j<(numRipples-1) ; j++){
 						rippleCenter_x[j] = rippleCenter_x[j+1];
 						rippleCenter_y[j] = rippleCenter_y[j+1];
-						drawingRipple[j] = drawingRipple[j+1];
-						lastRipple[j] = drawingRipple[j+1];
+						lastRipple[j] = lastRipple[j+1];
+						previousRippleRadius[j] = previousRippleRadius[j+1];
+						rippleRadius[j] = rippleRadius[j+1];
 					}
-						
 					numRipples -=1 ;
 				}
-				
-				
-				lastRipple[i]=0;
-			}
 		}
-    }
+	}
+   
 }
 
 
