@@ -1,11 +1,38 @@
 #include "constants.h"
 #include "address_map_arm.h"
 #include "externalVariables.h"
-
+#include "stdbool.h" 
+#include "drawingFunctions.h"
 
 void plot_pixel(int x, int y, short int line_color)
 {
     *(short int *)(pixel_buffer_start + (y << 10) + (x << 1)) = line_color;
+}
+void plotEightSymmetricPixels(int xCenter, int yCenter, int x, int y, short int ring_Color){
+	
+	if(screenContains(xCenter+x,yCenter+y))
+		plot_pixel(xCenter+x,yCenter+y,ring_Color);
+	
+	if(screenContains(xCenter-x,yCenter+y))
+		plot_pixel(xCenter-x,yCenter+y,ring_Color);
+	
+	if(screenContains(xCenter+x,yCenter-y))
+		plot_pixel(xCenter+x,yCenter-y,ring_Color);
+	
+	if(screenContains(xCenter-x,yCenter-y))
+		plot_pixel(xCenter-x,yCenter-y,ring_Color);
+	
+	if(screenContains(xCenter+y,yCenter+x))
+		plot_pixel(xCenter+y,yCenter+x,ring_Color);
+	
+	if(screenContains(xCenter-y,yCenter+x))
+		plot_pixel(xCenter-y,yCenter+x,ring_Color);
+	
+	if(screenContains(xCenter+y,yCenter-x))
+		plot_pixel(xCenter+y,yCenter-x,ring_Color);
+	
+	if(screenContains(xCenter-y,yCenter-x))
+		plot_pixel(xCenter-y,yCenter-x,ring_Color);
 }
 
 
@@ -14,6 +41,14 @@ void wait_for_vsync(volatile int* pixelStatusPtr, volatile int* pixel_ctrl_ptr){
 	while ((*pixelStatusPtr&1)!=0){//don't draw the next thing until the whole screen has been drawn
 			;
 		}
+}
+
+bool screenContains(int x, int y){
+	if(x < 320 && x >= 0 && y < 240 && y >=0){
+		return true;
+	}else{
+		return false;
+	}
 }
 
 void draw_line(int x0, int x1, int y0, int y1, short int color){
@@ -101,5 +136,26 @@ void drawBox(int xLeft, int yTop, int width, int height, short int color_Xs){
 			plot_pixel(xLeft+i,yTop+j, color_Xs);
 		}
 		
+	}
+}
+
+void drawRing(int rippleRadius, int rippleCenter_x,int rippleCenter_y,short int ring_Color){
+	//the following is Bresenham's algorithm.
+	
+	int x = 0, y = rippleRadius;
+	int d = 3 - 2 * rippleRadius;
+	plotEightSymmetricPixels(rippleCenter_x, rippleCenter_y, x, y, ring_Color);
+	while(y >= x)
+	{
+		x+=1;
+		if(d > 0)
+		{
+			y--;
+			d = d + 4 * (x - y) + 10;
+		}
+		else{
+			d = d + 4 * x + 6;
+		}
+	plotEightSymmetricPixels(rippleCenter_x,rippleCenter_y,x,y,ring_Color);
 	}
 }
