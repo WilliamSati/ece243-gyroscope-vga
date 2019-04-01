@@ -14,6 +14,7 @@ volatile int pixel_buffer_start; // global variable
 double dx_Boat = 0;//default 0;
 double dy_Boat = 0;
 volatile int key_dir = 0;
+int globalRingCounter = 0;
 
 //320x240
 
@@ -96,6 +97,9 @@ enable_A9_interrupts(); // enable interrupts
 		//update previous boat_position and ring_position before changing the boat position
 		previous_x_Boat = x_Boat;
 		previous_y_Boat = y_Boat;
+		if((int)dx_Boat || (int)dy_Boat){
+			globalRingCounter+=1; //is reset by updateRingPosition
+		}
 		
 		i=0;
 		for(; i <numRipples ; i++){
@@ -105,7 +109,7 @@ enable_A9_interrupts(); // enable interrupts
 		//make sure the updated position will be valid, then update the boat's position
 		updateBoatPositionAndSpeed(&x_Boat,&y_Boat,width,height,keyData);
 		//updates ALL of the rings
-		updateRingPosition(rippleCenter_x, rippleCenter_y, rippleRadius, switchData, furthestVisibleDistance, lastRipple, &numRipples, previousRippleRadius);
+		updateRingPosition(rippleCenter_x, rippleCenter_y, rippleRadius, switchData, furthestVisibleDistance, lastRipple, &numRipples, previousRippleRadius, x_Boat, y_Boat);
 		//now that the new position is valid, draw the new box on the back_buffer
 		drawBox(x_Boat,y_Boat,width, height, color_Boat);
 		

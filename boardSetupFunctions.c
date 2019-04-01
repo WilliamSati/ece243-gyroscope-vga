@@ -105,6 +105,7 @@ void config_GIC(void) //right now nothing is configured
 	int address; // used to calculate register addresses
 	/* configure the KEYs interrupts */
 	//*((int *)0xFFFED848) = 0x00000101;
+	*((int *)0xFFFED108) = 0x00000300;//configure the private timer
 	// Set Interrupt Priority Mask Register (ICCPMR). Enable interrupts of all
 	// priorities
 	address = MPCORE_GIC_CPUIF + ICCPMR;

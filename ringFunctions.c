@@ -4,17 +4,18 @@
 #include "stdbool.h" 
 #include "stdlib.h"
 
-void updateRingPosition(int* rippleCenter_x, int* rippleCenter_y, int* rippleRadius, volatile int* switchData,int furthestVisibleDistance, bool* lastRipple, int* numRipples, int* previousRippleRadius){
+void updateRingPosition(int* rippleCenter_x, int* rippleCenter_y, int* rippleRadius, volatile int* switchData,int furthestVisibleDistance, bool* lastRipple, int* numRipples, int* previousRippleRadius, double x_Boat, double y_Boat){
 	int i = 0;
 	
 	//if the switch is on, create another ring
 	
-	if((*switchData & 1) == 0){
-		;
-	}else{
+	if(globalRingCounter==10){
+		globalRingCounter=0;
 		*numRipples+=1;
-		rippleCenter_x[*numRipples-1] = rand()%320;
-		rippleCenter_y[*numRipples-1] = rand()%240;
+		
+		
+		rippleCenter_x[*numRipples-1] = x_Boat;
+		rippleCenter_y[*numRipples-1] = y_Boat;
 		rippleRadius[*numRipples-1] = 0;
 		lastRipple[*numRipples-1] = 0;
 		previousRippleRadius[*numRipples-1] = rippleRadius[*numRipples-1];
