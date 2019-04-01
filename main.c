@@ -10,8 +10,8 @@
 
 //global variable definition (memory is allocated)
 volatile int pixel_buffer_start; // global variable
-int dx_Boat;//default 0;
-int dy_Boat;
+double dx_Boat=0;//default 0;
+double dy_Boat=0;
 
 //320x240
 
@@ -72,16 +72,30 @@ enable_A9_interrupts(); // enable interrupts
 			manageKeyPress(keyData);
 		}
 		
+		//account for the drag force of the water
+		if(dx_Boat>0){
+			dx_Boat -= pow(dx_Boat,2)/75+0.01;
+		}
+		if(dx_Boat<0){
+			dx_Boat += pow(dx_Boat,2)/75+0.01;
+		}
+		if(dy_Boat>0){
+			dy_Boat -= pow(dy_Boat,2)/75+0.01;
+		}
+		if(dy_Boat<0){
+			dy_Boat += pow(dy_Boat,2)/75+0.01;
+		}
+		
 		//update previous boat_position before changing the boat position
 		previous_x_Boat = x_Boat;
 		previous_y_Boat = y_Boat;
 		
 		//make sure the updated position will be valid, then update the boat's position
-		if(x_Boat + dx_Boat > 320-(width-1)){
+		if(x_Boat + (int)dx_Boat > 320-(width-1)){
 			dx_Boat = 0;
 			x_Boat = 320-(width-1);
 		}
-		else if(x_Boat + dx_Boat < 0){
+		else if(x_Boat + (int)dx_Boat < 0){
 			dx_Boat = 0;
 			x_Boat = 0;
 		}

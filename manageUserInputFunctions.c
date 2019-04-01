@@ -14,16 +14,17 @@ void manageKeyPress(volatile int* keyData){
 	}
 	
 	if(arrayOfPressedKeys[0]){
-		dx_Boat+=1;
+		dx_Boat+=0.25;
 	}
 	if(arrayOfPressedKeys[1]){
-		dy_Boat-=1;
+		dy_Boat-=0.25;
 	}
 	if(arrayOfPressedKeys[2]){
-		dy_Boat+=1;
+		dy_Boat+=0.25;
 	}
 	if(arrayOfPressedKeys[3]){
-		dx_Boat-=1;
+		dx_Boat-=0.25;
 	}
+	
 		
 }
