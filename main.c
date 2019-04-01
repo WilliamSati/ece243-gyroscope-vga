@@ -14,6 +14,7 @@ double dx_Boat=0;//default 0;
 double dy_Boat=0;
 
 //320x240
+void updateBoatPositionAndSpeed(int* x_Boat, int* y_Boat, int width, int height, volatile int* keyData);
 
 int main(void){
 	
@@ -66,52 +67,13 @@ enable_A9_interrupts(); // enable interrupts
 	
     while (1)
     {
-       
-		//poll the user's input to updsate dx_Boat and dy_Boat
-		if(*keyData!=0){
-			manageKeyPress(keyData);
-		}
-		
-		//account for the drag force of the water
-		if(dx_Boat>0){
-			dx_Boat -= pow(dx_Boat,2)/75+0.01;
-		}
-		if(dx_Boat<0){
-			dx_Boat += pow(dx_Boat,2)/75+0.01;
-		}
-		if(dy_Boat>0){
-			dy_Boat -= pow(dy_Boat,2)/75+0.01;
-		}
-		if(dy_Boat<0){
-			dy_Boat += pow(dy_Boat,2)/75+0.01;
-		}
-		
 		//update previous boat_position before changing the boat position
 		previous_x_Boat = x_Boat;
 		previous_y_Boat = y_Boat;
 		
 		//make sure the updated position will be valid, then update the boat's position
-		if(x_Boat + (int)dx_Boat > 320-(width-1)){
-			dx_Boat = 0;
-			x_Boat = 320-(width-1);
-		}
-		else if(x_Boat + (int)dx_Boat < 0){
-			dx_Boat = 0;
-			x_Boat = 0;
-		}
-		else{
-			x_Boat = x_Boat + dx_Boat;
-		}
-		
-		if(y_Boat + dy_Boat > 240-(height-1)){
-			dy_Boat = 0;
-			y_Boat = 240-(height-1);
-		} else if(y_Boat + dy_Boat < 0){
-			dy_Boat = 0;
-			y_Boat = 0;
-		} else{
-			y_Boat = y_Boat + dy_Boat;
-		}
+		updateBoatPositionAndSpeed(&x_Boat,&y_Boat,width,height,keyData);
+
 		
 		//now that the new position is valid, draw the new box on the back_buffer
 		drawBox(x_Boat,y_Boat,width, height, color_Boat);
@@ -129,7 +91,50 @@ enable_A9_interrupts(); // enable interrupts
 
 
 
-
+void updateBoatPositionAndSpeed(int* x_Boat, int* y_Boat, int width, int height, volatile int* keyData){
+	
+	//poll the user's input to updsate dx_Boat and dy_Boat
+		if(*keyData!=0){
+			manageKeyPress(keyData);
+		}
+	
+	//make sure the boat's position will be inbounds if we add dx_Boat and dy_Boat. If it's not, kill the boat's speed.
+if(*x_Boat + (int)dx_Boat > 320-(width-1)){
+			dx_Boat = 0;
+			*x_Boat = 320-(width-1);
+		}
+		else if(*x_Boat + (int)dx_Boat < 0){
+			dx_Boat = 0;
+			*x_Boat = 0;
+		}
+		else{
+			*x_Boat = *x_Boat + dx_Boat;
+		}
+		
+		if(*y_Boat + dy_Boat > 240-(height-1)){
+			dy_Boat = 0;
+			*y_Boat = 240-(height-1);
+		} else if(*y_Boat + dy_Boat < 0){
+			dy_Boat = 0;
+			*y_Boat = 0;
+		} else{
+			*y_Boat = *y_Boat + dy_Boat;
+		}
+		
+		//account for the drag force of the water which decelerates the boat.
+		if(dx_Boat>0){
+			dx_Boat -= pow(dx_Boat,2)/75+0.01;
+		}
+		if(dx_Boat<0){
+			dx_Boat += pow(dx_Boat,2)/75+0.01;
+		}
+		if(dy_Boat>0){
+			dy_Boat -= pow(dy_Boat,2)/75+0.01;
+		}
+		if(dy_Boat<0){
+			dy_Boat += pow(dy_Boat,2)/75+0.01;
+		}
+}
 
 
 
