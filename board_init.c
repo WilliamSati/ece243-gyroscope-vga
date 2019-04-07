@@ -1,8 +1,5 @@
-#include "constants.h"
-#include "address_map_arm.h"
-#include "ISRs.h"
-#include "externalVariables.h"
 
+#include "board_init.h"
 
 // Define the IRQ exception handler
 void __attribute__((interrupt)) __cs3_isr_irq(void)
@@ -56,16 +53,11 @@ while (1)
 	;
 }
 
-
-
-
 void config_KEYs()
 {
 	volatile int * KEY_ptr = (int *)KEY_BASE; // pushbutton KEY address
 	*(KEY_ptr + 2) = 0xf; // enable interrupts for all keys
 }
-
-
 
 /*
 * Initialize the banked stack pointer register for IRQ mode
@@ -84,8 +76,6 @@ void set_A9_IRQ_stack(void)
 	asm("msr cpsr, %[ps]" : : [ps] "r"(mode));
 }
 
-
-
 /*
 * Turn on interrupts in the ARM processor
 */
@@ -94,8 +84,6 @@ void enable_A9_interrupts(void)
 	int status = SVC_MODE | INT_ENABLE;
 	asm("msr cpsr, %[ps]" : : [ps] "r"(status));
 }
-
-
 
 /*
 * Configure the Generic Interrupt Controller (GIC)

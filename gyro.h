@@ -12,6 +12,7 @@
 #include "address_map_arm.h"
 
 // address mappings to control registers
+#define 	WHO_AM_I 	0X0F    // ID : 11010100
 #define 	CTRL_REG1 	0x20 	// default contents: 00000111
 #define 	CTRL_REG2 	0x21	// default contents: 00000000
 #define 	CTRL_REG3 	0x22	// default contents: 00000000
@@ -38,20 +39,25 @@
 
 
 // Utility functions to read registers from gyro via SPI. All registers on L3GD20 chip are one byte. 
-uint8_t read_register( uint8_t address );
-void write_register( uint8_t address, uint8_t data );
+int read_register( int address );
+void write_register( int address, int data );
+
+// Covinience functions for writing toggling inputs to gyroscope
 void clock_low( void );
 void clock_high( void );
-void SPC_low( void );
-void SPC_high( void ); 
+void SDI_low( void );
+void SDI_high( void ); 
 
+// Delay functions for debugging
+void delay(void);
+void delay_long(void);
+void delay_very_long(void);
 
 // Initializing and reading data from gyro
 void init_gyro( void );
 
-uint32_t get_x_angular_rate( void );
-
-uint32_t get_y_angular_rate( void );
-
-uint32_t get_z_angular_rate( void );
+// Getting useful angular measurements
+int get_x_angular_rate( void );
+int get_y_angular_rate( void );
+int get_z_angular_rate( void );
 

@@ -1,8 +1,5 @@
-#include "constants.h"
-#include "address_map_arm.h"
-#include "externalVariables.h"
-#include "stdbool.h" 
-#include "drawingFunctions.h"
+
+#include "graphics_util.h"
 
 void plot_pixel(int x, int y, short int line_color)
 {

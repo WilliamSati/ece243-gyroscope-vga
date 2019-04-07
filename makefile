@@ -20,7 +20,7 @@ USERCCFLAGS	:= -g -O1
 ARCHASFLAGS	:= -mfloat-abi=soft -march=armv7-a -mcpu=cortex-a9 --gstabs -I "$$GNU_ARM_TOOL_ROOTDIR/arm-altera-eabi/include/"
 ARCHCCFLAGS	:= -mfloat-abi=soft -march=armv7-a -mtune=cortex-a9 -mcpu=cortex-a9
 ARCHLDFLAGS	:= --defsym arm_program_mem=0x40 --defsym arm_available_mem_size=0x3fffffb8 --defsym __cs3_stack=0x3ffffff8 --section-start .vectors=0x0
-ARCHLDSCRIPT	:= -T"C:/quartus/University_Program/Monitor_Program/build/altera-socfpga-hosted-with-vectors.ld"
+ARCHLDSCRIPT	:= -T"C:/Program_Files/intelFPGA_lite/18.0/University_Program/Monitor_Program/build/altera-socfpga-hosted-with-vectors.ld"
 ASFLAGS		:= $(ARCHASFLAGS)
 CCFLAGS		:= -Wall -c $(USERCCFLAGS) $(ARCHCCFLAGS)
 LDFLAGS		:= $(patsubst %, -Wl$(DEFINE_COMMA)%, $(ARCHLDFLAGS)) $(ARCHLDSCRIPT)
@@ -28,17 +28,17 @@ OCFLAGS		:= -O srec
 
 # Files
 HDRS		:=
-SRCS		:= main.c drawingFunctions.c boardSetupFunctions.c ISRs.c manageUserInputFunctions.c boatFunctions.c ringFunctions.c
+SRCS		:= board_init.c graphics_animation.c graphics_util.c gyro.c interrupt.c main.c
 OBJS		:= $(patsubst %, %.o, $(SRCS))
 
 # Targets
-compile: main.srec
+compile: board_init.srec
 
-main.srec: main.axf
+board_init.srec: board_init.axf
 	$(RM) $@
 	$(OC) $(OCFLAGS) $< $@
 
-main.axf: $(OBJS)
+board_init.axf: $(OBJS)
 	$(RM) $@
 	$(CC) $(LDFLAGS) $(OBJS) -o $@
 
@@ -51,5 +51,5 @@ main.axf: $(OBJS)
 	$(AS) $(ASFLAGS) $< -o $@
 
 clean:
-	$(RM) main.srec main.axf $(OBJS)
+	$(RM) board_init.srec board_init.axf $(OBJS)
 

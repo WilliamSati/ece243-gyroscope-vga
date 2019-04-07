@@ -1,6 +1,7 @@
-#include "constants.h"
+
+#include "interrupt.h"
+#include "board_init.h"
 #include "address_map_arm.h"
-#include "externalVariables.h"
 
 void pushbutton_ISR(void)
 {

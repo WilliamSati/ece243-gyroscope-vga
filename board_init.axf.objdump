@@ -1,0 +1,3404 @@
+
+C:/Dev/Courses/ece243/final_project/board_init.axf:     file format elf32-littlearm
+
+
+Disassembly of section .vectors:
+
+00000000 <__cs3_interrupt_vector>:
+   0:	18 f0 9f e5 18 f0 9f e5 18 f0 9f e5 18 f0 9f e5     ................
+  10:	18 f0 9f e5 18 f0 9f e5 18 f0 9f e5 18 f0 9f e5     ................
+  20:	8c 02 00 00 90 02 00 00 94 02 00 00 98 02 00 00     ................
+  30:	9c 02 00 00 94 22 00 00 5c 02 00 00 a0 02 00 00     ....."..\.......
+
+Disassembly of section .text:
+
+00000040 <__cs3_reset_generic>:
+      40:	ea000026 	b	e0 <__cs3_start_asm_sim>
+
+00000044 <__cs3_start_c>:
+      44:	e59f608c 	ldr	r6, [pc, #140]	; d8 <__cs3_start_c+0x94>
+      48:	e3560000 	cmp	r6, #0
+      4c:	e92d4080 	push	{r7, lr}
+      50:	e2466001 	sub	r6, r6, #1
+      54:	0a00001e 	beq	d4 <__cs3_start_c+0x90>
+      58:	e59f507c 	ldr	r5, [pc, #124]	; dc <__cs3_start_c+0x98>
+      5c:	e3a00000 	mov	r0, #0
+      60:	e3a01000 	mov	r1, #0
+      64:	e515200c 	ldr	r2, [r5, #-12]
+      68:	e515e010 	ldr	lr, [r5, #-16]
+      6c:	e5154008 	ldr	r4, [r5, #-8]
+      70:	e15e0002 	cmp	lr, r2
+      74:	00822004 	addeq	r2, r2, r4
+      78:	0a000009 	beq	a4 <__cs3_start_c+0x60>
+      7c:	e3540000 	cmp	r4, #0
+      80:	0a000007 	beq	a4 <__cs3_start_c+0x60>
+      84:	e1a07002 	mov	r7, r2
+      88:	e1a0c002 	mov	r12, r2
+      8c:	e8be000c 	ldm	lr!, {r2, r3}
+      90:	e8ac000c 	stmia	r12!, {r2, r3}
+      94:	e067300c 	rsb	r3, r7, r12
+      98:	e1540003 	cmp	r4, r3
+      9c:	e1a0200c 	mov	r2, r12
+      a0:	1afffff9 	bne	8c <__cs3_start_c+0x48>
+      a4:	e515e004 	ldr	lr, [r5, #-4]
+      a8:	e35e0000 	cmp	lr, #0
+      ac:	11a03002 	movne	r3, r2
+      b0:	0a000003 	beq	c4 <__cs3_start_c+0x80>
+      b4:	e8a30003 	stmia	r3!, {r0, r1}
+      b8:	e062c003 	rsb	r12, r2, r3
+      bc:	e15e000c 	cmp	lr, r12
+      c0:	1afffffb 	bne	b4 <__cs3_start_c+0x70>
+      c4:	e2466001 	sub	r6, r6, #1
+      c8:	e3760001 	cmn	r6, #1
+      cc:	e2855014 	add	r5, r5, #20
+      d0:	1affffe3 	bne	64 <__cs3_start_c+0x20>
+      d4:	eb000855 	bl	2230 <__cs3_premain>
+      d8:	00000001 	.word	0x00000001
+      dc:	0000237c 	.word	0x0000237c
+
+000000e0 <__cs3_start_asm_sim>:
+      e0:	e28f103c 	add	r1, pc, #60	; 0x3c
+      e4:	e3a00016 	mov	r0, #22
+      e8:	ef123456 	svc	0x00123456
+      ec:	e3500000 	cmp	r0, #0
+      f0:	ba000008 	blt	118 <__cs3_start_asm_sim+0x38>
+      f4:	e59f2028 	ldr	r2, [pc, #40]	; 124 <__cs3_heap_start_ptr>
+      f8:	e59fd01c 	ldr	sp, [pc, #28]	; 11c <__cs3_start_asm_sim+0x3c>
+      fc:	e5920008 	ldr	r0, [r2, #8]
+     100:	e3500000 	cmp	r0, #0
+     104:	11a0d000 	movne	sp, r0
+     108:	e59f1010 	ldr	r1, [pc, #16]	; 120 <__cs3_start_asm_sim+0x40>
+     10c:	e5920004 	ldr	r0, [r2, #4]
+     110:	e3500000 	cmp	r0, #0
+     114:	15810000 	strne	r0, [r1]
+     118:	eaffffc9 	b	44 <__cs3_start_c>
+     11c:	3ffffff8 	.word	0x3ffffff8
+     120:	000027c0 	.word	0x000027c0
+
+00000124 <__cs3_heap_start_ptr>:
+     124:	00002808 	.word	0x00002808
+
+00000128 <_start>:
+     128:	e51fd000 	ldr	sp, [pc, #-0]	; 130 <_start+0x8>
+     12c:	eaffffc4 	b	44 <__cs3_start_c>
+     130:	3ffffff8 	.word	0x3ffffff8
+
+00000134 <deregister_tm_clones>:
+     134:	e92d4008 	push	{r3, lr}
+     138:	e59f002c 	ldr	r0, [pc, #44]	; 16c <deregister_tm_clones+0x38>
+     13c:	e59f302c 	ldr	r3, [pc, #44]	; 170 <deregister_tm_clones+0x3c>
+     140:	e0603003 	rsb	r3, r0, r3
+     144:	e3530006 	cmp	r3, #6
+     148:	8a000001 	bhi	154 <deregister_tm_clones+0x20>
+     14c:	e8bd4008 	pop	{r3, lr}
+     150:	e12fff1e 	bx	lr
+     154:	e59f3018 	ldr	r3, [pc, #24]	; 174 <deregister_tm_clones+0x40>
+     158:	e3530000 	cmp	r3, #0
+     15c:	0afffffa 	beq	14c <deregister_tm_clones+0x18>
+     160:	e1a0e00f 	mov	lr, pc
+     164:	e12fff13 	bx	r3
+     168:	eafffff7 	b	14c <deregister_tm_clones+0x18>
+     16c:	000027c8 	.word	0x000027c8
+     170:	000027cb 	.word	0x000027cb
+     174:	00000000 	.word	0x00000000
+
+00000178 <register_tm_clones>:
+     178:	e92d4008 	push	{r3, lr}
+     17c:	e59f0034 	ldr	r0, [pc, #52]	; 1b8 <register_tm_clones+0x40>
+     180:	e59f3034 	ldr	r3, [pc, #52]	; 1bc <register_tm_clones+0x44>
+     184:	e0603003 	rsb	r3, r0, r3
+     188:	e1a03143 	asr	r3, r3, #2
+     18c:	e0833fa3 	add	r3, r3, r3, lsr #31
+     190:	e1b010c3 	asrs	r1, r3, #1
+     194:	1a000001 	bne	1a0 <register_tm_clones+0x28>
+     198:	e8bd4008 	pop	{r3, lr}
+     19c:	e12fff1e 	bx	lr
+     1a0:	e59f2018 	ldr	r2, [pc, #24]	; 1c0 <register_tm_clones+0x48>
+     1a4:	e3520000 	cmp	r2, #0
+     1a8:	0afffffa 	beq	198 <register_tm_clones+0x20>
+     1ac:	e1a0e00f 	mov	lr, pc
+     1b0:	e12fff12 	bx	r2
+     1b4:	eafffff7 	b	198 <register_tm_clones+0x20>
+     1b8:	000027c8 	.word	0x000027c8
+     1bc:	000027c8 	.word	0x000027c8
+     1c0:	00000000 	.word	0x00000000
+
+000001c4 <__do_global_dtors_aux>:
+     1c4:	e92d4010 	push	{r4, lr}
+     1c8:	e59f402c 	ldr	r4, [pc, #44]	; 1fc <__do_global_dtors_aux+0x38>
+     1cc:	e5d43000 	ldrb	r3, [r4]
+     1d0:	e3530000 	cmp	r3, #0
+     1d4:	1a000006 	bne	1f4 <__do_global_dtors_aux+0x30>
+     1d8:	ebffffd5 	bl	134 <deregister_tm_clones>
+     1dc:	e59f301c 	ldr	r3, [pc, #28]	; 200 <__do_global_dtors_aux+0x3c>
+     1e0:	e3530000 	cmp	r3, #0
+     1e4:	159f0018 	ldrne	r0, [pc, #24]	; 204 <__do_global_dtors_aux+0x40>
+     1e8:	1320f000 	nopne	{0}
+     1ec:	e3a03001 	mov	r3, #1
+     1f0:	e5c43000 	strb	r3, [r4]
+     1f4:	e8bd4010 	pop	{r4, lr}
+     1f8:	e12fff1e 	bx	lr
+     1fc:	000027c8 	.word	0x000027c8
+     200:	00000000 	.word	0x00000000
+     204:	00002320 	.word	0x00002320
+
+00000208 <frame_dummy>:
+     208:	e92d4008 	push	{r3, lr}
+     20c:	e59f3034 	ldr	r3, [pc, #52]	; 248 <frame_dummy+0x40>
+     210:	e3530000 	cmp	r3, #0
+     214:	159f0030 	ldrne	r0, [pc, #48]	; 24c <frame_dummy+0x44>
+     218:	159f1030 	ldrne	r1, [pc, #48]	; 250 <frame_dummy+0x48>
+     21c:	1320f000 	nopne	{0}
+     220:	e59f002c 	ldr	r0, [pc, #44]	; 254 <frame_dummy+0x4c>
+     224:	e5903000 	ldr	r3, [r0]
+     228:	e3530000 	cmp	r3, #0
+     22c:	0a000003 	beq	240 <frame_dummy+0x38>
+     230:	e59f3020 	ldr	r3, [pc, #32]	; 258 <frame_dummy+0x50>
+     234:	e3530000 	cmp	r3, #0
+     238:	11a0e00f 	movne	lr, pc
+     23c:	112fff13 	bxne	r3
+     240:	e8bd4008 	pop	{r3, lr}
+     244:	eaffffcb 	b	178 <register_tm_clones>
+     248:	00000000 	.word	0x00000000
+     24c:	00002320 	.word	0x00002320
+     250:	000027cc 	.word	0x000027cc
+     254:	00002380 	.word	0x00002380
+     258:	00000000 	.word	0x00000000
+
+0000025c <__cs3_isr_irq>:
+
+#include "board_init.h"
+
+// Define the IRQ exception handler
+void __attribute__((interrupt)) __cs3_isr_irq(void)
+{
+     25c:	e24ee004 	sub	lr, lr, #4
+     260:	e92d500f 	push	{r0, r1, r2, r3, r12, lr}
+	// Read the ICCIAR from the processor interface
+	int address = MPCORE_GIC_CPUIF + ICCIAR;
+	int int_ID = *((int *)address);
+     264:	e3e03a13 	mvn	r3, #77824	; 0x13000
+
+	if (int_ID == KEYS_IRQ) // check if interrupt is from the KEYs
+     268:	e5133ef3 	ldr	r3, [r3, #-3827]	; 0xfffff10d
+     26c:	e3530049 	cmp	r3, #73	; 0x49
+     270:	1a000004 	bne	288 <__cs3_isr_irq+0x2c>
+	pushbutton_ISR();
+     274:	eb000363 	bl	1008 <pushbutton_ISR>
+	; // if unexpected, then stay here
+
+
+	// Write to the End of Interrupt Register (ICCEOIR)
+	address = MPCORE_GIC_CPUIF + ICCEOIR;
+	*((int *)address) = int_ID;
+     278:	e3a02049 	mov	r2, #73	; 0x49
+     27c:	e3e03a13 	mvn	r3, #77824	; 0x13000
+     280:	e5032eef 	str	r2, [r3, #-3823]	; 0xfffff111
+     284:	e8fd900f 	ldm	sp!, {r0, r1, r2, r3, r12, pc}^
+     288:	eafffffe 	b	288 <__cs3_isr_irq+0x2c>
+
+0000028c <__cs3_reset>:
+	return;
+}
+
+// Define the remaining exception handlers
+void __attribute__((interrupt)) __cs3_reset(void)
+{
+     28c:	eafffffe 	b	28c <__cs3_reset>
+
+00000290 <__cs3_isr_undef>:
+while (1)
+	;
+}
+void __attribute__((interrupt)) __cs3_isr_undef(void)
+{
+     290:	eafffffe 	b	290 <__cs3_isr_undef>
+
+00000294 <__cs3_isr_swi>:
+while (1)
+	;
+}
+void __attribute__((interrupt)) __cs3_isr_swi(void)
+{
+     294:	eafffffe 	b	294 <__cs3_isr_swi>
+
+00000298 <__cs3_isr_pabort>:
+while (1)
+	;
+}
+void __attribute__((interrupt)) __cs3_isr_pabort(void)
+{
+     298:	eafffffe 	b	298 <__cs3_isr_pabort>
+
+0000029c <__cs3_isr_dabort>:
+while (1)
+	;
+}
+void __attribute__((interrupt)) __cs3_isr_dabort(void)
+{
+     29c:	eafffffe 	b	29c <__cs3_isr_dabort>
+
+000002a0 <__cs3_isr_fiq>:
+while (1)
+	;
+}
+void __attribute__((interrupt)) __cs3_isr_fiq(void)
+{
+     2a0:	eafffffe 	b	2a0 <__cs3_isr_fiq>
+
+000002a4 <config_KEYs>:
+}
+
+void config_KEYs()
+{
+	volatile int * KEY_ptr = (int *)KEY_BASE; // pushbutton KEY address
+	*(KEY_ptr + 2) = 0xf; // enable interrupts for all keys
+     2a4:	e3a03000 	mov	r3, #0
+     2a8:	e34f3f20 	movt	r3, #65312	; 0xff20
+     2ac:	e3a0200f 	mov	r2, #15
+     2b0:	e5832058 	str	r2, [r3, #88]	; 0x58
+     2b4:	e12fff1e 	bx	lr
+
+000002b8 <set_A9_IRQ_stack>:
+{
+	int stack, mode;
+	stack = A9_ONCHIP_END - 7; // top of A9 onchip memory, aligned to 8 bytes
+	/* change processor to IRQ mode with interrupts disabled */
+	mode = INT_DISABLE | IRQ_MODE;
+	asm("msr cpsr, %[ps]" : : [ps] "r"(mode));
+     2b8:	e3a030d2 	mov	r3, #210	; 0xd2
+     2bc:	e129f003 	msr	CPSR_fc, r3
+	/* set banked stack pointer */
+	asm("mov sp, %[ps]" : : [ps] "r"(stack));
+     2c0:	e3e03007 	mvn	r3, #7
+     2c4:	e1a0d003 	mov	sp, r3
+	/* go back to SVC mode before executing subroutine return! */
+	mode = INT_DISABLE | SVC_MODE;
+	asm("msr cpsr, %[ps]" : : [ps] "r"(mode));
+     2c8:	e3a030d3 	mov	r3, #211	; 0xd3
+     2cc:	e129f003 	msr	CPSR_fc, r3
+     2d0:	e12fff1e 	bx	lr
+
+000002d4 <enable_A9_interrupts>:
+* Turn on interrupts in the ARM processor
+*/
+void enable_A9_interrupts(void)
+{
+	int status = SVC_MODE | INT_ENABLE;
+	asm("msr cpsr, %[ps]" : : [ps] "r"(status));
+     2d4:	e3a03053 	mov	r3, #83	; 0x53
+     2d8:	e129f003 	msr	CPSR_fc, r3
+     2dc:	e12fff1e 	bx	lr
+
+000002e0 <config_GIC>:
+void config_GIC(void) //right now nothing is configured
+{
+	int address; // used to calculate register addresses
+	/* configure the KEYs interrupts */
+	//*((int *)0xFFFED848) = 0x00000101;
+	*((int *)0xFFFED108) = 0x00000300;//configure the private timer
+     2e0:	e3e03a12 	mvn	r3, #73728	; 0x12000
+     2e4:	e3a02c03 	mov	r2, #768	; 0x300
+     2e8:	e5032ef7 	str	r2, [r3, #-3831]	; 0xfffff109
+	// Set Interrupt Priority Mask Register (ICCPMR). Enable interrupts of all
+	// priorities
+	address = MPCORE_GIC_CPUIF + ICCPMR;
+	*((int *)address) = 0xFFFF;
+     2ec:	e3e01a13 	mvn	r1, #77824	; 0x13000
+     2f0:	e30f2fff 	movw	r2, #65535	; 0xffff
+     2f4:	e5012efb 	str	r2, [r1, #-3835]	; 0xfffff105
+	// Set CPU Interface Control Register (ICCICR). Enable signaling of
+	// interrupts
+	address = MPCORE_GIC_CPUIF + ICCICR;
+	*((int *)address) = ENABLE;
+     2f8:	e3a02001 	mov	r2, #1
+     2fc:	e5012eff 	str	r2, [r1, #-3839]	; 0xfffff101
+	// Configure the Distributor Control Register (ICDDCR) to send pending
+	// interrupts to CPUs
+	address = MPCORE_GIC_DIST + ICDDCR;
+	*((int *)address) = ENABLE;
+     300:	e5032fff 	str	r2, [r3, #-4095]	; 0xfffff001
+     304:	e12fff1e 	bx	lr
+
+00000308 <updateRingPosition>:
+	volatile int* switchData,
+	int furthestVisibleDistance, 
+	bool* lastRipple, 
+	int* numRipples, 
+	int* previousRippleRadius, 
+	double x_Boat, double y_Boat){
+     308:	e92d4ff8 	push	{r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
+     30c:	e1a0a000 	mov	r10, r0
+     310:	e1a08001 	mov	r8, r1
+     314:	e1a07002 	mov	r7, r2
+     318:	e59d6028 	ldr	r6, [sp, #40]	; 0x28
+     31c:	e59d502c 	ldr	r5, [sp, #44]	; 0x2c
+     320:	e59d4030 	ldr	r4, [sp, #48]	; 0x30
+	int i = 0;
+	
+	//if the switch is on, create another ring
+	if(globalRingCounter==10){
+     324:	e3023800 	movw	r3, #10240	; 0x2800
+     328:	e3403000 	movt	r3, #0
+     32c:	e5933000 	ldr	r3, [r3]
+     330:	e353000a 	cmp	r3, #10
+     334:	1a000019 	bne	3a0 <updateRingPosition+0x98>
+		globalRingCounter=0;
+     338:	e3023800 	movw	r3, #10240	; 0x2800
+     33c:	e3403000 	movt	r3, #0
+     340:	e3a09000 	mov	r9, #0
+     344:	e5839000 	str	r9, [r3]
+		*numRipples+=1;
+     348:	e594b000 	ldr	r11, [r4]
+     34c:	e28b3001 	add	r3, r11, #1
+     350:	e5843000 	str	r3, [r4]
+
+		rippleCenter_x[*numRipples-1] = x_Boat;
+     354:	e1cd03d8 	ldrd	r0, [sp, #56]	; 0x38
+     358:	eb0006d2 	bl	1ea8 <__aeabi_d2iz>
+     35c:	e78a010b 	str	r0, [r10, r11, lsl #2]
+		rippleCenter_y[*numRipples-1] = y_Boat;
+     360:	e594a000 	ldr	r10, [r4]
+     364:	e24aa001 	sub	r10, r10, #1
+     368:	e1cd04d0 	ldrd	r0, [sp, #64]	; 0x40
+     36c:	eb0006cd 	bl	1ea8 <__aeabi_d2iz>
+     370:	e788010a 	str	r0, [r8, r10, lsl #2]
+		rippleRadius[*numRipples-1] = 0;
+     374:	e5943000 	ldr	r3, [r4]
+     378:	e2433001 	sub	r3, r3, #1
+     37c:	e7879103 	str	r9, [r7, r3, lsl #2]
+		lastRipple[*numRipples-1] = 0;
+     380:	e5943000 	ldr	r3, [r4]
+     384:	e0853003 	add	r3, r5, r3
+     388:	e5439001 	strb	r9, [r3, #-1]
+		previousRippleRadius[*numRipples-1] = rippleRadius[*numRipples-1];
+     38c:	e5943000 	ldr	r3, [r4]
+     390:	e2433001 	sub	r3, r3, #1
+     394:	e7971103 	ldr	r1, [r7, r3, lsl #2]
+     398:	e59d2034 	ldr	r2, [sp, #52]	; 0x34
+     39c:	e7821103 	str	r1, [r2, r3, lsl #2]
+	}
+	
+	
+	//for all of the ripples, update their location
+	for(; i < *numRipples ; i++){
+     3a0:	e5943000 	ldr	r3, [r4]
+     3a4:	e3530000 	cmp	r3, #0
+     3a8:	d8bd8ff8 	pople	{r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+     3ac:	e1a02007 	mov	r2, r7
+     3b0:	e3a03000 	mov	r3, #0
+		if(rippleRadius[i] > furthestVisibleDistance){
+			lastRipple[i] = 1;	//this will lead to a ripple being deleted.	
+		}else {
+			rippleRadius[i]+=1;
+			lastRipple[i] = 0;
+     3b4:	e1a0c003 	mov	r12, r3
+	
+	
+	//for all of the ripples, update their location
+	for(; i < *numRipples ; i++){
+		if(rippleRadius[i] > furthestVisibleDistance){
+			lastRipple[i] = 1;	//this will lead to a ripple being deleted.	
+     3b8:	e3a00001 	mov	r0, #1
+	}
+	
+	
+	//for all of the ripples, update their location
+	for(; i < *numRipples ; i++){
+		if(rippleRadius[i] > furthestVisibleDistance){
+     3bc:	e4921004 	ldr	r1, [r2], #4
+     3c0:	e1510006 	cmp	r1, r6
+			lastRipple[i] = 1;	//this will lead to a ripple being deleted.	
+     3c4:	c7c50003 	strbgt	r0, [r5, r3]
+		}else {
+			rippleRadius[i]+=1;
+     3c8:	d2811001 	addle	r1, r1, #1
+     3cc:	d5021004 	strle	r1, [r2, #-4]
+			lastRipple[i] = 0;
+     3d0:	d7c5c003 	strble	r12, [r5, r3]
+		previousRippleRadius[*numRipples-1] = rippleRadius[*numRipples-1];
+	}
+	
+	
+	//for all of the ripples, update their location
+	for(; i < *numRipples ; i++){
+     3d4:	e2833001 	add	r3, r3, #1
+     3d8:	e5941000 	ldr	r1, [r4]
+     3dc:	e1510003 	cmp	r1, r3
+     3e0:	cafffff5 	bgt	3bc <updateRingPosition+0xb4>
+     3e4:	e8bd8ff8 	pop	{r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+
+000003e8 <manageKeyPress>:
+			lastRipple[i] = 0;
+		}
+	}
+}
+
+void manageKeyPress(volatile int* keyData){
+     3e8:	e92d4010 	push	{r4, lr}
+     3ec:	e24dd010 	sub	sp, sp, #16
+	int keysPressed = *keyData;
+     3f0:	e5903000 	ldr	r3, [r0]
+			lastRipple[i] = 0;
+		}
+	}
+}
+
+void manageKeyPress(volatile int* keyData){
+     3f4:	e24d2004 	sub	r2, sp, #4
+     3f8:	e28d000c 	add	r0, sp, #12
+	int arrayOfPressedKeys[4];
+	
+	int i = 0;
+	
+	for(; i<4 ; i++){
+		arrayOfPressedKeys[i] = keysPressed&0b1;
+     3fc:	e2031001 	and	r1, r3, #1
+     400:	e5a21004 	str	r1, [r2, #4]!
+		keysPressed/=2;
+     404:	e0833fa3 	add	r3, r3, r3, lsr #31
+     408:	e1a030c3 	asr	r3, r3, #1
+	int keysPressed = *keyData;
+	int arrayOfPressedKeys[4];
+	
+	int i = 0;
+	
+	for(; i<4 ; i++){
+     40c:	e1520000 	cmp	r2, r0
+     410:	1afffff9 	bne	3fc <manageKeyPress+0x14>
+		arrayOfPressedKeys[i] = keysPressed&0b1;
+		keysPressed/=2;
+	}
+	
+	if(arrayOfPressedKeys[0]){
+     414:	e59d3000 	ldr	r3, [sp]
+     418:	e3530000 	cmp	r3, #0
+     41c:	0a000007 	beq	440 <manageKeyPress+0x58>
+		dx_Boat+=0.25;
+     420:	e30247f0 	movw	r4, #10224	; 0x27f0
+     424:	e3404000 	movt	r4, #0
+     428:	e1c400d0 	ldrd	r0, [r4]
+     42c:	e3a02000 	mov	r2, #0
+     430:	e3a03000 	mov	r3, #0
+     434:	e3433fd0 	movt	r3, #16336	; 0x3fd0
+     438:	eb00041e 	bl	14b8 <__adddf3>
+     43c:	e1c400f0 	strd	r0, [r4]
+	}
+	if(arrayOfPressedKeys[1]){
+     440:	e59d3004 	ldr	r3, [sp, #4]
+     444:	e3530000 	cmp	r3, #0
+     448:	0a000007 	beq	46c <manageKeyPress+0x84>
+		dy_Boat-=0.25;
+     44c:	e30247f8 	movw	r4, #10232	; 0x27f8
+     450:	e3404000 	movt	r4, #0
+     454:	e1c400d0 	ldrd	r0, [r4]
+     458:	e3a02000 	mov	r2, #0
+     45c:	e3a03000 	mov	r3, #0
+     460:	e3433fd0 	movt	r3, #16336	; 0x3fd0
+     464:	eb000412 	bl	14b4 <__aeabi_dsub>
+     468:	e1c400f0 	strd	r0, [r4]
+	}
+	if(arrayOfPressedKeys[2]){
+     46c:	e59d3008 	ldr	r3, [sp, #8]
+     470:	e3530000 	cmp	r3, #0
+     474:	0a000007 	beq	498 <manageKeyPress+0xb0>
+		dy_Boat+=0.25;
+     478:	e30247f8 	movw	r4, #10232	; 0x27f8
+     47c:	e3404000 	movt	r4, #0
+     480:	e1c400d0 	ldrd	r0, [r4]
+     484:	e3a02000 	mov	r2, #0
+     488:	e3a03000 	mov	r3, #0
+     48c:	e3433fd0 	movt	r3, #16336	; 0x3fd0
+     490:	eb000408 	bl	14b8 <__adddf3>
+     494:	e1c400f0 	strd	r0, [r4]
+	}
+	if(arrayOfPressedKeys[3]){
+     498:	e59d300c 	ldr	r3, [sp, #12]
+     49c:	e3530000 	cmp	r3, #0
+     4a0:	0a000007 	beq	4c4 <manageKeyPress+0xdc>
+		dx_Boat-=0.25;
+     4a4:	e30247f0 	movw	r4, #10224	; 0x27f0
+     4a8:	e3404000 	movt	r4, #0
+     4ac:	e1c400d0 	ldrd	r0, [r4]
+     4b0:	e3a02000 	mov	r2, #0
+     4b4:	e3a03000 	mov	r3, #0
+     4b8:	e3433fd0 	movt	r3, #16336	; 0x3fd0
+     4bc:	eb0003fc 	bl	14b4 <__aeabi_dsub>
+     4c0:	e1c400f0 	strd	r0, [r4]
+	}	
+     4c4:	e28dd010 	add	sp, sp, #16
+     4c8:	e8bd8010 	pop	{r4, pc}
+
+000004cc <updateBoatPositionAndSpeed>:
+void updateBoatPositionAndSpeed(
+	int* x_Boat, int* y_Boat, 
+	int width, int height, 
+	volatile int* keyData,
+	int gyro_x_rate,
+	int gyro_y_rate){
+     4cc:	e92d4ff8 	push	{r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
+     4d0:	e1a0a000 	mov	r10, r0
+     4d4:	e1a08001 	mov	r8, r1
+     4d8:	e1a0b002 	mov	r11, r2
+     4dc:	e1a09003 	mov	r9, r3
+     4e0:	e59d0028 	ldr	r0, [sp, #40]	; 0x28
+     4e4:	e59d402c 	ldr	r4, [sp, #44]	; 0x2c
+	
+	//poll the user's input to updsate dx_Boat and dy_Boat
+		if(*keyData!=0){
+     4e8:	e5903000 	ldr	r3, [r0]
+     4ec:	e3530000 	cmp	r3, #0
+     4f0:	0a000000 	beq	4f8 <updateBoatPositionAndSpeed+0x2c>
+			manageKeyPress(keyData);
+     4f4:	ebffffbb 	bl	3e8 <manageKeyPress>
+		else{
+			gyro_y_dec = gyro_y_rate;
+		}
+
+	// adjust the value of dx_boat and dy_boat
+		dx_Boat += gyro_x_dec/100;
+     4f8:	e308751f 	movw	r7, #34079	; 0x851f
+     4fc:	e34571eb 	movt	r7, #20971	; 0x51eb
+     500:	e0c02497 	smull	r2, r0, r7, r4
+     504:	e1a04fc4 	asr	r4, r4, #31
+     508:	e06402c0 	rsb	r0, r4, r0, asr #5
+     50c:	eb0004b6 	bl	17ec <__aeabi_i2d>
+     510:	e30267f0 	movw	r6, #10224	; 0x27f0
+     514:	e3406000 	movt	r6, #0
+     518:	e1c620d0 	ldrd	r2, [r6]
+     51c:	eb0003e5 	bl	14b8 <__adddf3>
+     520:	e1a04000 	mov	r4, r0
+     524:	e1a05001 	mov	r5, r1
+     528:	e1c640f0 	strd	r4, [r6]
+		dy_Boat += gyro_y_dec/100;
+     52c:	e30267f8 	movw	r6, #10232	; 0x27f8
+     530:	e3406000 	movt	r6, #0
+     534:	e59d3030 	ldr	r3, [sp, #48]	; 0x30
+     538:	e0c03397 	smull	r3, r0, r7, r3
+     53c:	e59d2030 	ldr	r2, [sp, #48]	; 0x30
+     540:	e1a03fc2 	asr	r3, r2, #31
+     544:	e06302c0 	rsb	r0, r3, r0, asr #5
+     548:	eb0004a7 	bl	17ec <__aeabi_i2d>
+     54c:	e1c620d0 	ldrd	r2, [r6]
+     550:	eb0003d8 	bl	14b8 <__adddf3>
+     554:	e1c600f0 	strd	r0, [r6]
+
+	//make sure the boat's position will be inbounds if we add dx_Boat and dy_Boat. If it's not, kill the boat's speed.
+		if(*x_Boat + (int)dx_Boat > 320-(width-1)){
+     558:	e59a6000 	ldr	r6, [r10]
+     55c:	e1a00004 	mov	r0, r4
+     560:	e1a01005 	mov	r1, r5
+     564:	eb00064f 	bl	1ea8 <__aeabi_d2iz>
+     568:	e0860000 	add	r0, r6, r0
+     56c:	e26bbd05 	rsb	r11, r11, #320	; 0x140
+     570:	e28bb001 	add	r11, r11, #1
+     574:	e150000b 	cmp	r0, r11
+     578:	da000006 	ble	598 <updateBoatPositionAndSpeed+0xcc>
+			dx_Boat = 0;
+     57c:	e30217f0 	movw	r1, #10224	; 0x27f0
+     580:	e3401000 	movt	r1, #0
+     584:	e3a02000 	mov	r2, #0
+     588:	e3a03000 	mov	r3, #0
+     58c:	e1c120f0 	strd	r2, [r1]
+			*x_Boat = 320-(width-1);
+     590:	e58ab000 	str	r11, [r10]
+     594:	ea000012 	b	5e4 <updateBoatPositionAndSpeed+0x118>
+		}
+		else if(*x_Boat + (int)dx_Boat < 0){
+     598:	e3500000 	cmp	r0, #0
+     59c:	aa000007 	bge	5c0 <updateBoatPositionAndSpeed+0xf4>
+			dx_Boat = 0;
+     5a0:	e30217f0 	movw	r1, #10224	; 0x27f0
+     5a4:	e3401000 	movt	r1, #0
+     5a8:	e3a02000 	mov	r2, #0
+     5ac:	e3a03000 	mov	r3, #0
+     5b0:	e1c120f0 	strd	r2, [r1]
+			*x_Boat = 0;
+     5b4:	e3a03000 	mov	r3, #0
+     5b8:	e58a3000 	str	r3, [r10]
+     5bc:	ea000008 	b	5e4 <updateBoatPositionAndSpeed+0x118>
+		}
+		else{
+			*x_Boat = *x_Boat + dx_Boat;
+     5c0:	e1a00006 	mov	r0, r6
+     5c4:	eb000488 	bl	17ec <__aeabi_i2d>
+     5c8:	e1a02000 	mov	r2, r0
+     5cc:	e1a03001 	mov	r3, r1
+     5d0:	e1a00004 	mov	r0, r4
+     5d4:	e1a01005 	mov	r1, r5
+     5d8:	eb0003b6 	bl	14b8 <__adddf3>
+     5dc:	eb000631 	bl	1ea8 <__aeabi_d2iz>
+     5e0:	e58a0000 	str	r0, [r10]
+		}
+		
+		if(*y_Boat + dy_Boat > 240-(height-1)){
+     5e4:	e5980000 	ldr	r0, [r8]
+     5e8:	eb00047f 	bl	17ec <__aeabi_i2d>
+     5ec:	e30237f8 	movw	r3, #10232	; 0x27f8
+     5f0:	e3403000 	movt	r3, #0
+     5f4:	e1c320d0 	ldrd	r2, [r3]
+     5f8:	eb0003ae 	bl	14b8 <__adddf3>
+     5fc:	e1a04000 	mov	r4, r0
+     600:	e1a05001 	mov	r5, r1
+     604:	e26990f1 	rsb	r9, r9, #241	; 0xf1
+     608:	e1a00009 	mov	r0, r9
+     60c:	eb000476 	bl	17ec <__aeabi_i2d>
+     610:	e1a02000 	mov	r2, r0
+     614:	e1a03001 	mov	r3, r1
+     618:	e1a00004 	mov	r0, r4
+     61c:	e1a01005 	mov	r1, r5
+     620:	eb00061a 	bl	1e90 <__aeabi_dcmpgt>
+     624:	e3500000 	cmp	r0, #0
+     628:	0a000006 	beq	648 <updateBoatPositionAndSpeed+0x17c>
+			dy_Boat = 0;
+     62c:	e30217f8 	movw	r1, #10232	; 0x27f8
+     630:	e3401000 	movt	r1, #0
+     634:	e3a02000 	mov	r2, #0
+     638:	e3a03000 	mov	r3, #0
+     63c:	e1c120f0 	strd	r2, [r1]
+			*y_Boat = 240-(height-1);
+     640:	e5889000 	str	r9, [r8]
+     644:	ea000012 	b	694 <updateBoatPositionAndSpeed+0x1c8>
+		} else if(*y_Boat + dy_Boat < 0){
+     648:	e1a00004 	mov	r0, r4
+     64c:	e1a01005 	mov	r1, r5
+     650:	e3a02000 	mov	r2, #0
+     654:	e3a03000 	mov	r3, #0
+     658:	eb0005fa 	bl	1e48 <__aeabi_dcmplt>
+     65c:	e3500000 	cmp	r0, #0
+     660:	0a000007 	beq	684 <updateBoatPositionAndSpeed+0x1b8>
+			dy_Boat = 0;
+     664:	e30217f8 	movw	r1, #10232	; 0x27f8
+     668:	e3401000 	movt	r1, #0
+     66c:	e3a02000 	mov	r2, #0
+     670:	e3a03000 	mov	r3, #0
+     674:	e1c120f0 	strd	r2, [r1]
+			*y_Boat = 0;
+     678:	e3a03000 	mov	r3, #0
+     67c:	e5883000 	str	r3, [r8]
+     680:	ea000003 	b	694 <updateBoatPositionAndSpeed+0x1c8>
+		} else{
+			*y_Boat = *y_Boat + dy_Boat;
+     684:	e1a00004 	mov	r0, r4
+     688:	e1a01005 	mov	r1, r5
+     68c:	eb000605 	bl	1ea8 <__aeabi_d2iz>
+     690:	e5880000 	str	r0, [r8]
+		}
+		
+		//account for the drag force of the water which decelerates the boat.
+		if(dx_Boat>0){
+     694:	e30237f0 	movw	r3, #10224	; 0x27f0
+     698:	e3403000 	movt	r3, #0
+     69c:	e1c340d0 	ldrd	r4, [r3]
+     6a0:	e1a00004 	mov	r0, r4
+     6a4:	e1a01005 	mov	r1, r5
+     6a8:	e3a02000 	mov	r2, #0
+     6ac:	e3a03000 	mov	r3, #0
+     6b0:	eb0005f6 	bl	1e90 <__aeabi_dcmpgt>
+     6b4:	e3500000 	cmp	r0, #0
+     6b8:	0a000015 	beq	714 <updateBoatPositionAndSpeed+0x248>
+			dx_Boat -= pow(dx_Boat,2)/75+0.01;
+     6bc:	e30267f0 	movw	r6, #10224	; 0x27f0
+     6c0:	e3406000 	movt	r6, #0
+     6c4:	e1a00004 	mov	r0, r4
+     6c8:	e1a01005 	mov	r1, r5
+     6cc:	e1a02004 	mov	r2, r4
+     6d0:	e1a03005 	mov	r3, r5
+     6d4:	eb00047b 	bl	18c8 <__aeabi_dmul>
+     6d8:	e3a02000 	mov	r2, #0
+     6dc:	e3a03903 	mov	r3, #49152	; 0xc000
+     6e0:	e3443052 	movt	r3, #16466	; 0x4052
+     6e4:	eb00051b 	bl	1b58 <__aeabi_ddiv>
+     6e8:	e301247b 	movw	r2, #5243	; 0x147b
+     6ec:	e34427ae 	movt	r2, #18350	; 0x47ae
+     6f0:	e3073ae1 	movw	r3, #31457	; 0x7ae1
+     6f4:	e3433f84 	movt	r3, #16260	; 0x3f84
+     6f8:	eb00036e 	bl	14b8 <__adddf3>
+     6fc:	e1a02000 	mov	r2, r0
+     700:	e1a03001 	mov	r3, r1
+     704:	e1a00004 	mov	r0, r4
+     708:	e1a01005 	mov	r1, r5
+     70c:	eb000368 	bl	14b4 <__aeabi_dsub>
+     710:	e1c600f0 	strd	r0, [r6]
+		}
+		if(dx_Boat<0){
+     714:	e30237f0 	movw	r3, #10224	; 0x27f0
+     718:	e3403000 	movt	r3, #0
+     71c:	e1c340d0 	ldrd	r4, [r3]
+     720:	e1a00004 	mov	r0, r4
+     724:	e1a01005 	mov	r1, r5
+     728:	e3a02000 	mov	r2, #0
+     72c:	e3a03000 	mov	r3, #0
+     730:	eb0005c4 	bl	1e48 <__aeabi_dcmplt>
+     734:	e3500000 	cmp	r0, #0
+     738:	0a000015 	beq	794 <updateBoatPositionAndSpeed+0x2c8>
+			dx_Boat += pow(dx_Boat,2)/75+0.01;
+     73c:	e30267f0 	movw	r6, #10224	; 0x27f0
+     740:	e3406000 	movt	r6, #0
+     744:	e1a00004 	mov	r0, r4
+     748:	e1a01005 	mov	r1, r5
+     74c:	e1a02004 	mov	r2, r4
+     750:	e1a03005 	mov	r3, r5
+     754:	eb00045b 	bl	18c8 <__aeabi_dmul>
+     758:	e3a02000 	mov	r2, #0
+     75c:	e3a03903 	mov	r3, #49152	; 0xc000
+     760:	e3443052 	movt	r3, #16466	; 0x4052
+     764:	eb0004fb 	bl	1b58 <__aeabi_ddiv>
+     768:	e301247b 	movw	r2, #5243	; 0x147b
+     76c:	e34427ae 	movt	r2, #18350	; 0x47ae
+     770:	e3073ae1 	movw	r3, #31457	; 0x7ae1
+     774:	e3433f84 	movt	r3, #16260	; 0x3f84
+     778:	eb00034e 	bl	14b8 <__adddf3>
+     77c:	e1a02000 	mov	r2, r0
+     780:	e1a03001 	mov	r3, r1
+     784:	e1a00004 	mov	r0, r4
+     788:	e1a01005 	mov	r1, r5
+     78c:	eb000349 	bl	14b8 <__adddf3>
+     790:	e1c600f0 	strd	r0, [r6]
+		}
+		if(dy_Boat>0){
+     794:	e30237f8 	movw	r3, #10232	; 0x27f8
+     798:	e3403000 	movt	r3, #0
+     79c:	e1c340d0 	ldrd	r4, [r3]
+     7a0:	e1a00004 	mov	r0, r4
+     7a4:	e1a01005 	mov	r1, r5
+     7a8:	e3a02000 	mov	r2, #0
+     7ac:	e3a03000 	mov	r3, #0
+     7b0:	eb0005b6 	bl	1e90 <__aeabi_dcmpgt>
+     7b4:	e3500000 	cmp	r0, #0
+     7b8:	0a000015 	beq	814 <updateBoatPositionAndSpeed+0x348>
+			dy_Boat -= pow(dy_Boat,2)/75+0.01;
+     7bc:	e30267f8 	movw	r6, #10232	; 0x27f8
+     7c0:	e3406000 	movt	r6, #0
+     7c4:	e1a00004 	mov	r0, r4
+     7c8:	e1a01005 	mov	r1, r5
+     7cc:	e1a02004 	mov	r2, r4
+     7d0:	e1a03005 	mov	r3, r5
+     7d4:	eb00043b 	bl	18c8 <__aeabi_dmul>
+     7d8:	e3a02000 	mov	r2, #0
+     7dc:	e3a03903 	mov	r3, #49152	; 0xc000
+     7e0:	e3443052 	movt	r3, #16466	; 0x4052
+     7e4:	eb0004db 	bl	1b58 <__aeabi_ddiv>
+     7e8:	e301247b 	movw	r2, #5243	; 0x147b
+     7ec:	e34427ae 	movt	r2, #18350	; 0x47ae
+     7f0:	e3073ae1 	movw	r3, #31457	; 0x7ae1
+     7f4:	e3433f84 	movt	r3, #16260	; 0x3f84
+     7f8:	eb00032e 	bl	14b8 <__adddf3>
+     7fc:	e1a02000 	mov	r2, r0
+     800:	e1a03001 	mov	r3, r1
+     804:	e1a00004 	mov	r0, r4
+     808:	e1a01005 	mov	r1, r5
+     80c:	eb000328 	bl	14b4 <__aeabi_dsub>
+     810:	e1c600f0 	strd	r0, [r6]
+		}
+		if(dy_Boat<0){
+     814:	e30237f8 	movw	r3, #10232	; 0x27f8
+     818:	e3403000 	movt	r3, #0
+     81c:	e1c340d0 	ldrd	r4, [r3]
+     820:	e1a00004 	mov	r0, r4
+     824:	e1a01005 	mov	r1, r5
+     828:	e3a02000 	mov	r2, #0
+     82c:	e3a03000 	mov	r3, #0
+     830:	eb000584 	bl	1e48 <__aeabi_dcmplt>
+     834:	e3500000 	cmp	r0, #0
+     838:	08bd8ff8 	popeq	{r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+			dy_Boat += pow(dy_Boat,2)/75+0.01;
+     83c:	e30267f8 	movw	r6, #10232	; 0x27f8
+     840:	e3406000 	movt	r6, #0
+     844:	e1a00004 	mov	r0, r4
+     848:	e1a01005 	mov	r1, r5
+     84c:	e1a02004 	mov	r2, r4
+     850:	e1a03005 	mov	r3, r5
+     854:	eb00041b 	bl	18c8 <__aeabi_dmul>
+     858:	e3a02000 	mov	r2, #0
+     85c:	e3a03903 	mov	r3, #49152	; 0xc000
+     860:	e3443052 	movt	r3, #16466	; 0x4052
+     864:	eb0004bb 	bl	1b58 <__aeabi_ddiv>
+     868:	e301247b 	movw	r2, #5243	; 0x147b
+     86c:	e34427ae 	movt	r2, #18350	; 0x47ae
+     870:	e3073ae1 	movw	r3, #31457	; 0x7ae1
+     874:	e3433f84 	movt	r3, #16260	; 0x3f84
+     878:	eb00030e 	bl	14b8 <__adddf3>
+     87c:	e1a02000 	mov	r2, r0
+     880:	e1a03001 	mov	r3, r1
+     884:	e1a00004 	mov	r0, r4
+     888:	e1a01005 	mov	r1, r5
+     88c:	eb000309 	bl	14b8 <__adddf3>
+     890:	e1c600f0 	strd	r0, [r6]
+     894:	e8bd8ff8 	pop	{r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+
+00000898 <plot_pixel>:
+
+#include "graphics_util.h"
+
+void plot_pixel(int x, int y, short int line_color)
+{
+    *(short int *)(pixel_buffer_start + (y << 10) + (x << 1)) = line_color;
+     898:	e30237e8 	movw	r3, #10216	; 0x27e8
+     89c:	e3403000 	movt	r3, #0
+     8a0:	e5933000 	ldr	r3, [r3]
+     8a4:	e1a00080 	lsl	r0, r0, #1
+     8a8:	e0831501 	add	r1, r3, r1, lsl #10
+     8ac:	e18120b0 	strh	r2, [r1, r0]
+     8b0:	e12fff1e 	bx	lr
+
+000008b4 <wait_for_vsync>:
+		plot_pixel(xCenter-y,yCenter-x,ring_Color);
+}
+
+
+void wait_for_vsync(volatile int* pixelStatusPtr, volatile int* pixel_ctrl_ptr){
+	*pixel_ctrl_ptr = 1; //initializ the S bit
+     8b4:	e3a03001 	mov	r3, #1
+     8b8:	e5813000 	str	r3, [r1]
+	while ((*pixelStatusPtr&1)!=0){//don't draw the next thing until the whole screen has been drawn
+     8bc:	e5903000 	ldr	r3, [r0]
+     8c0:	e3130001 	tst	r3, #1
+     8c4:	1afffffc 	bne	8bc <wait_for_vsync+0x8>
+			;
+		}
+}
+     8c8:	e12fff1e 	bx	lr
+
+000008cc <screenContains>:
+
+bool screenContains(int x, int y){
+	if(x < 320 && x >= 0 && y < 240 && y >=0){
+     8cc:	e35100ef 	cmp	r1, #239	; 0xef
+     8d0:	c3a03000 	movgt	r3, #0
+     8d4:	d3a03001 	movle	r3, #1
+     8d8:	e3500d05 	cmp	r0, #320	; 0x140
+     8dc:	23a03000 	movcs	r3, #0
+     8e0:	e1a00003 	mov	r0, r3
+     8e4:	e3530000 	cmp	r3, #0
+     8e8:	11e00001 	mvnne	r0, r1
+     8ec:	11a00fa0 	lsrne	r0, r0, #31
+		return true;
+	}else{
+		return false;
+     8f0:	03a00000 	moveq	r0, #0
+	}
+}
+     8f4:	e12fff1e 	bx	lr
+
+000008f8 <plotEightSymmetricPixels>:
+
+void plot_pixel(int x, int y, short int line_color)
+{
+    *(short int *)(pixel_buffer_start + (y << 10) + (x << 1)) = line_color;
+}
+void plotEightSymmetricPixels(int xCenter, int yCenter, int x, int y, short int ring_Color){
+     8f8:	e92d4ff8 	push	{r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
+     8fc:	e1a07000 	mov	r7, r0
+     900:	e1a05001 	mov	r5, r1
+     904:	e1a04002 	mov	r4, r2
+     908:	e1a06003 	mov	r6, r3
+     90c:	e1dda2f8 	ldrsh	r10, [sp, #40]	; 0x28
+	
+	if(screenContains(xCenter+x,yCenter+y))
+     910:	e080b002 	add	r11, r0, r2
+     914:	e0818003 	add	r8, r1, r3
+     918:	e1a0000b 	mov	r0, r11
+     91c:	e1a01008 	mov	r1, r8
+     920:	ebffffe9 	bl	8cc <screenContains>
+     924:	e3500000 	cmp	r0, #0
+     928:	0a000003 	beq	93c <plotEightSymmetricPixels+0x44>
+		plot_pixel(xCenter+x,yCenter+y,ring_Color);
+     92c:	e1a0000b 	mov	r0, r11
+     930:	e1a01008 	mov	r1, r8
+     934:	e1a0200a 	mov	r2, r10
+     938:	ebffffd6 	bl	898 <plot_pixel>
+	
+	if(screenContains(xCenter-x,yCenter+y))
+     93c:	e0649007 	rsb	r9, r4, r7
+     940:	e1a00009 	mov	r0, r9
+     944:	e1a01008 	mov	r1, r8
+     948:	ebffffdf 	bl	8cc <screenContains>
+     94c:	e3500000 	cmp	r0, #0
+     950:	0a000003 	beq	964 <plotEightSymmetricPixels+0x6c>
+		plot_pixel(xCenter-x,yCenter+y,ring_Color);
+     954:	e1a00009 	mov	r0, r9
+     958:	e1a01008 	mov	r1, r8
+     95c:	e1a0200a 	mov	r2, r10
+     960:	ebffffcc 	bl	898 <plot_pixel>
+	
+	if(screenContains(xCenter+x,yCenter-y))
+     964:	e0668005 	rsb	r8, r6, r5
+     968:	e1a0000b 	mov	r0, r11
+     96c:	e1a01008 	mov	r1, r8
+     970:	ebffffd5 	bl	8cc <screenContains>
+     974:	e3500000 	cmp	r0, #0
+     978:	0a000003 	beq	98c <plotEightSymmetricPixels+0x94>
+		plot_pixel(xCenter+x,yCenter-y,ring_Color);
+     97c:	e1a0000b 	mov	r0, r11
+     980:	e1a01008 	mov	r1, r8
+     984:	e1a0200a 	mov	r2, r10
+     988:	ebffffc2 	bl	898 <plot_pixel>
+	
+	if(screenContains(xCenter-x,yCenter-y))
+     98c:	e1a00009 	mov	r0, r9
+     990:	e1a01008 	mov	r1, r8
+     994:	ebffffcc 	bl	8cc <screenContains>
+     998:	e3500000 	cmp	r0, #0
+     99c:	0a000003 	beq	9b0 <plotEightSymmetricPixels+0xb8>
+		plot_pixel(xCenter-x,yCenter-y,ring_Color);
+     9a0:	e1a00009 	mov	r0, r9
+     9a4:	e1a01008 	mov	r1, r8
+     9a8:	e1a0200a 	mov	r2, r10
+     9ac:	ebffffb9 	bl	898 <plot_pixel>
+	
+	if(screenContains(xCenter+y,yCenter+x))
+     9b0:	e0878006 	add	r8, r7, r6
+     9b4:	e0859004 	add	r9, r5, r4
+     9b8:	e1a00008 	mov	r0, r8
+     9bc:	e1a01009 	mov	r1, r9
+     9c0:	ebffffc1 	bl	8cc <screenContains>
+     9c4:	e3500000 	cmp	r0, #0
+     9c8:	0a000003 	beq	9dc <plotEightSymmetricPixels+0xe4>
+		plot_pixel(xCenter+y,yCenter+x,ring_Color);
+     9cc:	e1a00008 	mov	r0, r8
+     9d0:	e1a01009 	mov	r1, r9
+     9d4:	e1a0200a 	mov	r2, r10
+     9d8:	ebffffae 	bl	898 <plot_pixel>
+	
+	if(screenContains(xCenter-y,yCenter+x))
+     9dc:	e0666007 	rsb	r6, r6, r7
+     9e0:	e1a00006 	mov	r0, r6
+     9e4:	e1a01009 	mov	r1, r9
+     9e8:	ebffffb7 	bl	8cc <screenContains>
+     9ec:	e3500000 	cmp	r0, #0
+     9f0:	0a000003 	beq	a04 <plotEightSymmetricPixels+0x10c>
+		plot_pixel(xCenter-y,yCenter+x,ring_Color);
+     9f4:	e1a00006 	mov	r0, r6
+     9f8:	e1a01009 	mov	r1, r9
+     9fc:	e1a0200a 	mov	r2, r10
+     a00:	ebffffa4 	bl	898 <plot_pixel>
+	
+	if(screenContains(xCenter+y,yCenter-x))
+     a04:	e0644005 	rsb	r4, r4, r5
+     a08:	e1a00008 	mov	r0, r8
+     a0c:	e1a01004 	mov	r1, r4
+     a10:	ebffffad 	bl	8cc <screenContains>
+     a14:	e3500000 	cmp	r0, #0
+     a18:	0a000003 	beq	a2c <plotEightSymmetricPixels+0x134>
+		plot_pixel(xCenter+y,yCenter-x,ring_Color);
+     a1c:	e1a00008 	mov	r0, r8
+     a20:	e1a01004 	mov	r1, r4
+     a24:	e1a0200a 	mov	r2, r10
+     a28:	ebffff9a 	bl	898 <plot_pixel>
+	
+	if(screenContains(xCenter-y,yCenter-x))
+     a2c:	e1a00006 	mov	r0, r6
+     a30:	e1a01004 	mov	r1, r4
+     a34:	ebffffa4 	bl	8cc <screenContains>
+     a38:	e3500000 	cmp	r0, #0
+     a3c:	08bd8ff8 	popeq	{r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+		plot_pixel(xCenter-y,yCenter-x,ring_Color);
+     a40:	e1a00006 	mov	r0, r6
+     a44:	e1a01004 	mov	r1, r4
+     a48:	e1a0200a 	mov	r2, r10
+     a4c:	ebffff91 	bl	898 <plot_pixel>
+     a50:	e8bd8ff8 	pop	{r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+
+00000a54 <draw_line>:
+	}else{
+		return false;
+	}
+}
+
+void draw_line(int x0, int x1, int y0, int y1, short int color){
+     a54:	e92d4ff0 	push	{r4, r5, r6, r7, r8, r9, r10, r11, lr}
+     a58:	e24dd00c 	sub	sp, sp, #12
+     a5c:	e1a08001 	mov	r8, r1
+     a60:	e1dd93f0 	ldrsh	r9, [sp, #48]	; 0x30
+	int absy = y1-y0;
+     a64:	e062a003 	rsb	r10, r2, r3
+	int absx = x1-x0;
+     a68:	e0601001 	rsb	r1, r0, r1
+	}
+	if(absx < 0){
+		absx = absx*(-1);
+	}
+
+	int isSteep = absy > absx;
+     a6c:	e35a0000 	cmp	r10, #0
+     a70:	b26aa000 	rsblt	r10, r10, #0
+     a74:	e3510000 	cmp	r1, #0
+     a78:	b2611000 	rsblt	r1, r1, #0
+     a7c:	e15a0001 	cmp	r10, r1
+     a80:	d3a0a000 	movle	r10, #0
+     a84:	c3a0a001 	movgt	r10, #1
+	int swap = 0;
+	
+	if (isSteep){
+     a88:	e35a0000 	cmp	r10, #0
+     a8c:	0a000005 	beq	aa8 <draw_line+0x54>
+     a90:	e1a01008 	mov	r1, r8
+		swap = x0;
+		x0 = y0;
+		y0 = swap;
+		
+		swap = x1;
+		x1 = y1;
+     a94:	e1a08003 	mov	r8, r3
+		y1 = swap;
+     a98:	e1a03001 	mov	r3, r1
+	}
+
+	int isSteep = absy > absx;
+	int swap = 0;
+	
+	if (isSteep){
+     a9c:	e1a01000 	mov	r1, r0
+		swap = x0;
+		x0 = y0;
+     aa0:	e1a00002 	mov	r0, r2
+		y0 = swap;
+     aa4:	e1a02001 	mov	r2, r1
+		swap = x1;
+		x1 = y1;
+		y1 = swap;
+	}
+	
+	if (x1 < x0){
+     aa8:	e1500008 	cmp	r0, r8
+     aac:	da000005 	ble	ac8 <draw_line+0x74>
+     ab0:	e1a01002 	mov	r1, r2
+		swap = x0;
+		x0 = x1;
+		x1 = swap; 
+		
+		swap = y0;
+		y0 = y1;
+     ab4:	e1a02003 	mov	r2, r3
+		y1 = swap;
+     ab8:	e1a03001 	mov	r3, r1
+		swap = x1;
+		x1 = y1;
+		y1 = swap;
+	}
+	
+	if (x1 < x0){
+     abc:	e1a01000 	mov	r1, r0
+		swap = x0;
+		x0 = x1;
+     ac0:	e1a00008 	mov	r0, r8
+		x1 = swap; 
+     ac4:	e1a08001 	mov	r8, r1
+		swap = y0;
+		y0 = y1;
+		y1 = swap;
+	}
+
+	int deltaX = x1 - x0;
+     ac8:	e060b008 	rsb	r11, r0, r8
+	int deltaY = y1 - y0;
+	int yStep = 1;
+	
+	if(deltaY < 0){
+     acc:	e0537002 	subs	r7, r3, r2
+		deltaY = deltaY*(-1);
+     ad0:	42677000 	rsbmi	r7, r7, #0
+		yStep = -1;
+     ad4:	43e03000 	mvnmi	r3, #0
+		y1 = swap;
+	}
+
+	int deltaX = x1 - x0;
+	int deltaY = y1 - y0;
+	int yStep = 1;
+     ad8:	53a03001 	movpl	r3, #1
+     adc:	e58d3004 	str	r3, [sp, #4]
+	if(deltaY < 0){
+		deltaY = deltaY*(-1);
+		yStep = -1;
+	}
+	
+	int error = -(deltaX/2);
+     ae0:	e08b4fab 	add	r4, r11, r11, lsr #31
+     ae4:	e1a040c4 	asr	r4, r4, #1
+     ae8:	e2644000 	rsb	r4, r4, #0
+	
+	int y = y0;
+	int x = x0;
+	for (;  x <= x1 ; x++ ){
+     aec:	e1500008 	cmp	r0, r8
+     af0:	ca00000f 	bgt	b34 <draw_line+0xe0>
+	}
+	
+	int error = -(deltaX/2);
+	
+	int y = y0;
+	int x = x0;
+     af4:	e1a05000 	mov	r5, r0
+		yStep = -1;
+	}
+	
+	int error = -(deltaX/2);
+	
+	int y = y0;
+     af8:	e1a06002 	mov	r6, r2
+	int x = x0;
+	for (;  x <= x1 ; x++ ){
+		
+		if(isSteep){
+     afc:	e35a0000 	cmp	r10, #0
+			plot_pixel(y,x,color);
+     b00:	11a00006 	movne	r0, r6
+     b04:	11a01005 	movne	r1, r5
+		}else{
+			plot_pixel(x,y,color);
+     b08:	01a00005 	moveq	r0, r5
+     b0c:	01a01006 	moveq	r1, r6
+     b10:	e1a02009 	mov	r2, r9
+     b14:	ebffff5f 	bl	898 <plot_pixel>
+		}
+		
+		error = error + deltaY;
+		
+		if(error >= 0){
+     b18:	e0944007 	adds	r4, r4, r7
+			y = y + yStep;
+     b1c:	559d3004 	ldrpl	r3, [sp, #4]
+     b20:	50866003 	addpl	r6, r6, r3
+			error = error - deltaX;
+     b24:	506b4004 	rsbpl	r4, r11, r4
+	
+	int error = -(deltaX/2);
+	
+	int y = y0;
+	int x = x0;
+	for (;  x <= x1 ; x++ ){
+     b28:	e2855001 	add	r5, r5, #1
+     b2c:	e1580005 	cmp	r8, r5
+     b30:	aafffff1 	bge	afc <draw_line+0xa8>
+		if(error >= 0){
+			y = y + yStep;
+			error = error - deltaX;
+		}
+	}
+}
+     b34:	e28dd00c 	add	sp, sp, #12
+     b38:	e8bd8ff0 	pop	{r4, r5, r6, r7, r8, r9, r10, r11, pc}
+
+00000b3c <clear_screen>:
+
+void clear_screen(){
+     b3c:	e92d4070 	push	{r4, r5, r6, lr}
+	int x = 0;
+     b40:	e3a05000 	mov	r5, #0
+			error = error - deltaX;
+		}
+	}
+}
+
+void clear_screen(){
+     b44:	e1a06005 	mov	r6, r5
+     b48:	ea000009 	b	b74 <clear_screen+0x38>
+	int y = 0;
+	
+	for( ; x < 320 ; x++){
+		y = 0;
+		for( ; y < 240 ; y++ ){
+			plot_pixel(x,y,0);
+     b4c:	e1a00005 	mov	r0, r5
+     b50:	e1a01004 	mov	r1, r4
+     b54:	e1a02006 	mov	r2, r6
+     b58:	ebffff4e 	bl	898 <plot_pixel>
+	int x = 0;
+	int y = 0;
+	
+	for( ; x < 320 ; x++){
+		y = 0;
+		for( ; y < 240 ; y++ ){
+     b5c:	e2844001 	add	r4, r4, #1
+     b60:	e35400f0 	cmp	r4, #240	; 0xf0
+     b64:	1afffff8 	bne	b4c <clear_screen+0x10>
+
+void clear_screen(){
+	int x = 0;
+	int y = 0;
+	
+	for( ; x < 320 ; x++){
+     b68:	e2855001 	add	r5, r5, #1
+     b6c:	e3550d05 	cmp	r5, #320	; 0x140
+     b70:	08bd8070 	popeq	{r4, r5, r6, pc}
+			error = error - deltaX;
+		}
+	}
+}
+
+void clear_screen(){
+     b74:	e1a04006 	mov	r4, r6
+     b78:	eafffff3 	b	b4c <clear_screen+0x10>
+
+00000b7c <drawBox>:
+		}
+		
+	}
+}
+
+void drawBox(int xLeft, int yTop, int width, int height, short int color_Xs){
+     b7c:	e92d47f0 	push	{r4, r5, r6, r7, r8, r9, r10, lr}
+     b80:	e1a09001 	mov	r9, r1
+     b84:	e1a08003 	mov	r8, r3
+     b88:	e1dd72f0 	ldrsh	r7, [sp, #32]
+	int i = 0;
+	for(; i<width ; i++){
+     b8c:	e3520000 	cmp	r2, #0
+     b90:	d8bd87f0 	pople	{r4, r5, r6, r7, r8, r9, r10, pc}
+     b94:	e1a05000 	mov	r5, r0
+		}
+		
+	}
+}
+
+void drawBox(int xLeft, int yTop, int width, int height, short int color_Xs){
+     b98:	e080a002 	add	r10, r0, r2
+     b9c:	e0836001 	add	r6, r3, r1
+     ba0:	ea000009 	b	bcc <drawBox+0x50>
+	int i = 0;
+	for(; i<width ; i++){
+		
+		int j = 0;
+		for(; j < height ; j++){
+			plot_pixel(xLeft+i,yTop+j, color_Xs);
+     ba4:	e1a00005 	mov	r0, r5
+     ba8:	e1a01004 	mov	r1, r4
+     bac:	e1a02007 	mov	r2, r7
+     bb0:	ebffff38 	bl	898 <plot_pixel>
+     bb4:	e2844001 	add	r4, r4, #1
+void drawBox(int xLeft, int yTop, int width, int height, short int color_Xs){
+	int i = 0;
+	for(; i<width ; i++){
+		
+		int j = 0;
+		for(; j < height ; j++){
+     bb8:	e1540006 	cmp	r4, r6
+     bbc:	1afffff8 	bne	ba4 <drawBox+0x28>
+     bc0:	e2855001 	add	r5, r5, #1
+	}
+}
+
+void drawBox(int xLeft, int yTop, int width, int height, short int color_Xs){
+	int i = 0;
+	for(; i<width ; i++){
+     bc4:	e155000a 	cmp	r5, r10
+     bc8:	08bd87f0 	popeq	{r4, r5, r6, r7, r8, r9, r10, pc}
+		
+		int j = 0;
+		for(; j < height ; j++){
+     bcc:	e3580000 	cmp	r8, #0
+     bd0:	dafffffa 	ble	bc0 <drawBox+0x44>
+     bd4:	e1a04009 	mov	r4, r9
+     bd8:	eafffff1 	b	ba4 <drawBox+0x28>
+
+00000bdc <drawRing>:
+		}
+		
+	}
+}
+
+void drawRing(int rippleRadius, int rippleCenter_x,int rippleCenter_y,short int ring_Color){
+     bdc:	e92d45f0 	push	{r4, r5, r6, r7, r8, r10, lr}
+     be0:	e24dd00c 	sub	sp, sp, #12
+     be4:	e1a05000 	mov	r5, r0
+     be8:	e1a07001 	mov	r7, r1
+     bec:	e1a08002 	mov	r8, r2
+     bf0:	e1a0a003 	mov	r10, r3
+	//the following is Bresenham's algorithm.
+	
+	int x = 0, y = rippleRadius;
+	int d = 3 - 2 * rippleRadius;
+     bf4:	e1a06080 	lsl	r6, r0, #1
+     bf8:	e2666003 	rsb	r6, r6, #3
+	plotEightSymmetricPixels(rippleCenter_x, rippleCenter_y, x, y, ring_Color);
+     bfc:	e58d3000 	str	r3, [sp]
+     c00:	e1a00001 	mov	r0, r1
+     c04:	e1a01002 	mov	r1, r2
+     c08:	e3a02000 	mov	r2, #0
+     c0c:	e1a03005 	mov	r3, r5
+     c10:	ebffff38 	bl	8f8 <plotEightSymmetricPixels>
+	while(y >= x)
+     c14:	e3550000 	cmp	r5, #0
+     c18:	ba000010 	blt	c60 <drawRing+0x84>
+}
+
+void drawRing(int rippleRadius, int rippleCenter_x,int rippleCenter_y,short int ring_Color){
+	//the following is Bresenham's algorithm.
+	
+	int x = 0, y = rippleRadius;
+     c1c:	e3a04000 	mov	r4, #0
+	int d = 3 - 2 * rippleRadius;
+	plotEightSymmetricPixels(rippleCenter_x, rippleCenter_y, x, y, ring_Color);
+	while(y >= x)
+	{
+		x+=1;
+     c20:	e2844001 	add	r4, r4, #1
+		if(d > 0)
+     c24:	e3560000 	cmp	r6, #0
+		{
+			y--;
+     c28:	c2455001 	subgt	r5, r5, #1
+			d = d + 4 * (x - y) + 10;
+     c2c:	c065c004 	rsbgt	r12, r5, r4
+     c30:	c086610c 	addgt	r6, r6, r12, lsl #2
+     c34:	c286600a 	addgt	r6, r6, #10
+		}
+		else{
+			d = d + 4 * x + 6;
+     c38:	d0866104 	addle	r6, r6, r4, lsl #2
+     c3c:	d2866006 	addle	r6, r6, #6
+		}
+	plotEightSymmetricPixels(rippleCenter_x,rippleCenter_y,x,y,ring_Color);
+     c40:	e58da000 	str	r10, [sp]
+     c44:	e1a00007 	mov	r0, r7
+     c48:	e1a01008 	mov	r1, r8
+     c4c:	e1a02004 	mov	r2, r4
+     c50:	e1a03005 	mov	r3, r5
+     c54:	ebffff27 	bl	8f8 <plotEightSymmetricPixels>
+	//the following is Bresenham's algorithm.
+	
+	int x = 0, y = rippleRadius;
+	int d = 3 - 2 * rippleRadius;
+	plotEightSymmetricPixels(rippleCenter_x, rippleCenter_y, x, y, ring_Color);
+	while(y >= x)
+     c58:	e1550004 	cmp	r5, r4
+     c5c:	aaffffef 	bge	c20 <drawRing+0x44>
+		else{
+			d = d + 4 * x + 6;
+		}
+	plotEightSymmetricPixels(rippleCenter_x,rippleCenter_y,x,y,ring_Color);
+	}
+     c60:	e28dd00c 	add	sp, sp, #12
+     c64:	e8bd85f0 	pop	{r4, r5, r6, r7, r8, r10, pc}
+
+00000c68 <clock_low>:
+}
+
+// convinience functions for toggling inputs to gyro
+void clock_low( void ){
+	// drive clock low
+	*jp1_gpio_data_ptr &= ~(1 << SPC);
+     c68:	e3023388 	movw	r3, #9096	; 0x2388
+     c6c:	e3403000 	movt	r3, #0
+     c70:	e5933000 	ldr	r3, [r3]
+     c74:	e5932000 	ldr	r2, [r3]
+     c78:	e3c22002 	bic	r2, r2, #2
+     c7c:	e5832000 	str	r2, [r3]
+     c80:	e12fff1e 	bx	lr
+
+00000c84 <clock_high>:
+}
+void clock_high( void ){
+	// drive clock high
+	*jp1_gpio_data_ptr |= (1 << SPC);
+     c84:	e3023388 	movw	r3, #9096	; 0x2388
+     c88:	e3403000 	movt	r3, #0
+     c8c:	e5933000 	ldr	r3, [r3]
+     c90:	e5932000 	ldr	r2, [r3]
+     c94:	e3822002 	orr	r2, r2, #2
+     c98:	e5832000 	str	r2, [r3]
+     c9c:	e12fff1e 	bx	lr
+
+00000ca0 <SDI_low>:
+}
+void SDI_low( void ){
+	*jp1_gpio_data_ptr &= ~(1 << SDI);
+     ca0:	e3023388 	movw	r3, #9096	; 0x2388
+     ca4:	e3403000 	movt	r3, #0
+     ca8:	e5933000 	ldr	r3, [r3]
+     cac:	e5932000 	ldr	r2, [r3]
+     cb0:	e3c22004 	bic	r2, r2, #4
+     cb4:	e5832000 	str	r2, [r3]
+     cb8:	e12fff1e 	bx	lr
+
+00000cbc <SDI_high>:
+}
+void SDI_high( void ){
+	*jp1_gpio_data_ptr |= (1 << SDI);
+     cbc:	e3023388 	movw	r3, #9096	; 0x2388
+     cc0:	e3403000 	movt	r3, #0
+     cc4:	e5933000 	ldr	r3, [r3]
+     cc8:	e5932000 	ldr	r2, [r3]
+     ccc:	e3822004 	orr	r2, r2, #4
+     cd0:	e5832000 	str	r2, [r3]
+     cd4:	e12fff1e 	bx	lr
+
+00000cd8 <delay>:
+	// delay count of 0.001 second
+    int delay_count = 200000;
+    // pointer to private timer
+    volatile int * timer_ptr = (int *) MPCORE_PRIV_TIMER;
+    // load initial value
+    *timer_ptr = delay_count;
+     cd8:	e3e03a13 	mvn	r3, #77824	; 0x13000
+     cdc:	e3a02d35 	mov	r2, #3392	; 0xd40
+     ce0:	e3402003 	movt	r2, #3
+     ce4:	e50329ff 	str	r2, [r3, #-2559]	; 0xfffff601
+    // start timer
+    *(timer_ptr + 2) = 0b001;
+     ce8:	e3a02001 	mov	r2, #1
+     cec:	e50329f7 	str	r2, [r3, #-2551]	; 0xfffff609
+    // poll the timer
+    while(*(timer_ptr+3) == 0){}
+     cf0:	e1a02003 	mov	r2, r3
+     cf4:	e51239f3 	ldr	r3, [r2, #-2547]	; 0xfffff60d
+     cf8:	e3530000 	cmp	r3, #0
+     cfc:	0afffffc 	beq	cf4 <delay+0x1c>
+    // clear the interrupt register
+    *(timer_ptr+3) = 1;
+     d00:	e3a02001 	mov	r2, #1
+     d04:	e3e03a13 	mvn	r3, #77824	; 0x13000
+     d08:	e50329f3 	str	r2, [r3, #-2547]	; 0xfffff60d
+     d0c:	e12fff1e 	bx	lr
+
+00000d10 <write_register>:
+    
+    return register_val;
+}
+
+// function that writes to a register on the L3GD20
+void write_register( int address, int data ){
+     d10:	e92d4070 	push	{r4, r5, r6, lr}
+     d14:	e1a06000 	mov	r6, r0
+     d18:	e1a05001 	mov	r5, r1
+
+	// drive clock high before CS is driven low
+	clock_high(); delay();
+     d1c:	ebffffd8 	bl	c84 <clock_high>
+     d20:	ebffffec 	bl	cd8 <delay>
+
+	// drive CS pin low to start transmission
+	*jp1_gpio_data_ptr &= ~(1 << CS);
+     d24:	e3023388 	movw	r3, #9096	; 0x2388
+     d28:	e3403000 	movt	r3, #0
+     d2c:	e5933000 	ldr	r3, [r3]
+     d30:	e5932000 	ldr	r2, [r3]
+     d34:	e3c22001 	bic	r2, r2, #1
+     d38:	e5832000 	str	r2, [r3]
+
+	// drive RW to 0 for register write
+	SDI_low(); delay();
+     d3c:	ebffffd7 	bl	ca0 <SDI_low>
+     d40:	ebffffe4 	bl	cd8 <delay>
+    clock_low(); delay();
+     d44:	ebffffc7 	bl	c68 <clock_low>
+     d48:	ebffffe2 	bl	cd8 <delay>
+    clock_high(); delay();
+     d4c:	ebffffcc 	bl	c84 <clock_high>
+     d50:	ebffffe0 	bl	cd8 <delay>
+    
+	// drive MS to 0, no auto-incremented reading
+	SDI_low(); delay();
+     d54:	ebffffd1 	bl	ca0 <SDI_low>
+     d58:	ebffffde 	bl	cd8 <delay>
+    clock_low(); delay();
+     d5c:	ebffffc1 	bl	c68 <clock_low>
+     d60:	ebffffdc 	bl	cd8 <delay>
+    clock_high(); delay();
+     d64:	ebffffc6 	bl	c84 <clock_high>
+     d68:	ebffffda 	bl	cd8 <delay>
+
+	// send address bits, 6 bits
+	int i=5;
+     d6c:	e3a04005 	mov	r4, #5
+    for(; i>=0; i--){
+		// extract bits from address
+		if((address & (1 << i)) != 0){
+     d70:	e1a03456 	asr	r3, r6, r4
+     d74:	e3130001 	tst	r3, #1
+     d78:	0a000002 	beq	d88 <write_register+0x78>
+			SDI_high(); delay();
+     d7c:	ebffffce 	bl	cbc <SDI_high>
+     d80:	ebffffd4 	bl	cd8 <delay>
+     d84:	ea000001 	b	d90 <write_register+0x80>
+		}
+		else {
+			SDI_low(); delay();
+     d88:	ebffffc4 	bl	ca0 <SDI_low>
+     d8c:	ebffffd1 	bl	cd8 <delay>
+		}
+		clock_low(); delay();
+     d90:	ebffffb4 	bl	c68 <clock_low>
+     d94:	ebffffcf 	bl	cd8 <delay>
+		clock_high(); delay();
+     d98:	ebffffb9 	bl	c84 <clock_high>
+     d9c:	ebffffcd 	bl	cd8 <delay>
+    clock_low(); delay();
+    clock_high(); delay();
+
+	// send address bits, 6 bits
+	int i=5;
+    for(; i>=0; i--){
+     da0:	e2444001 	sub	r4, r4, #1
+     da4:	e3740001 	cmn	r4, #1
+     da8:	1afffff0 	bne	d70 <write_register+0x60>
+     dac:	e3a04007 	mov	r4, #7
+
+	// recieve MSB to LSB through the SDO
+	i=7;
+    for(; i>=0; i--){
+		// extract bits from data
+		if((data & (1 << i)) != 0){
+     db0:	e1a03455 	asr	r3, r5, r4
+     db4:	e3130001 	tst	r3, #1
+     db8:	0a000002 	beq	dc8 <write_register+0xb8>
+			SDI_high(); delay();
+     dbc:	ebffffbe 	bl	cbc <SDI_high>
+     dc0:	ebffffc4 	bl	cd8 <delay>
+     dc4:	ea000001 	b	dd0 <write_register+0xc0>
+		}
+		else {
+			SDI_low(); delay();
+     dc8:	ebffffb4 	bl	ca0 <SDI_low>
+     dcc:	ebffffc1 	bl	cd8 <delay>
+		}
+		clock_low(); delay();
+     dd0:	ebffffa4 	bl	c68 <clock_low>
+     dd4:	ebffffbf 	bl	cd8 <delay>
+		clock_high(); delay();
+     dd8:	ebffffa9 	bl	c84 <clock_high>
+     ddc:	ebffffbd 	bl	cd8 <delay>
+		clock_high(); delay();
+	}
+
+	// recieve MSB to LSB through the SDO
+	i=7;
+    for(; i>=0; i--){
+     de0:	e2444001 	sub	r4, r4, #1
+     de4:	e3740001 	cmn	r4, #1
+     de8:	1afffff0 	bne	db0 <write_register+0xa0>
+		clock_low(); delay();
+		clock_high(); delay();
+	}
+
+	// finish transmission, drive CS high
+	*jp1_gpio_data_ptr |= (1 << CS);
+     dec:	e3023388 	movw	r3, #9096	; 0x2388
+     df0:	e3403000 	movt	r3, #0
+     df4:	e5933000 	ldr	r3, [r3]
+     df8:	e5932000 	ldr	r2, [r3]
+     dfc:	e3822001 	orr	r2, r2, #1
+     e00:	e5832000 	str	r2, [r3]
+     e04:	e8bd8070 	pop	{r4, r5, r6, pc}
+
+00000e08 <read_register>:
+/*
+ * Implementation of SPI for the L3GD20. Simple read and write to registers
+ */
+
+// function that reads register from a specified address on the L3GD20. Protocol specified on data sheet
+int read_register( int address ){
+     e08:	e92d40f8 	push	{r3, r4, r5, r6, r7, lr}
+     e0c:	e1a05000 	mov	r5, r0
+	int register_val = 0x00;
+
+	// drive clock high before CS is driven low
+	clock_high(); delay();
+     e10:	ebffff9b 	bl	c84 <clock_high>
+     e14:	ebffffaf 	bl	cd8 <delay>
+    
+	// drive CS pin low to start transmission
+	*jp1_gpio_data_ptr &= ~(1 << CS); delay();
+     e18:	e3023388 	movw	r3, #9096	; 0x2388
+     e1c:	e3403000 	movt	r3, #0
+     e20:	e5933000 	ldr	r3, [r3]
+     e24:	e5932000 	ldr	r2, [r3]
+     e28:	e3c22001 	bic	r2, r2, #1
+     e2c:	e5832000 	str	r2, [r3]
+     e30:	ebffffa8 	bl	cd8 <delay>
+    
+	// drive RW to 1 for register read
+	SDI_high(); delay();   
+     e34:	ebffffa0 	bl	cbc <SDI_high>
+     e38:	ebffffa6 	bl	cd8 <delay>
+	clock_low(); delay();  
+     e3c:	ebffff89 	bl	c68 <clock_low>
+     e40:	ebffffa4 	bl	cd8 <delay>
+	clock_high(); delay();
+     e44:	ebffff8e 	bl	c84 <clock_high>
+     e48:	ebffffa2 	bl	cd8 <delay>
+
+	// drive MS to 0, no auto-incremented reading
+	SDI_low(); delay();  
+     e4c:	ebffff93 	bl	ca0 <SDI_low>
+     e50:	ebffffa0 	bl	cd8 <delay>
+	clock_low(); delay();   
+     e54:	ebffff83 	bl	c68 <clock_low>
+     e58:	ebffff9e 	bl	cd8 <delay>
+	clock_high(); delay();
+     e5c:	ebffff88 	bl	c84 <clock_high>
+     e60:	ebffff9c 	bl	cd8 <delay>
+    
+	// send address bits, 6 bits
+    int i=5;
+     e64:	e3a04005 	mov	r4, #5
+	for(; i>=0; i--){
+		if((address & (1 << i)) != 0){
+     e68:	e1a03455 	asr	r3, r5, r4
+     e6c:	e3130001 	tst	r3, #1
+     e70:	0a000002 	beq	e80 <read_register+0x78>
+			SDI_high(); delay();
+     e74:	ebffff90 	bl	cbc <SDI_high>
+     e78:	ebffff96 	bl	cd8 <delay>
+     e7c:	ea000001 	b	e88 <read_register+0x80>
+		}
+		else {
+			SDI_low(); delay();
+     e80:	ebffff86 	bl	ca0 <SDI_low>
+     e84:	ebffff93 	bl	cd8 <delay>
+		}
+		clock_low(); delay();
+     e88:	ebffff76 	bl	c68 <clock_low>
+     e8c:	ebffff91 	bl	cd8 <delay>
+		clock_high(); delay();
+     e90:	ebffff7b 	bl	c84 <clock_high>
+     e94:	ebffff8f 	bl	cd8 <delay>
+	clock_low(); delay();   
+	clock_high(); delay();
+    
+	// send address bits, 6 bits
+    int i=5;
+	for(; i>=0; i--){
+     e98:	e2444001 	sub	r4, r4, #1
+     e9c:	e3740001 	cmn	r4, #1
+     ea0:	1afffff0 	bne	e68 <read_register+0x60>
+     ea4:	e3a04007 	mov	r4, #7
+     ea8:	e3a05000 	mov	r5, #0
+
+	// recieve MSB to LSB through the SDO
+    i=7;
+	for(; i>=0; i--){
+		clock_low(); delay();
+		if((*jp1_gpio_data_ptr & (1 << SDO)) != 0){
+     eac:	e3026388 	movw	r6, #9096	; 0x2388
+     eb0:	e3406000 	movt	r6, #0
+			register_val |= (1 << i); delay();
+		}
+		else {
+			register_val &= ~(1 << i); delay();
+     eb4:	e3a07001 	mov	r7, #1
+	}
+
+	// recieve MSB to LSB through the SDO
+    i=7;
+	for(; i>=0; i--){
+		clock_low(); delay();
+     eb8:	ebffff6a 	bl	c68 <clock_low>
+     ebc:	ebffff85 	bl	cd8 <delay>
+		if((*jp1_gpio_data_ptr & (1 << SDO)) != 0){
+     ec0:	e5963000 	ldr	r3, [r6]
+     ec4:	e5933000 	ldr	r3, [r3]
+     ec8:	e3130008 	tst	r3, #8
+			register_val |= (1 << i); delay();
+     ecc:	11855417 	orrne	r5, r5, r7, lsl r4
+		}
+		else {
+			register_val &= ~(1 << i); delay();
+     ed0:	01c55417 	biceq	r5, r5, r7, lsl r4
+     ed4:	ebffff7f 	bl	cd8 <delay>
+		}
+		clock_high(); delay();
+     ed8:	ebffff69 	bl	c84 <clock_high>
+     edc:	ebffff7d 	bl	cd8 <delay>
+		clock_high(); delay();
+	}
+
+	// recieve MSB to LSB through the SDO
+    i=7;
+	for(; i>=0; i--){
+     ee0:	e2444001 	sub	r4, r4, #1
+     ee4:	e3740001 	cmn	r4, #1
+     ee8:	1afffff2 	bne	eb8 <read_register+0xb0>
+		}
+		clock_high(); delay();
+	}
+
+	// finish transmission, drive CS high
+	*jp1_gpio_data_ptr |= (1 << CS); delay();
+     eec:	e3023388 	movw	r3, #9096	; 0x2388
+     ef0:	e3403000 	movt	r3, #0
+     ef4:	e5933000 	ldr	r3, [r3]
+     ef8:	e5932000 	ldr	r2, [r3]
+     efc:	e3822001 	orr	r2, r2, #1
+     f00:	e5832000 	str	r2, [r3]
+     f04:	ebffff73 	bl	cd8 <delay>
+    
+    return register_val;
+}
+     f08:	e1a00005 	mov	r0, r5
+     f0c:	e8bd80f8 	pop	{r3, r4, r5, r6, r7, pc}
+
+00000f10 <delay_long>:
+	// delay count of 0.01 second
+    int delay_count = 2000000;
+    // pointer to private timer
+    volatile int * timer_ptr = (int *) MPCORE_PRIV_TIMER;
+    // load initial value
+    *timer_ptr = delay_count;
+     f10:	e3e03a13 	mvn	r3, #77824	; 0x13000
+     f14:	e3082480 	movw	r2, #33920	; 0x8480
+     f18:	e340201e 	movt	r2, #30
+     f1c:	e50329ff 	str	r2, [r3, #-2559]	; 0xfffff601
+    // start timer
+    *(timer_ptr + 2) = 0b001;
+     f20:	e3a02001 	mov	r2, #1
+     f24:	e50329f7 	str	r2, [r3, #-2551]	; 0xfffff609
+    // poll the timer
+    while(*(timer_ptr+3) == 0){}
+     f28:	e1a02003 	mov	r2, r3
+     f2c:	e51239f3 	ldr	r3, [r2, #-2547]	; 0xfffff60d
+     f30:	e3530000 	cmp	r3, #0
+     f34:	0afffffc 	beq	f2c <delay_long+0x1c>
+    // clear the interrupt register
+    *(timer_ptr+3) = 1;
+     f38:	e3a02001 	mov	r2, #1
+     f3c:	e3e03a13 	mvn	r3, #77824	; 0x13000
+     f40:	e50329f3 	str	r2, [r3, #-2547]	; 0xfffff60d
+     f44:	e12fff1e 	bx	lr
+
+00000f48 <delay_very_long>:
+	// delay count of 0.1 second
+    int delay_count = 600000000;
+    // pointer to private timer
+    volatile int * timer_ptr = (int *) MPCORE_PRIV_TIMER;
+    // load initial value
+    *timer_ptr = delay_count;
+     f48:	e3e03a13 	mvn	r3, #77824	; 0x13000
+     f4c:	e3a02c46 	mov	r2, #17920	; 0x4600
+     f50:	e34223c3 	movt	r2, #9155	; 0x23c3
+     f54:	e50329ff 	str	r2, [r3, #-2559]	; 0xfffff601
+    // start timer
+    *(timer_ptr + 2) = 0b001;
+     f58:	e3a02001 	mov	r2, #1
+     f5c:	e50329f7 	str	r2, [r3, #-2551]	; 0xfffff609
+    // poll the timer
+    while(*(timer_ptr+3) == 0){}
+     f60:	e1a02003 	mov	r2, r3
+     f64:	e51239f3 	ldr	r3, [r2, #-2547]	; 0xfffff60d
+     f68:	e3530000 	cmp	r3, #0
+     f6c:	0afffffc 	beq	f64 <delay_very_long+0x1c>
+    // clear the interrupt register
+    *(timer_ptr+3) = 1;
+     f70:	e3a02001 	mov	r2, #1
+     f74:	e3e03a13 	mvn	r3, #77824	; 0x13000
+     f78:	e50329f3 	str	r2, [r3, #-2547]	; 0xfffff60d
+     f7c:	e12fff1e 	bx	lr
+
+00000f80 <init_gyro>:
+
+/*
+ * Initializing and angle measures from the GYRO sensor
+ */
+
+void init_gyro( void ){
+     f80:	e92d4008 	push	{r3, lr}
+	// initialize directionality of GPIO1 (JP1) pins. CS and SPC are outputs, SDO is an input
+	*jp1_gpio_dir_ptr = 0x00000007; 	// all 0 except for end which is 0111
+     f84:	e3023388 	movw	r3, #9096	; 0x2388
+     f88:	e3403000 	movt	r3, #0
+     f8c:	e5933004 	ldr	r3, [r3, #4]
+     f90:	e3a02007 	mov	r2, #7
+     f94:	e5832000 	str	r2, [r3]
+
+	// enabling x, y, and z outputs and exit power down mode. -> 00001111
+	write_register( CTRL_REG1, 0x0F );
+     f98:	e3a00020 	mov	r0, #32
+     f9c:	e3a0100f 	mov	r1, #15
+     fa0:	ebffff5a 	bl	d10 <write_register>
+     fa4:	e8bd8008 	pop	{r3, pc}
+
+00000fa8 <get_x_angular_rate>:
+}
+
+int get_x_angular_rate( void ){
+     fa8:	e92d4010 	push	{r4, lr}
+	int LSB = read_register(OUT_X_L);
+     fac:	e3a00028 	mov	r0, #40	; 0x28
+     fb0:	ebffff94 	bl	e08 <read_register>
+     fb4:	e1a04000 	mov	r4, r0
+	int MSB = read_register(OUT_X_H);
+     fb8:	e3a00029 	mov	r0, #41	; 0x29
+     fbc:	ebffff91 	bl	e08 <read_register>
+
+	return ((MSB << 8) | (LSB));
+}	
+     fc0:	e1840400 	orr	r0, r4, r0, lsl #8
+     fc4:	e8bd8010 	pop	{r4, pc}
+
+00000fc8 <get_y_angular_rate>:
+
+int get_y_angular_rate( void ){
+     fc8:	e92d4010 	push	{r4, lr}
+	int LSB = read_register(OUT_Y_L);
+     fcc:	e3a0002a 	mov	r0, #42	; 0x2a
+     fd0:	ebffff8c 	bl	e08 <read_register>
+     fd4:	e1a04000 	mov	r4, r0
+	int MSB = read_register(OUT_Y_H);
+     fd8:	e3a0002b 	mov	r0, #43	; 0x2b
+     fdc:	ebffff89 	bl	e08 <read_register>
+
+	return ((MSB << 8) | (LSB));
+}
+     fe0:	e1840400 	orr	r0, r4, r0, lsl #8
+     fe4:	e8bd8010 	pop	{r4, pc}
+
+00000fe8 <get_z_angular_rate>:
+
+int get_z_angular_rate( void ){
+     fe8:	e92d4010 	push	{r4, lr}
+	int LSB = read_register(OUT_Z_L);
+     fec:	e3a0002c 	mov	r0, #44	; 0x2c
+     ff0:	ebffff84 	bl	e08 <read_register>
+     ff4:	e1a04000 	mov	r4, r0
+	int MSB = read_register(OUT_Z_H);
+     ff8:	e3a0002d 	mov	r0, #45	; 0x2d
+     ffc:	ebffff81 	bl	e08 <read_register>
+
+	return ((MSB << 8) | (LSB));
+}
+    1000:	e1840400 	orr	r0, r4, r0, lsl #8
+    1004:	e8bd8010 	pop	{r4, pc}
+
+00001008 <pushbutton_ISR>:
+
+void pushbutton_ISR(void)
+{
+volatile int * KEY_ptr = (int *)KEY_BASE;
+int press;
+press = *(KEY_ptr + 3); // read the pushbutton interrupt register
+    1008:	e3a03000 	mov	r3, #0
+    100c:	e34f3f20 	movt	r3, #65312	; 0xff20
+    1010:	e593205c 	ldr	r2, [r3, #92]	; 0x5c
+*(KEY_ptr + 3) = press; // Clear the interrupt
+    1014:	e583205c 	str	r2, [r3, #92]	; 0x5c
+    1018:	e12fff1e 	bx	lr
+
+0000101c <main>:
+
+double dx_Boat = 0;//default 0;
+double dy_Boat = 0;
+int globalRingCounter = 0;
+
+int main(void){
+    101c:	e92d4ff0 	push	{r4, r5, r6, r7, r8, r9, r10, r11, lr}
+    1020:	e24ddc42 	sub	sp, sp, #16896	; 0x4200
+    1024:	e24dd0d4 	sub	sp, sp, #212	; 0xd4
+	set_A9_IRQ_stack(); // initialize the stack pointer for IRQ mode
+    1028:	ebfffca2 	bl	2b8 <set_A9_IRQ_stack>
+	config_GIC(); // configure the general interrupt controller
+    102c:	ebfffcab 	bl	2e0 <config_GIC>
+	config_KEYs(); // configure pushbutton KEYs to generate interrupts
+    1030:	ebfffc9b 	bl	2a4 <config_KEYs>
+	enable_A9_interrupts(); // enable interrupts
+    1034:	ebfffca6 	bl	2d4 <enable_A9_interrupts>
+    // declare other variables(not shown)
+	int width = 8;
+	int height = 8;
+	short int color_Boat = 0xFD00;//orange
+	short int ring_Color = 0x00FF;//blue
+	int x_Boat=156;
+    1038:	e3a0309c 	mov	r3, #156	; 0x9c
+    103c:	e28d0901 	add	r0, sp, #16384	; 0x4000
+    1040:	e58032cc 	str	r3, [r0, #716]	; 0x2cc
+	int y_Boat=116;
+    1044:	e3a03074 	mov	r3, #116	; 0x74
+    1048:	e58032c8 	str	r3, [r0, #712]	; 0x2c8
+
+    /* set front pixel buffer to start of FPGA On-chip memory */
+    *(back_buffer) = 0xC8000000; // first store the address in the back buffer
+    104c:	e3034fff 	movw	r4, #16383	; 0x3fff
+    1050:	e34f4f20 	movt	r4, #65312	; 0xff20
+    1054:	e3a03332 	mov	r3, #-939524096	; 0xc8000000
+    1058:	e5043fdb 	str	r3, [r4, #-4059]	; 0xfffff025
+																		
+    /* now, swap the front/back buffers, to set the front buffer location */
+    wait_for_vsync(pixelStatusPtr,front_buffer);
+    105c:	e303002c 	movw	r0, #12332	; 0x302c
+    1060:	e34f0f20 	movt	r0, #65312	; 0xff20
+    1064:	e3031020 	movw	r1, #12320	; 0x3020
+    1068:	e34f1f20 	movt	r1, #65312	; 0xff20
+    106c:	ebfffe10 	bl	8b4 <wait_for_vsync>
+
+    /* initialize a pointer to the pixel buffer, used by drawing functions */
+    pixel_buffer_start = *front_buffer;
+    1070:	e5143fdf 	ldr	r3, [r4, #-4063]	; 0xfffff021
+    1074:	e30257e8 	movw	r5, #10216	; 0x27e8
+    1078:	e3405000 	movt	r5, #0
+    107c:	e5853000 	str	r3, [r5]
+	
+    clear_screen(); // pixel_buffer_start points to the pixel buffer
+    1080:	ebfffead 	bl	b3c <clear_screen>
+	
+    /* set back pixel buffer to start of SDRAM memory */
+    *(back_buffer) = 0xC0000000;
+    1084:	e3a03103 	mov	r3, #-1073741824	; 0xc0000000
+    1088:	e5043fdb 	str	r3, [r4, #-4059]	; 0xfffff025
+    pixel_buffer_start = *(back_buffer); // we draw on the back buffer
+    108c:	e5143fdb 	ldr	r3, [r4, #-4059]	; 0xfffff025
+    1090:	e5853000 	str	r3, [r5]
+	clear_screen(); // clear both buffers.
+    1094:	ebfffea8 	bl	b3c <clear_screen>
+	volatile int* switchData = (int *) SW_BASE;
+	
+	int black = 0;
+	int previous_x_Boat = x_Boat;
+	int previous_y_Boat = y_Boat;
+	int numRipples = 0;
+    1098:	e3a03000 	mov	r3, #0
+    109c:	e28d1901 	add	r1, sp, #16384	; 0x4000
+    10a0:	e58132c4 	str	r3, [r1, #708]	; 0x2c4
+	int furthestVisibleDistance = 100;//currently set to 400 always
+		
+	int i = 0; //iterator;
+	
+	// initialize gyroscope
+	init_gyro();
+    10a4:	ebffffb5 	bl	f80 <init_gyro>
+	int gyro_x_rate = get_x_angular_rate();
+    10a8:	ebffffbe 	bl	fa8 <get_x_angular_rate>
+	int gyro_y_rate = get_y_angular_rate();
+    10ac:	ebffffc5 	bl	fc8 <get_y_angular_rate>
+    while (1)
+    {	
+    	// read output from gyroscope
+		gyro_x_rate = get_x_angular_rate();
+		gyro_y_rate = get_y_angular_rate();
+		*led_ptr = gyro_y_rate;
+    10b0:	e3a06000 	mov	r6, #0
+    10b4:	e34f6f20 	movt	r6, #65312	; 0xff20
+    10b8:	e58d602c 	str	r6, [sp, #44]	; 0x2c
+
+		//update previous boat_position and ring_position before changing the boat position
+		previous_x_Boat = x_Boat;
+		previous_y_Boat = y_Boat;
+		if((int)dx_Boat || (int)dy_Boat){
+    10bc:	e58d5028 	str	r5, [sp, #40]	; 0x28
+		for(; i <numRipples ; i++){
+			previousRippleRadius[i] = rippleRadius[i];
+		}
+		
+		//make sure the updated position will be valid, then update the boat's position
+		updateBoatPositionAndSpeed(&x_Boat,&y_Boat,width,height,keyData, gyro_x_rate, gyro_y_rate);
+    10c0:	e3a08050 	mov	r8, #80	; 0x50
+    10c4:	e34f8f20 	movt	r8, #65312	; 0xff20
+    10c8:	e58d8030 	str	r8, [sp, #48]	; 0x30
+		//updates ALL of the rings
+		updateRingPosition(rippleCenter_x, rippleCenter_y, rippleRadius, switchData, furthestVisibleDistance, lastRipple, &numRipples, previousRippleRadius, x_Boat, y_Boat);
+    10cc:	e3a06040 	mov	r6, #64	; 0x40
+    10d0:	e34f6f20 	movt	r6, #65312	; 0xff20
+    10d4:	e58d6034 	str	r6, [sp, #52]	; 0x34
+			if(!lastRipple[i])
+				drawRing(rippleRadius[i], rippleCenter_x[i],rippleCenter_y[i],ring_Color);
+		}
+
+		//now that everything is loaded properly, wait for the dma to switch front and back buffer addresses.
+		wait_for_vsync(pixelStatusPtr,front_buffer); // swaps front and back buffers on VGA vertical sync
+    10d8:	e303702c 	movw	r7, #12332	; 0x302c
+    10dc:	e34f7f20 	movt	r7, #65312	; 0xff20
+    10e0:	e58d7038 	str	r7, [sp, #56]	; 0x38
+    10e4:	e3038020 	movw	r8, #12320	; 0x3020
+    10e8:	e34f8f20 	movt	r8, #65312	; 0xff20
+    10ec:	e58d803c 	str	r8, [sp, #60]	; 0x3c
+
+	// event loop
+    while (1)
+    {	
+    	// read output from gyroscope
+		gyro_x_rate = get_x_angular_rate();
+    10f0:	ebffffac 	bl	fa8 <get_x_angular_rate>
+    10f4:	e1a05000 	mov	r5, r0
+		gyro_y_rate = get_y_angular_rate();
+    10f8:	ebffffb2 	bl	fc8 <get_y_angular_rate>
+    10fc:	e1a04000 	mov	r4, r0
+		*led_ptr = gyro_y_rate;
+    1100:	e59d602c 	ldr	r6, [sp, #44]	; 0x2c
+    1104:	e5860000 	str	r0, [r6]
+
+		//update previous boat_position and ring_position before changing the boat position
+		previous_x_Boat = x_Boat;
+    1108:	e28d8901 	add	r8, sp, #16384	; 0x4000
+    110c:	e59872cc 	ldr	r7, [r8, #716]	; 0x2cc
+		previous_y_Boat = y_Boat;
+    1110:	e59862c8 	ldr	r6, [r8, #712]	; 0x2c8
+		if((int)dx_Boat || (int)dy_Boat){
+    1114:	e59d8028 	ldr	r8, [sp, #40]	; 0x28
+    1118:	e1c800d8 	ldrd	r0, [r8, #8]
+    111c:	eb000361 	bl	1ea8 <__aeabi_d2iz>
+    1120:	e3500000 	cmp	r0, #0
+    1124:	1a000003 	bne	1138 <main+0x11c>
+    1128:	e1c801d0 	ldrd	r0, [r8, #16]
+    112c:	eb00035d 	bl	1ea8 <__aeabi_d2iz>
+    1130:	e3500000 	cmp	r0, #0
+    1134:	0a000003 	beq	1148 <main+0x12c>
+			globalRingCounter+=1; //is reset by updateRingPosition
+    1138:	e59d8028 	ldr	r8, [sp, #40]	; 0x28
+    113c:	e5983018 	ldr	r3, [r8, #24]
+    1140:	e2833001 	add	r3, r3, #1
+    1144:	e5883018 	str	r3, [r8, #24]
+		}
+		
+		i=0;
+		for(; i <numRipples ; i++){
+    1148:	e28de901 	add	lr, sp, #16384	; 0x4000
+    114c:	e59ec2c4 	ldr	r12, [lr, #708]	; 0x2c4
+    1150:	e35c0000 	cmp	r12, #0
+    1154:	da00000d 	ble	1190 <main+0x174>
+    1158:	e3a03000 	mov	r3, #0
+    115c:	e1a02003 	mov	r2, r3
+			previousRippleRadius[i] = rippleRadius[i];
+    1160:	e28d0c33 	add	r0, sp, #13056	; 0x3300
+    1164:	e2800030 	add	r0, r0, #48	; 0x30
+    1168:	e240100c 	sub	r1, r0, #12
+    116c:	e28d8d8e 	add	r8, sp, #9088	; 0x2380
+    1170:	e2888010 	add	r8, r8, #16
+    1174:	e248000c 	sub	r0, r8, #12
+    1178:	e7930000 	ldr	r0, [r3, r0]
+    117c:	e7830001 	str	r0, [r3, r1]
+		if((int)dx_Boat || (int)dy_Boat){
+			globalRingCounter+=1; //is reset by updateRingPosition
+		}
+		
+		i=0;
+		for(; i <numRipples ; i++){
+    1180:	e2822001 	add	r2, r2, #1
+    1184:	e2833004 	add	r3, r3, #4
+    1188:	e152000c 	cmp	r2, r12
+    118c:	bafffff3 	blt	1160 <main+0x144>
+			previousRippleRadius[i] = rippleRadius[i];
+		}
+		
+		//make sure the updated position will be valid, then update the boat's position
+		updateBoatPositionAndSpeed(&x_Boat,&y_Boat,width,height,keyData, gyro_x_rate, gyro_y_rate);
+    1190:	e59d8030 	ldr	r8, [sp, #48]	; 0x30
+    1194:	e58d8000 	str	r8, [sp]
+    1198:	e58d5004 	str	r5, [sp, #4]
+    119c:	e58d4008 	str	r4, [sp, #8]
+    11a0:	e28d0c42 	add	r0, sp, #16896	; 0x4200
+    11a4:	e28000cc 	add	r0, r0, #204	; 0xcc
+    11a8:	e28d1c42 	add	r1, sp, #16896	; 0x4200
+    11ac:	e28110c8 	add	r1, r1, #200	; 0xc8
+    11b0:	e3a02008 	mov	r2, #8
+    11b4:	e1a03002 	mov	r3, r2
+    11b8:	ebfffcc3 	bl	4cc <updateBoatPositionAndSpeed>
+		//updates ALL of the rings
+		updateRingPosition(rippleCenter_x, rippleCenter_y, rippleRadius, switchData, furthestVisibleDistance, lastRipple, &numRipples, previousRippleRadius, x_Boat, y_Boat);
+    11bc:	e3a03064 	mov	r3, #100	; 0x64
+    11c0:	e58d3000 	str	r3, [sp]
+    11c4:	e28d305c 	add	r3, sp, #92	; 0x5c
+    11c8:	e58d3004 	str	r3, [sp, #4]
+    11cc:	e28d3c42 	add	r3, sp, #16896	; 0x4200
+    11d0:	e28330c4 	add	r3, r3, #196	; 0xc4
+    11d4:	e58d3008 	str	r3, [sp, #8]
+    11d8:	e28d0c33 	add	r0, sp, #13056	; 0x3300
+    11dc:	e2800030 	add	r0, r0, #48	; 0x30
+    11e0:	e240300c 	sub	r3, r0, #12
+    11e4:	e58d300c 	str	r3, [sp, #12]
+    11e8:	e28d1901 	add	r1, sp, #16384	; 0x4000
+    11ec:	e59102cc 	ldr	r0, [r1, #716]	; 0x2cc
+    11f0:	eb00017d 	bl	17ec <__aeabi_i2d>
+    11f4:	e1cd01f0 	strd	r0, [sp, #16]
+    11f8:	e28d2901 	add	r2, sp, #16384	; 0x4000
+    11fc:	e59202c8 	ldr	r0, [r2, #712]	; 0x2c8
+    1200:	eb000179 	bl	17ec <__aeabi_i2d>
+    1204:	e1cd01f8 	strd	r0, [sp, #24]
+    1208:	e28d3b05 	add	r3, sp, #5120	; 0x1400
+    120c:	e2833010 	add	r3, r3, #16
+    1210:	e243002c 	sub	r0, r3, #44	; 0x2c
+    1214:	e28d8e45 	add	r8, sp, #1104	; 0x450
+    1218:	e248100c 	sub	r1, r8, #12
+    121c:	e28ded8e 	add	lr, sp, #9088	; 0x2380
+    1220:	e28ee010 	add	lr, lr, #16
+    1224:	e24e200c 	sub	r2, lr, #12
+    1228:	e59d3034 	ldr	r3, [sp, #52]	; 0x34
+    122c:	ebfffc35 	bl	308 <updateRingPosition>
+		//now that the new position is valid, draw the new box on the back_buffer
+		drawBox(x_Boat,y_Boat,width, height, color_Boat);
+    1230:	e3a03cfd 	mov	r3, #64768	; 0xfd00
+    1234:	e34f3fff 	movt	r3, #65535	; 0xffff
+    1238:	e58d3000 	str	r3, [sp]
+    123c:	e28d1901 	add	r1, sp, #16384	; 0x4000
+    1240:	e59102cc 	ldr	r0, [r1, #716]	; 0x2cc
+    1244:	e59112c8 	ldr	r1, [r1, #712]	; 0x2c8
+    1248:	e3a02008 	mov	r2, #8
+    124c:	e1a03002 	mov	r3, r2
+    1250:	ebfffe49 	bl	b7c <drawBox>
+		
+		i = 0;
+		for(; i<numRipples; i++){
+    1254:	e28d2901 	add	r2, sp, #16384	; 0x4000
+    1258:	e59232c4 	ldr	r3, [r2, #708]	; 0x2c4
+    125c:	e3530000 	cmp	r3, #0
+    1260:	da000019 	ble	12cc <main+0x2b0>
+    1264:	e3a05000 	mov	r5, #0
+		//updates ALL of the rings
+		updateRingPosition(rippleCenter_x, rippleCenter_y, rippleRadius, switchData, furthestVisibleDistance, lastRipple, &numRipples, previousRippleRadius, x_Boat, y_Boat);
+		//now that the new position is valid, draw the new box on the back_buffer
+		drawBox(x_Boat,y_Boat,width, height, color_Boat);
+		
+		i = 0;
+    1268:	e1a04005 	mov	r4, r5
+		for(; i<numRipples; i++){
+			if(!lastRipple[i])
+				drawRing(rippleRadius[i], rippleCenter_x[i],rippleCenter_y[i],ring_Color);
+    126c:	e3a080ff 	mov	r8, #255	; 0xff
+		//now that the new position is valid, draw the new box on the back_buffer
+		drawBox(x_Boat,y_Boat,width, height, color_Boat);
+		
+		i = 0;
+		for(; i<numRipples; i++){
+			if(!lastRipple[i])
+    1270:	e28d305c 	add	r3, sp, #92	; 0x5c
+    1274:	e7d43003 	ldrb	r3, [r4, r3]
+    1278:	e3530000 	cmp	r3, #0
+    127c:	1a00000c 	bne	12b4 <main+0x298>
+				drawRing(rippleRadius[i], rippleCenter_x[i],rippleCenter_y[i],ring_Color);
+    1280:	e28d0d8e 	add	r0, sp, #9088	; 0x2380
+    1284:	e2800010 	add	r0, r0, #16
+    1288:	e240100c 	sub	r1, r0, #12
+    128c:	e28d3b05 	add	r3, sp, #5120	; 0x1400
+    1290:	e2833010 	add	r3, r3, #16
+    1294:	e243202c 	sub	r2, r3, #44	; 0x2c
+    1298:	e28dee45 	add	lr, sp, #1104	; 0x450
+    129c:	e24e300c 	sub	r3, lr, #12
+    12a0:	e7910005 	ldr	r0, [r1, r5]
+    12a4:	e7921005 	ldr	r1, [r2, r5]
+    12a8:	e7932005 	ldr	r2, [r3, r5]
+    12ac:	e1a03008 	mov	r3, r8
+    12b0:	ebfffe49 	bl	bdc <drawRing>
+		updateRingPosition(rippleCenter_x, rippleCenter_y, rippleRadius, switchData, furthestVisibleDistance, lastRipple, &numRipples, previousRippleRadius, x_Boat, y_Boat);
+		//now that the new position is valid, draw the new box on the back_buffer
+		drawBox(x_Boat,y_Boat,width, height, color_Boat);
+		
+		i = 0;
+		for(; i<numRipples; i++){
+    12b4:	e2844001 	add	r4, r4, #1
+    12b8:	e2855004 	add	r5, r5, #4
+    12bc:	e28d0901 	add	r0, sp, #16384	; 0x4000
+    12c0:	e59032c4 	ldr	r3, [r0, #708]	; 0x2c4
+    12c4:	e1530004 	cmp	r3, r4
+    12c8:	caffffe8 	bgt	1270 <main+0x254>
+			if(!lastRipple[i])
+				drawRing(rippleRadius[i], rippleCenter_x[i],rippleCenter_y[i],ring_Color);
+		}
+
+		//now that everything is loaded properly, wait for the dma to switch front and back buffer addresses.
+		wait_for_vsync(pixelStatusPtr,front_buffer); // swaps front and back buffers on VGA vertical sync
+    12cc:	e59d0038 	ldr	r0, [sp, #56]	; 0x38
+    12d0:	e59d103c 	ldr	r1, [sp, #60]	; 0x3c
+    12d4:	ebfffd76 	bl	8b4 <wait_for_vsync>
+		pixel_buffer_start = *(back_buffer); // new back buffer
+    12d8:	e3033fff 	movw	r3, #16383	; 0x3fff
+    12dc:	e34f3f20 	movt	r3, #65312	; 0xff20
+    12e0:	e5133fdb 	ldr	r3, [r3, #-4059]	; 0xfffff025
+    12e4:	e59d8028 	ldr	r8, [sp, #40]	; 0x28
+    12e8:	e5883000 	str	r3, [r8]
+		
+		/* Erase any boxes and lines that were drawn in the last iteration */
+		drawBox(previous_x_Boat,previous_y_Boat,width, height, black);
+    12ec:	e3a03000 	mov	r3, #0
+    12f0:	e58d3000 	str	r3, [sp]
+    12f4:	e1a00007 	mov	r0, r7
+    12f8:	e1a01006 	mov	r1, r6
+    12fc:	e3a02008 	mov	r2, #8
+    1300:	e1a03002 	mov	r3, r2
+    1304:	ebfffe1c 	bl	b7c <drawBox>
+		
+		
+		//erase all the rings
+		i=0;
+		for(; i < numRipples; i++){
+    1308:	e28de901 	add	lr, sp, #16384	; 0x4000
+    130c:	e59e32c4 	ldr	r3, [lr, #708]	; 0x2c4
+    1310:	e3530000 	cmp	r3, #0
+    1314:	daffff75 	ble	10f0 <main+0xd4>
+    1318:	e3a04000 	mov	r4, #0
+		/* Erase any boxes and lines that were drawn in the last iteration */
+		drawBox(previous_x_Boat,previous_y_Boat,width, height, black);
+		
+		
+		//erase all the rings
+		i=0;
+    131c:	e1a05004 	mov	r5, r4
+		for(; i < numRipples; i++){
+				drawRing(previousRippleRadius[i], rippleCenter_x[i],rippleCenter_y[i],black);
+    1320:	e1a06004 	mov	r6, r4
+    1324:	e28d0c33 	add	r0, sp, #13056	; 0x3300
+    1328:	e2800030 	add	r0, r0, #48	; 0x30
+    132c:	e240100c 	sub	r1, r0, #12
+    1330:	e28d3b05 	add	r3, sp, #5120	; 0x1400
+    1334:	e2833010 	add	r3, r3, #16
+    1338:	e243202c 	sub	r2, r3, #44	; 0x2c
+    133c:	e28d7e45 	add	r7, sp, #1104	; 0x450
+    1340:	e247300c 	sub	r3, r7, #12
+    1344:	e7910004 	ldr	r0, [r1, r4]
+    1348:	e7921004 	ldr	r1, [r2, r4]
+    134c:	e7932004 	ldr	r2, [r3, r4]
+    1350:	e1a03006 	mov	r3, r6
+    1354:	ebfffe20 	bl	bdc <drawRing>
+		drawBox(previous_x_Boat,previous_y_Boat,width, height, black);
+		
+		
+		//erase all the rings
+		i=0;
+		for(; i < numRipples; i++){
+    1358:	e2855001 	add	r5, r5, #1
+    135c:	e28d8901 	add	r8, sp, #16384	; 0x4000
+    1360:	e59822c4 	ldr	r2, [r8, #708]	; 0x2c4
+    1364:	e2844004 	add	r4, r4, #4
+    1368:	e1520005 	cmp	r2, r5
+    136c:	caffffec 	bgt	1324 <main+0x308>
+				drawRing(previousRippleRadius[i], rippleCenter_x[i],rippleCenter_y[i],black);
+		}
+		
+		//delete the ripples that are past the 
+		i=0;
+		for(; i < numRipples; i++){
+    1370:	e3520000 	cmp	r2, #0
+    1374:	daffff5d 	ble	10f0 <main+0xd4>
+    1378:	e3a0e000 	mov	lr, #0
+    137c:	e58de044 	str	lr, [sp, #68]	; 0x44
+    1380:	e58de040 	str	lr, [sp, #64]	; 0x40
+
+double dx_Boat = 0;//default 0;
+double dy_Boat = 0;
+int globalRingCounter = 0;
+
+int main(void){
+    1384:	e28d0b05 	add	r0, sp, #5120	; 0x1400
+    1388:	e2800010 	add	r0, r0, #16
+    138c:	e240002c 	sub	r0, r0, #44	; 0x2c
+    1390:	e58d0048 	str	r0, [sp, #72]	; 0x48
+    1394:	e28d1e45 	add	r1, sp, #1104	; 0x450
+    1398:	e241100c 	sub	r1, r1, #12
+    139c:	e58d104c 	str	r1, [sp, #76]	; 0x4c
+    13a0:	e28d3c33 	add	r3, sp, #13056	; 0x3300
+    13a4:	e2833030 	add	r3, r3, #48	; 0x30
+    13a8:	e243300c 	sub	r3, r3, #12
+    13ac:	e58d3050 	str	r3, [sp, #80]	; 0x50
+    13b0:	e28d6d8e 	add	r6, sp, #9088	; 0x2380
+    13b4:	e2866010 	add	r6, r6, #16
+    13b8:	e246600c 	sub	r6, r6, #12
+    13bc:	e58d6054 	str	r6, [sp, #84]	; 0x54
+    13c0:	e59de040 	ldr	lr, [sp, #64]	; 0x40
+		}
+		
+		//delete the ripples that are past the 
+		i=0;
+		for(; i < numRipples; i++){
+				if(lastRipple[i]){
+    13c4:	e28d305c 	add	r3, sp, #92	; 0x5c
+    13c8:	e7de3003 	ldrb	r3, [lr, r3]
+    13cc:	e3530000 	cmp	r3, #0
+    13d0:	0a00002a 	beq	1480 <main+0x464>
+					int j = i;
+					for(; j<(numRipples-1) ; j++){
+    13d4:	e2422001 	sub	r2, r2, #1
+    13d8:	e15e0002 	cmp	lr, r2
+    13dc:	aa000027 	bge	1480 <main+0x464>
+
+double dx_Boat = 0;//default 0;
+double dy_Boat = 0;
+int globalRingCounter = 0;
+
+int main(void){
+    13e0:	e1a0010e 	lsl	r0, lr, #2
+    13e4:	e59d8048 	ldr	r8, [sp, #72]	; 0x48
+    13e8:	e0888000 	add	r8, r8, r0
+    13ec:	e58d8024 	str	r8, [sp, #36]	; 0x24
+    13f0:	e59d104c 	ldr	r1, [sp, #76]	; 0x4c
+    13f4:	e0815000 	add	r5, r1, r0
+    13f8:	e28d305c 	add	r3, sp, #92	; 0x5c
+    13fc:	e083400e 	add	r4, r3, lr
+    1400:	e24ee001 	sub	lr, lr, #1
+    1404:	e083e00e 	add	lr, r3, lr
+    1408:	e59d6050 	ldr	r6, [sp, #80]	; 0x50
+    140c:	e086c000 	add	r12, r6, r0
+    1410:	e59d7054 	ldr	r7, [sp, #84]	; 0x54
+    1414:	e0870000 	add	r0, r7, r0
+    1418:	e59d1040 	ldr	r1, [sp, #64]	; 0x40
+    141c:	e3a03000 	mov	r3, #0
+    1420:	e59d8044 	ldr	r8, [sp, #68]	; 0x44
+    1424:	e59d6048 	ldr	r6, [sp, #72]	; 0x48
+    1428:	e088b006 	add	r11, r8, r6
+    142c:	e59d704c 	ldr	r7, [sp, #76]	; 0x4c
+    1430:	e0889007 	add	r9, r8, r7
+    1434:	e59d6050 	ldr	r6, [sp, #80]	; 0x50
+    1438:	e088a006 	add	r10, r8, r6
+    143c:	e59d7054 	ldr	r7, [sp, #84]	; 0x54
+    1440:	e0888007 	add	r8, r8, r7
+    1444:	e59d6024 	ldr	r6, [sp, #36]	; 0x24
+		i=0;
+		for(; i < numRipples; i++){
+				if(lastRipple[i]){
+					int j = i;
+					for(; j<(numRipples-1) ; j++){
+						rippleCenter_x[j] = rippleCenter_x[j+1];
+    1448:	e2811001 	add	r1, r1, #1
+    144c:	e5b67004 	ldr	r7, [r6, #4]!
+    1450:	e78b7003 	str	r7, [r11, r3]
+						rippleCenter_y[j] = rippleCenter_y[j+1];
+    1454:	e5b57004 	ldr	r7, [r5, #4]!
+    1458:	e7897003 	str	r7, [r9, r3]
+						lastRipple[j] = lastRipple[j+1];
+    145c:	e5f47001 	ldrb	r7, [r4, #1]!
+    1460:	e5ee7001 	strb	r7, [lr, #1]!
+						previousRippleRadius[j] = previousRippleRadius[j+1];
+    1464:	e5bc7004 	ldr	r7, [r12, #4]!
+    1468:	e78a7003 	str	r7, [r10, r3]
+						rippleRadius[j] = rippleRadius[j+1];
+    146c:	e5b07004 	ldr	r7, [r0, #4]!
+    1470:	e7887003 	str	r7, [r8, r3]
+    1474:	e2833004 	add	r3, r3, #4
+		//delete the ripples that are past the 
+		i=0;
+		for(; i < numRipples; i++){
+				if(lastRipple[i]){
+					int j = i;
+					for(; j<(numRipples-1) ; j++){
+    1478:	e1510002 	cmp	r1, r2
+    147c:	1afffff1 	bne	1448 <main+0x42c>
+				drawRing(previousRippleRadius[i], rippleCenter_x[i],rippleCenter_y[i],black);
+		}
+		
+		//delete the ripples that are past the 
+		i=0;
+		for(; i < numRipples; i++){
+    1480:	e59d8040 	ldr	r8, [sp, #64]	; 0x40
+    1484:	e2888001 	add	r8, r8, #1
+    1488:	e58d8040 	str	r8, [sp, #64]	; 0x40
+    148c:	e59de044 	ldr	lr, [sp, #68]	; 0x44
+    1490:	e28ee004 	add	lr, lr, #4
+    1494:	e58de044 	str	lr, [sp, #68]	; 0x44
+    1498:	e1520008 	cmp	r2, r8
+    149c:	caffffc7 	bgt	13c0 <main+0x3a4>
+    14a0:	e28d0901 	add	r0, sp, #16384	; 0x4000
+    14a4:	e58022c4 	str	r2, [r0, #708]	; 0x2c4
+    14a8:	eaffff10 	b	10f0 <main+0xd4>
+
+000014ac <__aeabi_drsub>:
+    14ac:	e2211102 	eor	r1, r1, #-2147483648	; 0x80000000
+    14b0:	ea000000 	b	14b8 <__adddf3>
+
+000014b4 <__aeabi_dsub>:
+    14b4:	e2233102 	eor	r3, r3, #-2147483648	; 0x80000000
+
+000014b8 <__adddf3>:
+    14b8:	e92d4030 	push	{r4, r5, lr}
+    14bc:	e1a04081 	lsl	r4, r1, #1
+    14c0:	e1a05083 	lsl	r5, r3, #1
+    14c4:	e1340005 	teq	r4, r5
+    14c8:	01300002 	teqeq	r0, r2
+    14cc:	1194c000 	orrsne	r12, r4, r0
+    14d0:	1195c002 	orrsne	r12, r5, r2
+    14d4:	11f0cac4 	mvnsne	r12, r4, asr #21
+    14d8:	11f0cac5 	mvnsne	r12, r5, asr #21
+    14dc:	0a00008c 	beq	1714 <__adddf3+0x25c>
+    14e0:	e1a04aa4 	lsr	r4, r4, #21
+    14e4:	e0745aa5 	rsbs	r5, r4, r5, lsr #21
+    14e8:	b2655000 	rsblt	r5, r5, #0
+    14ec:	da000006 	ble	150c <__adddf3+0x54>
+    14f0:	e0844005 	add	r4, r4, r5
+    14f4:	e0202002 	eor	r2, r0, r2
+    14f8:	e0213003 	eor	r3, r1, r3
+    14fc:	e0220000 	eor	r0, r2, r0
+    1500:	e0231001 	eor	r1, r3, r1
+    1504:	e0202002 	eor	r2, r0, r2
+    1508:	e0213003 	eor	r3, r1, r3
+    150c:	e3550036 	cmp	r5, #54	; 0x36
+    1510:	88bd4030 	pophi	{r4, r5, lr}
+    1514:	812fff1e 	bxhi	lr
+    1518:	e3110102 	tst	r1, #-2147483648	; 0x80000000
+    151c:	e1a01601 	lsl	r1, r1, #12
+    1520:	e3a0c601 	mov	r12, #1048576	; 0x100000
+    1524:	e18c1621 	orr	r1, r12, r1, lsr #12
+    1528:	0a000001 	beq	1534 <__adddf3+0x7c>
+    152c:	e2700000 	rsbs	r0, r0, #0
+    1530:	e2e11000 	rsc	r1, r1, #0
+    1534:	e3130102 	tst	r3, #-2147483648	; 0x80000000
+    1538:	e1a03603 	lsl	r3, r3, #12
+    153c:	e18c3623 	orr	r3, r12, r3, lsr #12
+    1540:	0a000001 	beq	154c <__adddf3+0x94>
+    1544:	e2722000 	rsbs	r2, r2, #0
+    1548:	e2e33000 	rsc	r3, r3, #0
+    154c:	e1340005 	teq	r4, r5
+    1550:	0a000069 	beq	16fc <__adddf3+0x244>
+    1554:	e2444001 	sub	r4, r4, #1
+    1558:	e275e020 	rsbs	lr, r5, #32
+    155c:	ba000005 	blt	1578 <__adddf3+0xc0>
+    1560:	e1a0ce12 	lsl	r12, r2, lr
+    1564:	e0900532 	adds	r0, r0, r2, lsr r5
+    1568:	e2a11000 	adc	r1, r1, #0
+    156c:	e0900e13 	adds	r0, r0, r3, lsl lr
+    1570:	e0b11553 	adcs	r1, r1, r3, asr r5
+    1574:	ea000006 	b	1594 <__adddf3+0xdc>
+    1578:	e2455020 	sub	r5, r5, #32
+    157c:	e28ee020 	add	lr, lr, #32
+    1580:	e3520001 	cmp	r2, #1
+    1584:	e1a0ce13 	lsl	r12, r3, lr
+    1588:	238cc002 	orrcs	r12, r12, #2
+    158c:	e0900553 	adds	r0, r0, r3, asr r5
+    1590:	e0b11fc3 	adcs	r1, r1, r3, asr #31
+    1594:	e2015102 	and	r5, r1, #-2147483648	; 0x80000000
+    1598:	5a000002 	bpl	15a8 <__adddf3+0xf0>
+    159c:	e27cc000 	rsbs	r12, r12, #0
+    15a0:	e2f00000 	rscs	r0, r0, #0
+    15a4:	e2e11000 	rsc	r1, r1, #0
+    15a8:	e3510601 	cmp	r1, #1048576	; 0x100000
+    15ac:	3a00000f 	bcc	15f0 <__adddf3+0x138>
+    15b0:	e3510602 	cmp	r1, #2097152	; 0x200000
+    15b4:	3a000006 	bcc	15d4 <__adddf3+0x11c>
+    15b8:	e1b010a1 	lsrs	r1, r1, #1
+    15bc:	e1b00060 	rrxs	r0, r0
+    15c0:	e1a0c06c 	rrx	r12, r12
+    15c4:	e2844001 	add	r4, r4, #1
+    15c8:	e1a02a84 	lsl	r2, r4, #21
+    15cc:	e3720501 	cmn	r2, #4194304	; 0x400000
+    15d0:	2a00006b 	bcs	1784 <__adddf3+0x2cc>
+    15d4:	e35c0102 	cmp	r12, #-2147483648	; 0x80000000
+    15d8:	01b0c0a0 	lsrseq	r12, r0, #1
+    15dc:	e2b00000 	adcs	r0, r0, #0
+    15e0:	e0a11a04 	adc	r1, r1, r4, lsl #20
+    15e4:	e1811005 	orr	r1, r1, r5
+    15e8:	e8bd4030 	pop	{r4, r5, lr}
+    15ec:	e12fff1e 	bx	lr
+    15f0:	e1b0c08c 	lsls	r12, r12, #1
+    15f4:	e0b00000 	adcs	r0, r0, r0
+    15f8:	e0a11001 	adc	r1, r1, r1
+    15fc:	e3110601 	tst	r1, #1048576	; 0x100000
+    1600:	e2444001 	sub	r4, r4, #1
+    1604:	1afffff2 	bne	15d4 <__adddf3+0x11c>
+    1608:	e3310000 	teq	r1, #0
+    160c:	13a03014 	movne	r3, #20
+    1610:	03a03034 	moveq	r3, #52	; 0x34
+    1614:	01a01000 	moveq	r1, r0
+    1618:	03a00000 	moveq	r0, #0
+    161c:	e1a02001 	mov	r2, r1
+    1620:	e3520801 	cmp	r2, #65536	; 0x10000
+    1624:	21a02822 	lsrcs	r2, r2, #16
+    1628:	22433010 	subcs	r3, r3, #16
+    162c:	e3520c01 	cmp	r2, #256	; 0x100
+    1630:	21a02422 	lsrcs	r2, r2, #8
+    1634:	22433008 	subcs	r3, r3, #8
+    1638:	e3520010 	cmp	r2, #16
+    163c:	21a02222 	lsrcs	r2, r2, #4
+    1640:	22433004 	subcs	r3, r3, #4
+    1644:	e3520004 	cmp	r2, #4
+    1648:	22433002 	subcs	r3, r3, #2
+    164c:	304330a2 	subcc	r3, r3, r2, lsr #1
+    1650:	e04331a2 	sub	r3, r3, r2, lsr #3
+    1654:	e2532020 	subs	r2, r3, #32
+    1658:	aa000007 	bge	167c <__adddf3+0x1c4>
+    165c:	e292200c 	adds	r2, r2, #12
+    1660:	da000004 	ble	1678 <__adddf3+0x1c0>
+    1664:	e282c014 	add	r12, r2, #20
+    1668:	e262200c 	rsb	r2, r2, #12
+    166c:	e1a00c11 	lsl	r0, r1, r12
+    1670:	e1a01231 	lsr	r1, r1, r2
+    1674:	ea000004 	b	168c <__adddf3+0x1d4>
+    1678:	e2822014 	add	r2, r2, #20
+    167c:	d262c020 	rsble	r12, r2, #32
+    1680:	e1a01211 	lsl	r1, r1, r2
+    1684:	d1811c30 	orrle	r1, r1, r0, lsr r12
+    1688:	d1a00210 	lslle	r0, r0, r2
+    168c:	e0544003 	subs	r4, r4, r3
+    1690:	a0811a04 	addge	r1, r1, r4, lsl #20
+    1694:	a1811005 	orrge	r1, r1, r5
+    1698:	a8bd4030 	popge	{r4, r5, lr}
+    169c:	a12fff1e 	bxge	lr
+    16a0:	e1e04004 	mvn	r4, r4
+    16a4:	e254401f 	subs	r4, r4, #31
+    16a8:	aa00000f 	bge	16ec <__adddf3+0x234>
+    16ac:	e294400c 	adds	r4, r4, #12
+    16b0:	ca000006 	bgt	16d0 <__adddf3+0x218>
+    16b4:	e2844014 	add	r4, r4, #20
+    16b8:	e2642020 	rsb	r2, r4, #32
+    16bc:	e1a00430 	lsr	r0, r0, r4
+    16c0:	e1800211 	orr	r0, r0, r1, lsl r2
+    16c4:	e1851431 	orr	r1, r5, r1, lsr r4
+    16c8:	e8bd4030 	pop	{r4, r5, lr}
+    16cc:	e12fff1e 	bx	lr
+    16d0:	e264400c 	rsb	r4, r4, #12
+    16d4:	e2642020 	rsb	r2, r4, #32
+    16d8:	e1a00230 	lsr	r0, r0, r2
+    16dc:	e1800411 	orr	r0, r0, r1, lsl r4
+    16e0:	e1a01005 	mov	r1, r5
+    16e4:	e8bd4030 	pop	{r4, r5, lr}
+    16e8:	e12fff1e 	bx	lr
+    16ec:	e1a00431 	lsr	r0, r1, r4
+    16f0:	e1a01005 	mov	r1, r5
+    16f4:	e8bd4030 	pop	{r4, r5, lr}
+    16f8:	e12fff1e 	bx	lr
+    16fc:	e3340000 	teq	r4, #0
+    1700:	e2233601 	eor	r3, r3, #1048576	; 0x100000
+    1704:	02211601 	eoreq	r1, r1, #1048576	; 0x100000
+    1708:	02844001 	addeq	r4, r4, #1
+    170c:	12455001 	subne	r5, r5, #1
+    1710:	eaffff8f 	b	1554 <__adddf3+0x9c>
+    1714:	e1f0cac4 	mvns	r12, r4, asr #21
+    1718:	11f0cac5 	mvnsne	r12, r5, asr #21
+    171c:	0a00001d 	beq	1798 <__adddf3+0x2e0>
+    1720:	e1340005 	teq	r4, r5
+    1724:	01300002 	teqeq	r0, r2
+    1728:	0a000004 	beq	1740 <__adddf3+0x288>
+    172c:	e194c000 	orrs	r12, r4, r0
+    1730:	01a01003 	moveq	r1, r3
+    1734:	01a00002 	moveq	r0, r2
+    1738:	e8bd4030 	pop	{r4, r5, lr}
+    173c:	e12fff1e 	bx	lr
+    1740:	e1310003 	teq	r1, r3
+    1744:	13a01000 	movne	r1, #0
+    1748:	13a00000 	movne	r0, #0
+    174c:	18bd4030 	popne	{r4, r5, lr}
+    1750:	112fff1e 	bxne	lr
+    1754:	e1b0caa4 	lsrs	r12, r4, #21
+    1758:	1a000004 	bne	1770 <__adddf3+0x2b8>
+    175c:	e1b00080 	lsls	r0, r0, #1
+    1760:	e0b11001 	adcs	r1, r1, r1
+    1764:	23811102 	orrcs	r1, r1, #-2147483648	; 0x80000000
+    1768:	e8bd4030 	pop	{r4, r5, lr}
+    176c:	e12fff1e 	bx	lr
+    1770:	e2944501 	adds	r4, r4, #4194304	; 0x400000
+    1774:	32811601 	addcc	r1, r1, #1048576	; 0x100000
+    1778:	38bd4030 	popcc	{r4, r5, lr}
+    177c:	312fff1e 	bxcc	lr
+    1780:	e2015102 	and	r5, r1, #-2147483648	; 0x80000000
+    1784:	e385147f 	orr	r1, r5, #2130706432	; 0x7f000000
+    1788:	e381160f 	orr	r1, r1, #15728640	; 0xf00000
+    178c:	e3a00000 	mov	r0, #0
+    1790:	e8bd4030 	pop	{r4, r5, lr}
+    1794:	e12fff1e 	bx	lr
+    1798:	e1f0cac4 	mvns	r12, r4, asr #21
+    179c:	11a01003 	movne	r1, r3
+    17a0:	11a00002 	movne	r0, r2
+    17a4:	01f0cac5 	mvnseq	r12, r5, asr #21
+    17a8:	11a03001 	movne	r3, r1
+    17ac:	11a02000 	movne	r2, r0
+    17b0:	e1904601 	orrs	r4, r0, r1, lsl #12
+    17b4:	01925603 	orrseq	r5, r2, r3, lsl #12
+    17b8:	01310003 	teqeq	r1, r3
+    17bc:	13811702 	orrne	r1, r1, #524288	; 0x80000
+    17c0:	e8bd4030 	pop	{r4, r5, lr}
+    17c4:	e12fff1e 	bx	lr
+
+000017c8 <__aeabi_ui2d>:
+    17c8:	e3300000 	teq	r0, #0
+    17cc:	03a01000 	moveq	r1, #0
+    17d0:	012fff1e 	bxeq	lr
+    17d4:	e92d4030 	push	{r4, r5, lr}
+    17d8:	e3a04b01 	mov	r4, #1024	; 0x400
+    17dc:	e2844032 	add	r4, r4, #50	; 0x32
+    17e0:	e3a05000 	mov	r5, #0
+    17e4:	e3a01000 	mov	r1, #0
+    17e8:	eaffff86 	b	1608 <__adddf3+0x150>
+
+000017ec <__aeabi_i2d>:
+    17ec:	e3300000 	teq	r0, #0
+    17f0:	03a01000 	moveq	r1, #0
+    17f4:	012fff1e 	bxeq	lr
+    17f8:	e92d4030 	push	{r4, r5, lr}
+    17fc:	e3a04b01 	mov	r4, #1024	; 0x400
+    1800:	e2844032 	add	r4, r4, #50	; 0x32
+    1804:	e2105102 	ands	r5, r0, #-2147483648	; 0x80000000
+    1808:	42600000 	rsbmi	r0, r0, #0
+    180c:	e3a01000 	mov	r1, #0
+    1810:	eaffff7c 	b	1608 <__adddf3+0x150>
+
+00001814 <__aeabi_f2d>:
+    1814:	e1b02080 	lsls	r2, r0, #1
+    1818:	e1a011c2 	asr	r1, r2, #3
+    181c:	e1a01061 	rrx	r1, r1
+    1820:	e1a00e02 	lsl	r0, r2, #28
+    1824:	121234ff 	andsne	r3, r2, #-16777216	; 0xff000000
+    1828:	133304ff 	teqne	r3, #-16777216	; 0xff000000
+    182c:	1221130e 	eorne	r1, r1, #939524096	; 0x38000000
+    1830:	112fff1e 	bxne	lr
+    1834:	e3320000 	teq	r2, #0
+    1838:	133304ff 	teqne	r3, #-16777216	; 0xff000000
+    183c:	012fff1e 	bxeq	lr
+    1840:	e92d4030 	push	{r4, r5, lr}
+    1844:	e3a04d0e 	mov	r4, #896	; 0x380
+    1848:	e2015102 	and	r5, r1, #-2147483648	; 0x80000000
+    184c:	e3c11102 	bic	r1, r1, #-2147483648	; 0x80000000
+    1850:	eaffff6c 	b	1608 <__adddf3+0x150>
+
+00001854 <__aeabi_ul2d>:
+    1854:	e1902001 	orrs	r2, r0, r1
+    1858:	012fff1e 	bxeq	lr
+    185c:	e92d4030 	push	{r4, r5, lr}
+    1860:	e3a05000 	mov	r5, #0
+    1864:	ea000006 	b	1884 <__aeabi_l2d+0x1c>
+
+00001868 <__aeabi_l2d>:
+    1868:	e1902001 	orrs	r2, r0, r1
+    186c:	012fff1e 	bxeq	lr
+    1870:	e92d4030 	push	{r4, r5, lr}
+    1874:	e2115102 	ands	r5, r1, #-2147483648	; 0x80000000
+    1878:	5a000001 	bpl	1884 <__aeabi_l2d+0x1c>
+    187c:	e2700000 	rsbs	r0, r0, #0
+    1880:	e2e11000 	rsc	r1, r1, #0
+    1884:	e3a04b01 	mov	r4, #1024	; 0x400
+    1888:	e2844032 	add	r4, r4, #50	; 0x32
+    188c:	e1b0cb21 	lsrs	r12, r1, #22
+    1890:	0affff44 	beq	15a8 <__adddf3+0xf0>
+    1894:	e3a02003 	mov	r2, #3
+    1898:	e1b0c1ac 	lsrs	r12, r12, #3
+    189c:	12822003 	addne	r2, r2, #3
+    18a0:	e1b0c1ac 	lsrs	r12, r12, #3
+    18a4:	12822003 	addne	r2, r2, #3
+    18a8:	e08221ac 	add	r2, r2, r12, lsr #3
+    18ac:	e2623020 	rsb	r3, r2, #32
+    18b0:	e1a0c310 	lsl	r12, r0, r3
+    18b4:	e1a00230 	lsr	r0, r0, r2
+    18b8:	e1800311 	orr	r0, r0, r1, lsl r3
+    18bc:	e1a01231 	lsr	r1, r1, r2
+    18c0:	e0844002 	add	r4, r4, r2
+    18c4:	eaffff37 	b	15a8 <__adddf3+0xf0>
+
+000018c8 <__aeabi_dmul>:
+    18c8:	e92d4070 	push	{r4, r5, r6, lr}
+    18cc:	e3a0c0ff 	mov	r12, #255	; 0xff
+    18d0:	e38ccc07 	orr	r12, r12, #1792	; 0x700
+    18d4:	e01c4a21 	ands	r4, r12, r1, lsr #20
+    18d8:	101c5a23 	andsne	r5, r12, r3, lsr #20
+    18dc:	1134000c 	teqne	r4, r12
+    18e0:	1135000c 	teqne	r5, r12
+    18e4:	0b000075 	bleq	1ac0 <__aeabi_dmul+0x1f8>
+    18e8:	e0844005 	add	r4, r4, r5
+    18ec:	e0216003 	eor	r6, r1, r3
+    18f0:	e1c11a8c 	bic	r1, r1, r12, lsl #21
+    18f4:	e1c33a8c 	bic	r3, r3, r12, lsl #21
+    18f8:	e1905601 	orrs	r5, r0, r1, lsl #12
+    18fc:	11925603 	orrsne	r5, r2, r3, lsl #12
+    1900:	e3811601 	orr	r1, r1, #1048576	; 0x100000
+    1904:	e3833601 	orr	r3, r3, #1048576	; 0x100000
+    1908:	0a00001d 	beq	1984 <__aeabi_dmul+0xbc>
+    190c:	e08ec290 	umull	r12, lr, r0, r2
+    1910:	e3a05000 	mov	r5, #0
+    1914:	e0a5e291 	umlal	lr, r5, r1, r2
+    1918:	e2062102 	and	r2, r6, #-2147483648	; 0x80000000
+    191c:	e0a5e390 	umlal	lr, r5, r0, r3
+    1920:	e3a06000 	mov	r6, #0
+    1924:	e0a65391 	umlal	r5, r6, r1, r3
+    1928:	e33c0000 	teq	r12, #0
+    192c:	138ee001 	orrne	lr, lr, #1
+    1930:	e24440ff 	sub	r4, r4, #255	; 0xff
+    1934:	e3560c02 	cmp	r6, #512	; 0x200
+    1938:	e2c44c03 	sbc	r4, r4, #768	; 0x300
+    193c:	2a000002 	bcs	194c <__aeabi_dmul+0x84>
+    1940:	e1b0e08e 	lsls	lr, lr, #1
+    1944:	e0b55005 	adcs	r5, r5, r5
+    1948:	e0a66006 	adc	r6, r6, r6
+    194c:	e1821586 	orr	r1, r2, r6, lsl #11
+    1950:	e1811aa5 	orr	r1, r1, r5, lsr #21
+    1954:	e1a00585 	lsl	r0, r5, #11
+    1958:	e1800aae 	orr	r0, r0, lr, lsr #21
+    195c:	e1a0e58e 	lsl	lr, lr, #11
+    1960:	e254c0fd 	subs	r12, r4, #253	; 0xfd
+    1964:	835c0c07 	cmphi	r12, #1792	; 0x700
+    1968:	8a000011 	bhi	19b4 <__aeabi_dmul+0xec>
+    196c:	e35e0102 	cmp	lr, #-2147483648	; 0x80000000
+    1970:	01b0e0a0 	lsrseq	lr, r0, #1
+    1974:	e2b00000 	adcs	r0, r0, #0
+    1978:	e0a11a04 	adc	r1, r1, r4, lsl #20
+    197c:	e8bd4070 	pop	{r4, r5, r6, lr}
+    1980:	e12fff1e 	bx	lr
+    1984:	e2066102 	and	r6, r6, #-2147483648	; 0x80000000
+    1988:	e1861001 	orr	r1, r6, r1
+    198c:	e1800002 	orr	r0, r0, r2
+    1990:	e0211003 	eor	r1, r1, r3
+    1994:	e05440ac 	subs	r4, r4, r12, lsr #1
+    1998:	c074500c 	rsbsgt	r5, r4, r12
+    199c:	c1811a04 	orrgt	r1, r1, r4, lsl #20
+    19a0:	c8bd4070 	popgt	{r4, r5, r6, lr}
+    19a4:	c12fff1e 	bxgt	lr
+    19a8:	e3811601 	orr	r1, r1, #1048576	; 0x100000
+    19ac:	e3a0e000 	mov	lr, #0
+    19b0:	e2544001 	subs	r4, r4, #1
+    19b4:	ca00005d 	bgt	1b30 <__aeabi_dmul+0x268>
+    19b8:	e3740036 	cmn	r4, #54	; 0x36
+    19bc:	d3a00000 	movle	r0, #0
+    19c0:	d2011102 	andle	r1, r1, #-2147483648	; 0x80000000
+    19c4:	d8bd4070 	pople	{r4, r5, r6, lr}
+    19c8:	d12fff1e 	bxle	lr
+    19cc:	e2644000 	rsb	r4, r4, #0
+    19d0:	e2544020 	subs	r4, r4, #32
+    19d4:	aa00001a 	bge	1a44 <__aeabi_dmul+0x17c>
+    19d8:	e294400c 	adds	r4, r4, #12
+    19dc:	ca00000c 	bgt	1a14 <__aeabi_dmul+0x14c>
+    19e0:	e2844014 	add	r4, r4, #20
+    19e4:	e2645020 	rsb	r5, r4, #32
+    19e8:	e1a03510 	lsl	r3, r0, r5
+    19ec:	e1a00430 	lsr	r0, r0, r4
+    19f0:	e1800511 	orr	r0, r0, r1, lsl r5
+    19f4:	e2012102 	and	r2, r1, #-2147483648	; 0x80000000
+    19f8:	e3c11102 	bic	r1, r1, #-2147483648	; 0x80000000
+    19fc:	e0900fa3 	adds	r0, r0, r3, lsr #31
+    1a00:	e0a21431 	adc	r1, r2, r1, lsr r4
+    1a04:	e19ee083 	orrs	lr, lr, r3, lsl #1
+    1a08:	01c00fa3 	biceq	r0, r0, r3, lsr #31
+    1a0c:	e8bd4070 	pop	{r4, r5, r6, lr}
+    1a10:	e12fff1e 	bx	lr
+    1a14:	e264400c 	rsb	r4, r4, #12
+    1a18:	e2645020 	rsb	r5, r4, #32
+    1a1c:	e1a03410 	lsl	r3, r0, r4
+    1a20:	e1a00530 	lsr	r0, r0, r5
+    1a24:	e1800411 	orr	r0, r0, r1, lsl r4
+    1a28:	e2011102 	and	r1, r1, #-2147483648	; 0x80000000
+    1a2c:	e0900fa3 	adds	r0, r0, r3, lsr #31
+    1a30:	e2a11000 	adc	r1, r1, #0
+    1a34:	e19ee083 	orrs	lr, lr, r3, lsl #1
+    1a38:	01c00fa3 	biceq	r0, r0, r3, lsr #31
+    1a3c:	e8bd4070 	pop	{r4, r5, r6, lr}
+    1a40:	e12fff1e 	bx	lr
+    1a44:	e2645020 	rsb	r5, r4, #32
+    1a48:	e18ee510 	orr	lr, lr, r0, lsl r5
+    1a4c:	e1a03430 	lsr	r3, r0, r4
+    1a50:	e1833511 	orr	r3, r3, r1, lsl r5
+    1a54:	e1a00431 	lsr	r0, r1, r4
+    1a58:	e2011102 	and	r1, r1, #-2147483648	; 0x80000000
+    1a5c:	e1c00431 	bic	r0, r0, r1, lsr r4
+    1a60:	e0800fa3 	add	r0, r0, r3, lsr #31
+    1a64:	e19ee083 	orrs	lr, lr, r3, lsl #1
+    1a68:	01c00fa3 	biceq	r0, r0, r3, lsr #31
+    1a6c:	e8bd4070 	pop	{r4, r5, r6, lr}
+    1a70:	e12fff1e 	bx	lr
+    1a74:	e3340000 	teq	r4, #0
+    1a78:	1a000008 	bne	1aa0 <__aeabi_dmul+0x1d8>
+    1a7c:	e2016102 	and	r6, r1, #-2147483648	; 0x80000000
+    1a80:	e1b00080 	lsls	r0, r0, #1
+    1a84:	e0a11001 	adc	r1, r1, r1
+    1a88:	e3110601 	tst	r1, #1048576	; 0x100000
+    1a8c:	02444001 	subeq	r4, r4, #1
+    1a90:	0afffffa 	beq	1a80 <__aeabi_dmul+0x1b8>
+    1a94:	e1811006 	orr	r1, r1, r6
+    1a98:	e3350000 	teq	r5, #0
+    1a9c:	112fff1e 	bxne	lr
+    1aa0:	e2036102 	and	r6, r3, #-2147483648	; 0x80000000
+    1aa4:	e1b02082 	lsls	r2, r2, #1
+    1aa8:	e0a33003 	adc	r3, r3, r3
+    1aac:	e3130601 	tst	r3, #1048576	; 0x100000
+    1ab0:	02455001 	subeq	r5, r5, #1
+    1ab4:	0afffffa 	beq	1aa4 <__aeabi_dmul+0x1dc>
+    1ab8:	e1833006 	orr	r3, r3, r6
+    1abc:	e12fff1e 	bx	lr
+    1ac0:	e134000c 	teq	r4, r12
+    1ac4:	e00c5a23 	and	r5, r12, r3, lsr #20
+    1ac8:	1135000c 	teqne	r5, r12
+    1acc:	0a000007 	beq	1af0 <__aeabi_dmul+0x228>
+    1ad0:	e1906081 	orrs	r6, r0, r1, lsl #1
+    1ad4:	11926083 	orrsne	r6, r2, r3, lsl #1
+    1ad8:	1affffe5 	bne	1a74 <__aeabi_dmul+0x1ac>
+    1adc:	e0211003 	eor	r1, r1, r3
+    1ae0:	e2011102 	and	r1, r1, #-2147483648	; 0x80000000
+    1ae4:	e3a00000 	mov	r0, #0
+    1ae8:	e8bd4070 	pop	{r4, r5, r6, lr}
+    1aec:	e12fff1e 	bx	lr
+    1af0:	e1906081 	orrs	r6, r0, r1, lsl #1
+    1af4:	01a00002 	moveq	r0, r2
+    1af8:	01a01003 	moveq	r1, r3
+    1afc:	11926083 	orrsne	r6, r2, r3, lsl #1
+    1b00:	0a000010 	beq	1b48 <__aeabi_dmul+0x280>
+    1b04:	e134000c 	teq	r4, r12
+    1b08:	1a000001 	bne	1b14 <__aeabi_dmul+0x24c>
+    1b0c:	e1906601 	orrs	r6, r0, r1, lsl #12
+    1b10:	1a00000c 	bne	1b48 <__aeabi_dmul+0x280>
+    1b14:	e135000c 	teq	r5, r12
+    1b18:	1a000003 	bne	1b2c <__aeabi_dmul+0x264>
+    1b1c:	e1926603 	orrs	r6, r2, r3, lsl #12
+    1b20:	11a00002 	movne	r0, r2
+    1b24:	11a01003 	movne	r1, r3
+    1b28:	1a000006 	bne	1b48 <__aeabi_dmul+0x280>
+    1b2c:	e0211003 	eor	r1, r1, r3
+    1b30:	e2011102 	and	r1, r1, #-2147483648	; 0x80000000
+    1b34:	e381147f 	orr	r1, r1, #2130706432	; 0x7f000000
+    1b38:	e381160f 	orr	r1, r1, #15728640	; 0xf00000
+    1b3c:	e3a00000 	mov	r0, #0
+    1b40:	e8bd4070 	pop	{r4, r5, r6, lr}
+    1b44:	e12fff1e 	bx	lr
+    1b48:	e381147f 	orr	r1, r1, #2130706432	; 0x7f000000
+    1b4c:	e381173e 	orr	r1, r1, #16252928	; 0xf80000
+    1b50:	e8bd4070 	pop	{r4, r5, r6, lr}
+    1b54:	e12fff1e 	bx	lr
+
+00001b58 <__aeabi_ddiv>:
+    1b58:	e92d4070 	push	{r4, r5, r6, lr}
+    1b5c:	e3a0c0ff 	mov	r12, #255	; 0xff
+    1b60:	e38ccc07 	orr	r12, r12, #1792	; 0x700
+    1b64:	e01c4a21 	ands	r4, r12, r1, lsr #20
+    1b68:	101c5a23 	andsne	r5, r12, r3, lsr #20
+    1b6c:	1134000c 	teqne	r4, r12
+    1b70:	1135000c 	teqne	r5, r12
+    1b74:	0b00005e 	bleq	1cf4 <__aeabi_ddiv+0x19c>
+    1b78:	e0444005 	sub	r4, r4, r5
+    1b7c:	e021e003 	eor	lr, r1, r3
+    1b80:	e1925603 	orrs	r5, r2, r3, lsl #12
+    1b84:	e1a01601 	lsl	r1, r1, #12
+    1b88:	0a00004c 	beq	1cc0 <__aeabi_ddiv+0x168>
+    1b8c:	e1a03603 	lsl	r3, r3, #12
+    1b90:	e3a05201 	mov	r5, #268435456	; 0x10000000
+    1b94:	e1853223 	orr	r3, r5, r3, lsr #4
+    1b98:	e1833c22 	orr	r3, r3, r2, lsr #24
+    1b9c:	e1a02402 	lsl	r2, r2, #8
+    1ba0:	e1855221 	orr	r5, r5, r1, lsr #4
+    1ba4:	e1855c20 	orr	r5, r5, r0, lsr #24
+    1ba8:	e1a06400 	lsl	r6, r0, #8
+    1bac:	e20e1102 	and	r1, lr, #-2147483648	; 0x80000000
+    1bb0:	e1550003 	cmp	r5, r3
+    1bb4:	01560002 	cmpeq	r6, r2
+    1bb8:	e2a440fd 	adc	r4, r4, #253	; 0xfd
+    1bbc:	e2844c03 	add	r4, r4, #768	; 0x300
+    1bc0:	2a000001 	bcs	1bcc <__aeabi_ddiv+0x74>
+    1bc4:	e1b030a3 	lsrs	r3, r3, #1
+    1bc8:	e1a02062 	rrx	r2, r2
+    1bcc:	e0566002 	subs	r6, r6, r2
+    1bd0:	e0c55003 	sbc	r5, r5, r3
+    1bd4:	e1b030a3 	lsrs	r3, r3, #1
+    1bd8:	e1a02062 	rrx	r2, r2
+    1bdc:	e3a00601 	mov	r0, #1048576	; 0x100000
+    1be0:	e3a0c702 	mov	r12, #524288	; 0x80000
+    1be4:	e056e002 	subs	lr, r6, r2
+    1be8:	e0d5e003 	sbcs	lr, r5, r3
+    1bec:	20466002 	subcs	r6, r6, r2
+    1bf0:	21a0500e 	movcs	r5, lr
+    1bf4:	2180000c 	orrcs	r0, r0, r12
+    1bf8:	e1b030a3 	lsrs	r3, r3, #1
+    1bfc:	e1a02062 	rrx	r2, r2
+    1c00:	e056e002 	subs	lr, r6, r2
+    1c04:	e0d5e003 	sbcs	lr, r5, r3
+    1c08:	20466002 	subcs	r6, r6, r2
+    1c0c:	21a0500e 	movcs	r5, lr
+    1c10:	218000ac 	orrcs	r0, r0, r12, lsr #1
+    1c14:	e1b030a3 	lsrs	r3, r3, #1
+    1c18:	e1a02062 	rrx	r2, r2
+    1c1c:	e056e002 	subs	lr, r6, r2
+    1c20:	e0d5e003 	sbcs	lr, r5, r3
+    1c24:	20466002 	subcs	r6, r6, r2
+    1c28:	21a0500e 	movcs	r5, lr
+    1c2c:	2180012c 	orrcs	r0, r0, r12, lsr #2
+    1c30:	e1b030a3 	lsrs	r3, r3, #1
+    1c34:	e1a02062 	rrx	r2, r2
+    1c38:	e056e002 	subs	lr, r6, r2
+    1c3c:	e0d5e003 	sbcs	lr, r5, r3
+    1c40:	20466002 	subcs	r6, r6, r2
+    1c44:	21a0500e 	movcs	r5, lr
+    1c48:	218001ac 	orrcs	r0, r0, r12, lsr #3
+    1c4c:	e195e006 	orrs	lr, r5, r6
+    1c50:	0a00000d 	beq	1c8c <__aeabi_ddiv+0x134>
+    1c54:	e1a05205 	lsl	r5, r5, #4
+    1c58:	e1855e26 	orr	r5, r5, r6, lsr #28
+    1c5c:	e1a06206 	lsl	r6, r6, #4
+    1c60:	e1a03183 	lsl	r3, r3, #3
+    1c64:	e1833ea2 	orr	r3, r3, r2, lsr #29
+    1c68:	e1a02182 	lsl	r2, r2, #3
+    1c6c:	e1b0c22c 	lsrs	r12, r12, #4
+    1c70:	1affffdb 	bne	1be4 <__aeabi_ddiv+0x8c>
+    1c74:	e3110601 	tst	r1, #1048576	; 0x100000
+    1c78:	1a000006 	bne	1c98 <__aeabi_ddiv+0x140>
+    1c7c:	e1811000 	orr	r1, r1, r0
+    1c80:	e3a00000 	mov	r0, #0
+    1c84:	e3a0c102 	mov	r12, #-2147483648	; 0x80000000
+    1c88:	eaffffd5 	b	1be4 <__aeabi_ddiv+0x8c>
+    1c8c:	e3110601 	tst	r1, #1048576	; 0x100000
+    1c90:	01811000 	orreq	r1, r1, r0
+    1c94:	03a00000 	moveq	r0, #0
+    1c98:	e254c0fd 	subs	r12, r4, #253	; 0xfd
+    1c9c:	835c0c07 	cmphi	r12, #1792	; 0x700
+    1ca0:	8affff43 	bhi	19b4 <__aeabi_dmul+0xec>
+    1ca4:	e055c003 	subs	r12, r5, r3
+    1ca8:	0056c002 	subseq	r12, r6, r2
+    1cac:	01b0c0a0 	lsrseq	r12, r0, #1
+    1cb0:	e2b00000 	adcs	r0, r0, #0
+    1cb4:	e0a11a04 	adc	r1, r1, r4, lsl #20
+    1cb8:	e8bd4070 	pop	{r4, r5, r6, lr}
+    1cbc:	e12fff1e 	bx	lr
+    1cc0:	e20ee102 	and	lr, lr, #-2147483648	; 0x80000000
+    1cc4:	e18e1621 	orr	r1, lr, r1, lsr #12
+    1cc8:	e09440ac 	adds	r4, r4, r12, lsr #1
+    1ccc:	c074500c 	rsbsgt	r5, r4, r12
+    1cd0:	c1811a04 	orrgt	r1, r1, r4, lsl #20
+    1cd4:	c8bd4070 	popgt	{r4, r5, r6, lr}
+    1cd8:	c12fff1e 	bxgt	lr
+    1cdc:	e3811601 	orr	r1, r1, #1048576	; 0x100000
+    1ce0:	e3a0e000 	mov	lr, #0
+    1ce4:	e2544001 	subs	r4, r4, #1
+    1ce8:	eaffff31 	b	19b4 <__aeabi_dmul+0xec>
+    1cec:	e185e006 	orr	lr, r5, r6
+    1cf0:	eaffff2f 	b	19b4 <__aeabi_dmul+0xec>
+    1cf4:	e00c5a23 	and	r5, r12, r3, lsr #20
+    1cf8:	e134000c 	teq	r4, r12
+    1cfc:	0135000c 	teqeq	r5, r12
+    1d00:	0affff90 	beq	1b48 <__aeabi_dmul+0x280>
+    1d04:	e134000c 	teq	r4, r12
+    1d08:	1a000006 	bne	1d28 <__aeabi_ddiv+0x1d0>
+    1d0c:	e1904601 	orrs	r4, r0, r1, lsl #12
+    1d10:	1affff8c 	bne	1b48 <__aeabi_dmul+0x280>
+    1d14:	e135000c 	teq	r5, r12
+    1d18:	1affff83 	bne	1b2c <__aeabi_dmul+0x264>
+    1d1c:	e1a00002 	mov	r0, r2
+    1d20:	e1a01003 	mov	r1, r3
+    1d24:	eaffff87 	b	1b48 <__aeabi_dmul+0x280>
+    1d28:	e135000c 	teq	r5, r12
+    1d2c:	1a000004 	bne	1d44 <__aeabi_ddiv+0x1ec>
+    1d30:	e1925603 	orrs	r5, r2, r3, lsl #12
+    1d34:	0affff68 	beq	1adc <__aeabi_dmul+0x214>
+    1d38:	e1a00002 	mov	r0, r2
+    1d3c:	e1a01003 	mov	r1, r3
+    1d40:	eaffff80 	b	1b48 <__aeabi_dmul+0x280>
+    1d44:	e1906081 	orrs	r6, r0, r1, lsl #1
+    1d48:	11926083 	orrsne	r6, r2, r3, lsl #1
+    1d4c:	1affff48 	bne	1a74 <__aeabi_dmul+0x1ac>
+    1d50:	e1904081 	orrs	r4, r0, r1, lsl #1
+    1d54:	1affff74 	bne	1b2c <__aeabi_dmul+0x264>
+    1d58:	e1925083 	orrs	r5, r2, r3, lsl #1
+    1d5c:	1affff5e 	bne	1adc <__aeabi_dmul+0x214>
+    1d60:	eaffff78 	b	1b48 <__aeabi_dmul+0x280>
+
+00001d64 <__gedf2>:
+    1d64:	e3e0c000 	mvn	r12, #0
+    1d68:	ea000002 	b	1d78 <__cmpdf2+0x4>
+
+00001d6c <__ledf2>:
+    1d6c:	e3a0c001 	mov	r12, #1
+    1d70:	ea000000 	b	1d78 <__cmpdf2+0x4>
+
+00001d74 <__cmpdf2>:
+    1d74:	e3a0c001 	mov	r12, #1
+    1d78:	e52dc004 	push	{r12}		; (str r12, [sp, #-4]!)
+    1d7c:	e1a0c081 	lsl	r12, r1, #1
+    1d80:	e1f0cacc 	mvns	r12, r12, asr #21
+    1d84:	e1a0c083 	lsl	r12, r3, #1
+    1d88:	11f0cacc 	mvnsne	r12, r12, asr #21
+    1d8c:	0a00000e 	beq	1dcc <__cmpdf2+0x58>
+    1d90:	e28dd004 	add	sp, sp, #4
+    1d94:	e190c081 	orrs	r12, r0, r1, lsl #1
+    1d98:	0192c083 	orrseq	r12, r2, r3, lsl #1
+    1d9c:	11310003 	teqne	r1, r3
+    1da0:	01300002 	teqeq	r0, r2
+    1da4:	03a00000 	moveq	r0, #0
+    1da8:	012fff1e 	bxeq	lr
+    1dac:	e3700000 	cmn	r0, #0
+    1db0:	e1310003 	teq	r1, r3
+    1db4:	51510003 	cmppl	r1, r3
+    1db8:	01500002 	cmpeq	r0, r2
+    1dbc:	21a00fc3 	asrcs	r0, r3, #31
+    1dc0:	31e00fc3 	mvncc	r0, r3, asr #31
+    1dc4:	e3800001 	orr	r0, r0, #1
+    1dc8:	e12fff1e 	bx	lr
+    1dcc:	e1a0c081 	lsl	r12, r1, #1
+    1dd0:	e1f0cacc 	mvns	r12, r12, asr #21
+    1dd4:	1a000001 	bne	1de0 <__cmpdf2+0x6c>
+    1dd8:	e190c601 	orrs	r12, r0, r1, lsl #12
+    1ddc:	1a000004 	bne	1df4 <__cmpdf2+0x80>
+    1de0:	e1a0c083 	lsl	r12, r3, #1
+    1de4:	e1f0cacc 	mvns	r12, r12, asr #21
+    1de8:	1affffe8 	bne	1d90 <__cmpdf2+0x1c>
+    1dec:	e192c603 	orrs	r12, r2, r3, lsl #12
+    1df0:	0affffe6 	beq	1d90 <__cmpdf2+0x1c>
+    1df4:	e49d0004 	pop	{r0}		; (ldr r0, [sp], #4)
+    1df8:	e12fff1e 	bx	lr
+
+00001dfc <__aeabi_cdrcmple>:
+    1dfc:	e1a0c000 	mov	r12, r0
+    1e00:	e1a00002 	mov	r0, r2
+    1e04:	e1a0200c 	mov	r2, r12
+    1e08:	e1a0c001 	mov	r12, r1
+    1e0c:	e1a01003 	mov	r1, r3
+    1e10:	e1a0300c 	mov	r3, r12
+    1e14:	eaffffff 	b	1e18 <__aeabi_cdcmpeq>
+
+00001e18 <__aeabi_cdcmpeq>:
+    1e18:	e92d4001 	push	{r0, lr}
+    1e1c:	ebffffd4 	bl	1d74 <__cmpdf2>
+    1e20:	e3500000 	cmp	r0, #0
+    1e24:	43700000 	cmnmi	r0, #0
+    1e28:	e8bd4001 	pop	{r0, lr}
+    1e2c:	e12fff1e 	bx	lr
+
+00001e30 <__aeabi_dcmpeq>:
+    1e30:	e52de008 	str	lr, [sp, #-8]!
+    1e34:	ebfffff7 	bl	1e18 <__aeabi_cdcmpeq>
+    1e38:	03a00001 	moveq	r0, #1
+    1e3c:	13a00000 	movne	r0, #0
+    1e40:	e49de008 	ldr	lr, [sp], #8
+    1e44:	e12fff1e 	bx	lr
+
+00001e48 <__aeabi_dcmplt>:
+    1e48:	e52de008 	str	lr, [sp, #-8]!
+    1e4c:	ebfffff1 	bl	1e18 <__aeabi_cdcmpeq>
+    1e50:	33a00001 	movcc	r0, #1
+    1e54:	23a00000 	movcs	r0, #0
+    1e58:	e49de008 	ldr	lr, [sp], #8
+    1e5c:	e12fff1e 	bx	lr
+
+00001e60 <__aeabi_dcmple>:
+    1e60:	e52de008 	str	lr, [sp, #-8]!
+    1e64:	ebffffeb 	bl	1e18 <__aeabi_cdcmpeq>
+    1e68:	93a00001 	movls	r0, #1
+    1e6c:	83a00000 	movhi	r0, #0
+    1e70:	e49de008 	ldr	lr, [sp], #8
+    1e74:	e12fff1e 	bx	lr
+
+00001e78 <__aeabi_dcmpge>:
+    1e78:	e52de008 	str	lr, [sp, #-8]!
+    1e7c:	ebffffde 	bl	1dfc <__aeabi_cdrcmple>
+    1e80:	93a00001 	movls	r0, #1
+    1e84:	83a00000 	movhi	r0, #0
+    1e88:	e49de008 	ldr	lr, [sp], #8
+    1e8c:	e12fff1e 	bx	lr
+
+00001e90 <__aeabi_dcmpgt>:
+    1e90:	e52de008 	str	lr, [sp, #-8]!
+    1e94:	ebffffd8 	bl	1dfc <__aeabi_cdrcmple>
+    1e98:	33a00001 	movcc	r0, #1
+    1e9c:	23a00000 	movcs	r0, #0
+    1ea0:	e49de008 	ldr	lr, [sp], #8
+    1ea4:	e12fff1e 	bx	lr
+
+00001ea8 <__aeabi_d2iz>:
+    1ea8:	e1a02081 	lsl	r2, r1, #1
+    1eac:	e2922602 	adds	r2, r2, #2097152	; 0x200000
+    1eb0:	2a00000c 	bcs	1ee8 <__aeabi_d2iz+0x40>
+    1eb4:	5a000009 	bpl	1ee0 <__aeabi_d2iz+0x38>
+    1eb8:	e3e03e3e 	mvn	r3, #992	; 0x3e0
+    1ebc:	e0532ac2 	subs	r2, r3, r2, asr #21
+    1ec0:	9a00000a 	bls	1ef0 <__aeabi_d2iz+0x48>
+    1ec4:	e1a03581 	lsl	r3, r1, #11
+    1ec8:	e3833102 	orr	r3, r3, #-2147483648	; 0x80000000
+    1ecc:	e1833aa0 	orr	r3, r3, r0, lsr #21
+    1ed0:	e3110102 	tst	r1, #-2147483648	; 0x80000000
+    1ed4:	e1a00233 	lsr	r0, r3, r2
+    1ed8:	12600000 	rsbne	r0, r0, #0
+    1edc:	e12fff1e 	bx	lr
+    1ee0:	e3a00000 	mov	r0, #0
+    1ee4:	e12fff1e 	bx	lr
+    1ee8:	e1900601 	orrs	r0, r0, r1, lsl #12
+    1eec:	1a000002 	bne	1efc <__aeabi_d2iz+0x54>
+    1ef0:	e2110102 	ands	r0, r1, #-2147483648	; 0x80000000
+    1ef4:	03e00102 	mvneq	r0, #-2147483648	; 0x80000000
+    1ef8:	e12fff1e 	bx	lr
+    1efc:	e3a00000 	mov	r0, #0
+    1f00:	e12fff1e 	bx	lr
+
+00001f04 <atexit>:
+    1f04:	e1a01000 	mov	r1, r0
+    1f08:	e3a00000 	mov	r0, #0
+    1f0c:	e92d4008 	push	{r3, lr}
+    1f10:	e1a02000 	mov	r2, r0
+    1f14:	e1a03000 	mov	r3, r0
+    1f18:	eb00000e 	bl	1f58 <__register_exitproc>
+    1f1c:	e8bd4008 	pop	{r3, lr}
+    1f20:	e12fff1e 	bx	lr
+
+00001f24 <exit>:
+    1f24:	e92d4008 	push	{r3, lr}
+    1f28:	e3a01000 	mov	r1, #0
+    1f2c:	e1a04000 	mov	r4, r0
+    1f30:	eb000045 	bl	204c <__call_exitprocs>
+    1f34:	e59f3018 	ldr	r3, [pc, #24]	; 1f54 <exit+0x30>
+    1f38:	e5930000 	ldr	r0, [r3]
+    1f3c:	e590303c 	ldr	r3, [r0, #60]	; 0x3c
+    1f40:	e3530000 	cmp	r3, #0
+    1f44:	11a0e00f 	movne	lr, pc
+    1f48:	112fff13 	bxne	r3
+    1f4c:	e1a00004 	mov	r0, r4
+    1f50:	eb0000c9 	bl	227c <_exit>
+    1f54:	00002324 	.word	0x00002324
+
+00001f58 <__register_exitproc>:
+    1f58:	e59fc0e4 	ldr	r12, [pc, #228]	; 2044 <__register_exitproc+0xec>
+    1f5c:	e92d41f0 	push	{r4, r5, r6, r7, r8, lr}
+    1f60:	e59c4000 	ldr	r4, [r12]
+    1f64:	e594c148 	ldr	r12, [r4, #328]	; 0x148
+    1f68:	e35c0000 	cmp	r12, #0
+    1f6c:	0284cf53 	addeq	r12, r4, #332	; 0x14c
+    1f70:	e59c5004 	ldr	r5, [r12, #4]
+    1f74:	0584c148 	streq	r12, [r4, #328]	; 0x148
+    1f78:	e355001f 	cmp	r5, #31
+    1f7c:	e24dd010 	sub	sp, sp, #16
+    1f80:	e1a06000 	mov	r6, r0
+    1f84:	da000015 	ble	1fe0 <__register_exitproc+0x88>
+    1f88:	e59f00b8 	ldr	r0, [pc, #184]	; 2048 <__register_exitproc+0xf0>
+    1f8c:	e3500000 	cmp	r0, #0
+    1f90:	1a000001 	bne	1f9c <__register_exitproc+0x44>
+    1f94:	e3e00000 	mvn	r0, #0
+    1f98:	ea000018 	b	2000 <__register_exitproc+0xa8>
+    1f9c:	e3a00e19 	mov	r0, #400	; 0x190
+    1fa0:	e58d100c 	str	r1, [sp, #12]
+    1fa4:	e58d2008 	str	r2, [sp, #8]
+    1fa8:	e58d3004 	str	r3, [sp, #4]
+    1fac:	e320f000 	nop	{0}
+    1fb0:	e250c000 	subs	r12, r0, #0
+    1fb4:	e59d100c 	ldr	r1, [sp, #12]
+    1fb8:	e59d2008 	ldr	r2, [sp, #8]
+    1fbc:	e59d3004 	ldr	r3, [sp, #4]
+    1fc0:	0afffff3 	beq	1f94 <__register_exitproc+0x3c>
+    1fc4:	e5945148 	ldr	r5, [r4, #328]	; 0x148
+    1fc8:	e3a00000 	mov	r0, #0
+    1fcc:	e58c0004 	str	r0, [r12, #4]
+    1fd0:	e58c5000 	str	r5, [r12]
+    1fd4:	e584c148 	str	r12, [r4, #328]	; 0x148
+    1fd8:	e58c0188 	str	r0, [r12, #392]	; 0x188
+    1fdc:	e58c018c 	str	r0, [r12, #396]	; 0x18c
+    1fe0:	e3560000 	cmp	r6, #0
+    1fe4:	e59c4004 	ldr	r4, [r12, #4]
+    1fe8:	1a000007 	bne	200c <__register_exitproc+0xb4>
+    1fec:	e2843002 	add	r3, r4, #2
+    1ff0:	e2844001 	add	r4, r4, #1
+    1ff4:	e78c1103 	str	r1, [r12, r3, lsl #2]
+    1ff8:	e58c4004 	str	r4, [r12, #4]
+    1ffc:	e3a00000 	mov	r0, #0
+    2000:	e28dd010 	add	sp, sp, #16
+    2004:	e8bd41f0 	pop	{r4, r5, r6, r7, r8, lr}
+    2008:	e12fff1e 	bx	lr
+    200c:	e3a00001 	mov	r0, #1
+    2010:	e1a00410 	lsl	r0, r0, r4
+    2014:	e08c8104 	add	r8, r12, r4, lsl #2
+    2018:	e3560002 	cmp	r6, #2
+    201c:	e59c7188 	ldr	r7, [r12, #392]	; 0x188
+    2020:	e5883108 	str	r3, [r8, #264]	; 0x108
+    2024:	059c318c 	ldreq	r3, [r12, #396]	; 0x18c
+    2028:	e1877000 	orr	r7, r7, r0
+    202c:	01830000 	orreq	r0, r3, r0
+    2030:	e1a05008 	mov	r5, r8
+    2034:	e5882088 	str	r2, [r8, #136]	; 0x88
+    2038:	e58c7188 	str	r7, [r12, #392]	; 0x188
+    203c:	058c018c 	streq	r0, [r12, #396]	; 0x18c
+    2040:	eaffffe9 	b	1fec <__register_exitproc+0x94>
+    2044:	00002324 	.word	0x00002324
+    2048:	00000000 	.word	0x00000000
+
+0000204c <__call_exitprocs>:
+    204c:	e92d4ff0 	push	{r4, r5, r6, r7, r8, r9, r10, r11, lr}
+    2050:	e59f3168 	ldr	r3, [pc, #360]	; 21c0 <__call_exitprocs+0x174>
+    2054:	e5933000 	ldr	r3, [r3]
+    2058:	e24dd014 	sub	sp, sp, #20
+    205c:	e58d3004 	str	r3, [sp, #4]
+    2060:	e2833f52 	add	r3, r3, #328	; 0x148
+    2064:	e58d0008 	str	r0, [sp, #8]
+    2068:	e58d300c 	str	r3, [sp, #12]
+    206c:	e1a07001 	mov	r7, r1
+    2070:	e3a08001 	mov	r8, #1
+    2074:	e59d3004 	ldr	r3, [sp, #4]
+    2078:	e5936148 	ldr	r6, [r3, #328]	; 0x148
+    207c:	e3560000 	cmp	r6, #0
+    2080:	e59db00c 	ldr	r11, [sp, #12]
+    2084:	0a000033 	beq	2158 <__call_exitprocs+0x10c>
+    2088:	e5965004 	ldr	r5, [r6, #4]
+    208c:	e2554001 	subs	r4, r5, #1
+    2090:	5286a088 	addpl	r10, r6, #136	; 0x88
+    2094:	5285501f 	addpl	r5, r5, #31
+    2098:	508a5105 	addpl	r5, r10, r5, lsl #2
+    209c:	5a000007 	bpl	20c0 <__call_exitprocs+0x74>
+    20a0:	ea000029 	b	214c <__call_exitprocs+0x100>
+    20a4:	e5953000 	ldr	r3, [r5]
+    20a8:	e1530007 	cmp	r3, r7
+    20ac:	0a000005 	beq	20c8 <__call_exitprocs+0x7c>
+    20b0:	e2444001 	sub	r4, r4, #1
+    20b4:	e3740001 	cmn	r4, #1
+    20b8:	e2455004 	sub	r5, r5, #4
+    20bc:	0a000022 	beq	214c <__call_exitprocs+0x100>
+    20c0:	e3570000 	cmp	r7, #0
+    20c4:	1afffff6 	bne	20a4 <__call_exitprocs+0x58>
+    20c8:	e5963004 	ldr	r3, [r6, #4]
+    20cc:	e06a2005 	rsb	r2, r10, r5
+    20d0:	e2433001 	sub	r3, r3, #1
+    20d4:	e0862002 	add	r2, r6, r2
+    20d8:	e1530004 	cmp	r3, r4
+    20dc:	e5123078 	ldr	r3, [r2, #-120]	; 0xffffff88
+    20e0:	13a01000 	movne	r1, #0
+    20e4:	05864004 	streq	r4, [r6, #4]
+    20e8:	15021078 	strne	r1, [r2, #-120]	; 0xffffff88
+    20ec:	e3530000 	cmp	r3, #0
+    20f0:	0affffee 	beq	20b0 <__call_exitprocs+0x64>
+    20f4:	e1a02418 	lsl	r2, r8, r4
+    20f8:	e5961188 	ldr	r1, [r6, #392]	; 0x188
+    20fc:	e1120001 	tst	r2, r1
+    2100:	e5969004 	ldr	r9, [r6, #4]
+    2104:	0a000016 	beq	2164 <__call_exitprocs+0x118>
+    2108:	e596118c 	ldr	r1, [r6, #396]	; 0x18c
+    210c:	e1120001 	tst	r2, r1
+    2110:	1a000016 	bne	2170 <__call_exitprocs+0x124>
+    2114:	e59d0008 	ldr	r0, [sp, #8]
+    2118:	e5151080 	ldr	r1, [r5, #-128]	; 0xffffff80
+    211c:	e1a0e00f 	mov	lr, pc
+    2120:	e12fff13 	bx	r3
+    2124:	e5963004 	ldr	r3, [r6, #4]
+    2128:	e1530009 	cmp	r3, r9
+    212c:	1affffd0 	bne	2074 <__call_exitprocs+0x28>
+    2130:	e59b3000 	ldr	r3, [r11]
+    2134:	e1530006 	cmp	r3, r6
+    2138:	1affffcd 	bne	2074 <__call_exitprocs+0x28>
+    213c:	e2444001 	sub	r4, r4, #1
+    2140:	e3740001 	cmn	r4, #1
+    2144:	e2455004 	sub	r5, r5, #4
+    2148:	1affffdc 	bne	20c0 <__call_exitprocs+0x74>
+    214c:	e59f1070 	ldr	r1, [pc, #112]	; 21c4 <__call_exitprocs+0x178>
+    2150:	e3510000 	cmp	r1, #0
+    2154:	1a000009 	bne	2180 <__call_exitprocs+0x134>
+    2158:	e28dd014 	add	sp, sp, #20
+    215c:	e8bd4ff0 	pop	{r4, r5, r6, r7, r8, r9, r10, r11, lr}
+    2160:	e12fff1e 	bx	lr
+    2164:	e1a0e00f 	mov	lr, pc
+    2168:	e12fff13 	bx	r3
+    216c:	eaffffec 	b	2124 <__call_exitprocs+0xd8>
+    2170:	e5150080 	ldr	r0, [r5, #-128]	; 0xffffff80
+    2174:	e1a0e00f 	mov	lr, pc
+    2178:	e12fff13 	bx	r3
+    217c:	eaffffe8 	b	2124 <__call_exitprocs+0xd8>
+    2180:	e5963004 	ldr	r3, [r6, #4]
+    2184:	e3530000 	cmp	r3, #0
+    2188:	e5963000 	ldr	r3, [r6]
+    218c:	1a000008 	bne	21b4 <__call_exitprocs+0x168>
+    2190:	e3530000 	cmp	r3, #0
+    2194:	0a000006 	beq	21b4 <__call_exitprocs+0x168>
+    2198:	e1a00006 	mov	r0, r6
+    219c:	e58b3000 	str	r3, [r11]
+    21a0:	e320f000 	nop	{0}
+    21a4:	e59b6000 	ldr	r6, [r11]
+    21a8:	e3560000 	cmp	r6, #0
+    21ac:	1affffb5 	bne	2088 <__call_exitprocs+0x3c>
+    21b0:	eaffffe8 	b	2158 <__call_exitprocs+0x10c>
+    21b4:	e1a0b006 	mov	r11, r6
+    21b8:	e1a06003 	mov	r6, r3
+    21bc:	eafffff9 	b	21a8 <__call_exitprocs+0x15c>
+    21c0:	00002324 	.word	0x00002324
+    21c4:	00000000 	.word	0x00000000
+
+000021c8 <register_fini>:
+    21c8:	e92d4008 	push	{r3, lr}
+    21cc:	e59f3010 	ldr	r3, [pc, #16]	; 21e4 <register_fini+0x1c>
+    21d0:	e3530000 	cmp	r3, #0
+    21d4:	159f000c 	ldrne	r0, [pc, #12]	; 21e8 <register_fini+0x20>
+    21d8:	1bffff49 	blne	1f04 <atexit>
+    21dc:	e8bd4008 	pop	{r3, lr}
+    21e0:	e12fff1e 	bx	lr
+    21e4:	0000234c 	.word	0x0000234c
+    21e8:	000021ec 	.word	0x000021ec
+
+000021ec <__libc_fini_array>:
+    21ec:	e92d4038 	push	{r3, r4, r5, lr}
+    21f0:	e59f5030 	ldr	r5, [pc, #48]	; 2228 <__libc_fini_array+0x3c>
+    21f4:	e59f4030 	ldr	r4, [pc, #48]	; 222c <__libc_fini_array+0x40>
+    21f8:	e0654004 	rsb	r4, r5, r4
+    21fc:	e1b04144 	asrs	r4, r4, #2
+    2200:	10855104 	addne	r5, r5, r4, lsl #2
+    2204:	0a000004 	beq	221c <__libc_fini_array+0x30>
+    2208:	e5353004 	ldr	r3, [r5, #-4]!
+    220c:	e1a0e00f 	mov	lr, pc
+    2210:	e12fff13 	bx	r3
+    2214:	e2544001 	subs	r4, r4, #1
+    2218:	1afffffa 	bne	2208 <__libc_fini_array+0x1c>
+    221c:	eb00004a 	bl	234c <__libc_fini>
+    2220:	e8bd4038 	pop	{r3, r4, r5, lr}
+    2224:	e12fff1e 	bx	lr
+    2228:	00002364 	.word	0x00002364
+    222c:	00002368 	.word	0x00002368
+
+00002230 <__cs3_premain>:
+    2230:	e92d4008 	push	{r3, lr}
+    2234:	eb000017 	bl	2298 <__libc_init_array>
+    2238:	e59f3030 	ldr	r3, [pc, #48]	; 2270 <__cs3_premain+0x40>
+    223c:	e3530000 	cmp	r3, #0
+    2240:	15930000 	ldrne	r0, [r3]
+    2244:	01a00003 	moveq	r0, r3
+    2248:	e59f3024 	ldr	r3, [pc, #36]	; 2274 <__cs3_premain+0x44>
+    224c:	e3530000 	cmp	r3, #0
+    2250:	15931000 	ldrne	r1, [r3]
+    2254:	01a01003 	moveq	r1, r3
+    2258:	e3a02000 	mov	r2, #0
+    225c:	ebfffb6e 	bl	101c <main>
+    2260:	e59f3010 	ldr	r3, [pc, #16]	; 2278 <__cs3_premain+0x48>
+    2264:	e3530000 	cmp	r3, #0
+    2268:	1bffff2d 	blne	1f24 <exit>
+    226c:	eafffffe 	b	226c <__cs3_premain+0x3c>
+	...
+    2278:	00001f24 	.word	0x00001f24
+
+0000227c <_exit>:
+    227c:	e52de004 	push	{lr}		; (str lr, [sp, #-4]!)
+    2280:	e3a00018 	mov	r0, #24
+    2284:	e59f1004 	ldr	r1, [pc, #4]	; 2290 <_exit+0x14>
+    2288:	ef123456 	svc	0x00123456
+    228c:	eafffffe 	b	228c <_exit+0x10>
+    2290:	00020026 	.word	0x00020026
+
+00002294 <__cs3_isr_interrupt>:
+    2294:	eafffffe 	b	2294 <__cs3_isr_interrupt>
+
+00002298 <__libc_init_array>:
+    2298:	e92d4070 	push	{r4, r5, r6, lr}
+    229c:	e59f506c 	ldr	r5, [pc, #108]	; 2310 <__libc_init_array+0x78>
+    22a0:	e59f606c 	ldr	r6, [pc, #108]	; 2314 <__libc_init_array+0x7c>
+    22a4:	e0656006 	rsb	r6, r5, r6
+    22a8:	e1b06146 	asrs	r6, r6, #2
+    22ac:	12455004 	subne	r5, r5, #4
+    22b0:	13a04000 	movne	r4, #0
+    22b4:	0a000005 	beq	22d0 <__libc_init_array+0x38>
+    22b8:	e5b53004 	ldr	r3, [r5, #4]!
+    22bc:	e2844001 	add	r4, r4, #1
+    22c0:	e1a0e00f 	mov	lr, pc
+    22c4:	e12fff13 	bx	r3
+    22c8:	e1560004 	cmp	r6, r4
+    22cc:	1afffff9 	bne	22b8 <__libc_init_array+0x20>
+    22d0:	e59f5040 	ldr	r5, [pc, #64]	; 2318 <__libc_init_array+0x80>
+    22d4:	e59f6040 	ldr	r6, [pc, #64]	; 231c <__libc_init_array+0x84>
+    22d8:	e0656006 	rsb	r6, r5, r6
+    22dc:	eb000012 	bl	232c <_init>
+    22e0:	e1b06146 	asrs	r6, r6, #2
+    22e4:	12455004 	subne	r5, r5, #4
+    22e8:	13a04000 	movne	r4, #0
+    22ec:	0a000005 	beq	2308 <__libc_init_array+0x70>
+    22f0:	e5b53004 	ldr	r3, [r5, #4]!
+    22f4:	e2844001 	add	r4, r4, #1
+    22f8:	e1a0e00f 	mov	lr, pc
+    22fc:	e12fff13 	bx	r3
+    2300:	e1560004 	cmp	r6, r4
+    2304:	1afffff9 	bne	22f0 <__libc_init_array+0x58>
+    2308:	e8bd4070 	pop	{r4, r5, r6, lr}
+    230c:	e12fff1e 	bx	lr
+    2310:	00002344 	.word	0x00002344
+    2314:	00002344 	.word	0x00002344
+    2318:	00002344 	.word	0x00002344
+    231c:	0000234c 	.word	0x0000234c
+
+Disassembly of section .rodata:
+
+00002324 <_global_impure_ptr>:
+    2324:	00002398 00000043                       .#..C...
+
+0000232c <_init>:
+    232c:	e1a0c00d 	mov	r12, sp
+    2330:	e92ddff8 	push	{r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, lr, pc}
+    2334:	e24cb004 	sub	r11, r12, #4
+    2338:	e24bd028 	sub	sp, r11, #40	; 0x28
+    233c:	e89d6ff0 	ldm	sp, {r4, r5, r6, r7, r8, r9, r10, r11, sp, lr}
+    2340:	e12fff1e 	bx	lr
+
+00002344 <__init_array_start>:
+    2344:	000021c8 	.word	0x000021c8
+
+00002348 <__frame_dummy_init_array_entry>:
+    2348:	00000208                                ....
+
+0000234c <__libc_fini>:
+    234c:	e1a0c00d 	mov	r12, sp
+    2350:	e92ddff8 	push	{r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, lr, pc}
+    2354:	e24cb004 	sub	r11, r12, #4
+    2358:	e24bd028 	sub	sp, r11, #40	; 0x28
+    235c:	e89d6ff0 	ldm	sp, {r4, r5, r6, r7, r8, r9, r10, r11, sp, lr}
+    2360:	e12fff1e 	bx	lr
+
+00002364 <__fini_array_start>:
+    2364:	000001c4 	.word	0x000001c4
+
+00002368 <__cs3_regions>:
+    2368:	00000000 	.word	0x00000000
+    236c:	00000040 	.word	0x00000040
+    2370:	00000040 	.word	0x00000040
+    2374:	00002788 	.word	0x00002788
+    2378:	00000040 	.word	0x00000040
+
+0000237c <__cs3_regions_end>:
+    237c:	00000000 	.word	0x00000000
